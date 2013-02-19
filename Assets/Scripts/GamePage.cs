@@ -54,7 +54,7 @@ public class GamePage : FContainer
 		AddChild(_manSprite);
 		AddChild(_cameraTarget);
 		// *** Comment out to not follow sprite
-		Futile.stage.Follow(_cameraTarget,true,false);
+		// Futile.stage.Follow(_cameraTarget,true,false);
 		
 	}
 	
