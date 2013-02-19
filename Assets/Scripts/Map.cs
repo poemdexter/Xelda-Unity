@@ -13,8 +13,8 @@ public struct collisionBox
 public class Map
 {
 	private int _tileSize;
-	private int _mapWidth;
-	private int _mapHeight;
+	public int mapWidth;
+	public int mapHeight;
 	
 	private collisionBox _cbox;
 	public List<collisionBox> collisionBoxList = new List<collisionBox>();
@@ -28,28 +28,28 @@ public class Map
 		Dictionary<string,object> hash = dataAsset.text.dictionaryFromJson();
 		
 		// Map Metadata
-		_mapWidth = int.Parse(hash["width"].ToString());
-		_mapHeight = int.Parse(hash["height"].ToString());
+		mapWidth = int.Parse(hash["width"].ToString());
+		mapHeight = int.Parse(hash["height"].ToString());
 		_tileSize = int.Parse(hash["tilewidth"].ToString());
 		
 		//Debug.Log(_mapWidth +"||"+ _mapHeight +"||"+ _tileSize);
 		
-		List<object> tilesetsList = (List<object>)hash["tilesets"];
-		Dictionary<string,object> tileset = (Dictionary<string,object>)tilesetsList[0];
+		//List<object> tilesetsList = (List<object>)hash["tilesets"];
+		//Dictionary<string,object> tileset = (Dictionary<string,object>)tilesetsList[0];
 		
-		string elementPath = tileset["image"].ToString();
-		string [] pathSplit = elementPath.Split(new Char [] {'/'});
-		string _tilesetElementName = pathSplit[pathSplit.Length-1];
+		//string elementPath = tileset["image"].ToString();
+		//string [] pathSplit = elementPath.Split(new Char [] {'/'});
+		//string _tilesetElementName = pathSplit[pathSplit.Length-1];
 		
 		List<object> layersList = (List<object>)hash["layers"];
 		
 		for (int i=0; i < layersList.Count; i++)
 		{
 			Dictionary<string,object> layerHash = (Dictionary<string,object>)layersList[i];
-			int layerWidth = int.Parse (layerHash["width"].ToString());
-			int layerHeight = int.Parse (layerHash["height"].ToString());
-			int xOffset = int.Parse (layerHash["x"].ToString());
-			int yOffset = int.Parse (layerHash["y"].ToString());
+			//int layerWidth = int.Parse (layerHash["width"].ToString());
+			//int layerHeight = int.Parse (layerHash["height"].ToString());
+			//int xOffset = int.Parse (layerHash["x"].ToString());
+			//int yOffset = int.Parse (layerHash["y"].ToString());
 			
 			if (layerHash["name"].ToString().Equals("Objects"))
 			{
@@ -64,11 +64,11 @@ public class Map
 					{
 						_cbox = new collisionBox();
 						_cbox.name = objHash["name"].ToString();
-						_cbox.box.x = int.Parse(objHash["x"].ToString());
-						_cbox.box.y = int.Parse(objHash["y"].ToString());
+						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
+						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
 						_cbox.box.width = int.Parse(objHash["width"].ToString());
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
-						_cbox.box.y = GetMapHeight() - _cbox.box.y - _cbox.box.height;
+						_cbox.box.y = _cbox.box.y - _cbox.box.height;
 						//Debug.Log("h: " + _mapHeight);
 						Debug.Log("got collision box");
 						collisionBoxList.Add(_cbox);
@@ -80,8 +80,13 @@ public class Map
 	}
 	
 		
-	int GetMapHeight()
+	public int GetMapHeight()
 	{
-		return _mapHeight * _tileSize;
+		return mapHeight * _tileSize;
+	}
+	
+	public int GetMapWidth()
+	{
+		return mapHeight * _tileSize;
 	}
 }

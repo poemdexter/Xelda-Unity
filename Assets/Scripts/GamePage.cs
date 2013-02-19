@@ -12,6 +12,7 @@ public struct Player
 public class GamePage : FContainer
 {
 	private FSprite _manSprite;
+	private FSprite _floorSprite;
 	
 	private bool _keyUp = false;
 	private bool _keyDown = false;
@@ -27,7 +28,7 @@ public class GamePage : FContainer
 	
 	private float _moveSpeed = 2f;
 	
-	private FNode _cameraTarget = new FNode();
+	//private FNode _cameraTarget = new FNode();
 	
 	private Map map;
 	
@@ -35,27 +36,43 @@ public class GamePage : FContainer
 	{
 		map = new Map();
 		
-		FSprite floorSprite = new FSprite("xelda_map.png");
-		floorSprite.anchorX = 0;
-		floorSprite.anchorY = 0;
-	
-		AddChild(floorSprite);
+		// images!
+		_floorSprite = new FSprite("xelda_map.png");
+		//_floorSprite.anchorX = 0;
+		//_floorSprite.anchorY = 0;
+		AddChild(_floorSprite);
 		
 		_manSprite = new FSprite("man.png");
+		_manSprite.x = -(map.GetMapWidth() / 2);
+		_manSprite.y = -(map.GetMapHeight() / 2);
+		Debug.Log(_manSprite.x + " " + _manSprite.y + "syx");
 		_manSprite.anchorX = 0;
 		_manSprite.anchorY = 0;
+		AddChild(_manSprite);
+		
+		//_cameraTarget.x = -200;
+		//_cameraTarget.y = -100;
+		//AddChild(_cameraTarget);
+		
+		// *** Stay focused on map
+		//Futile.stage.Follow(_cameraTarget,true,false);
 		
 		_player = new Player();
-		_player.box.x = 0;
-		_player.box.y = 0;
+		_player.box.x = _manSprite.x;
+		_player.box.y = _manSprite.y;
 		_player.box.width = 24;
 		_player.box.height = 24;
 		
-		AddChild(_manSprite);
-		AddChild(_cameraTarget);
-		// *** Comment out to not follow sprite
-		// Futile.stage.Follow(_cameraTarget,true,false);
-		
+		// *** debug to find collision boxes
+		foreach(collisionBox box in map.collisionBoxList)
+		{
+			FSprite cb = new FSprite("man.png");
+			cb.x = box.box.x;
+			cb.y = box.box.y;
+			cb.anchorX = 0;
+			cb.anchorY = 0;
+			AddChild(cb);
+		}
 	}
 	
 	override public void HandleAddedToStage()
@@ -135,9 +152,6 @@ public class GamePage : FContainer
 		
 		_player.box.x = _manSprite.x;
 		_player.box.y = _manSprite.y;
-		
-		_cameraTarget.x += (_manSprite.x - _cameraTarget.x) / 5.0f;
-		_cameraTarget.y += (_manSprite.y - _cameraTarget.y) / 5.0f;
 		
 		//Debug.Log(_cameraTarget.x + " ct " + _cameraTarget.y);
 	}

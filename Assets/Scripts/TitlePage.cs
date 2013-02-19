@@ -14,8 +14,8 @@ public class TitlePage : FContainer
 		//AddChild(_man);
 		
 		_start = new FButton("start_up.png","start_down.png");
-		_start.x = 300;
-		_start.y = 250;
+		//_start.x = 300;
+		//_start.y = 250;
 		AddChild(_start);
 		
 		_start.SignalRelease += HandleManButtonPressed;

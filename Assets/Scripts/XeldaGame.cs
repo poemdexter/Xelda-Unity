@@ -19,7 +19,7 @@ public class XeldaGame : MonoBehaviour {
 		fparams.AddResolutionLevel(600.0f,1f,1f,"");
 		
 		// *** Uncomment to set origin to bot left
-		fparams.origin = new Vector2(0,0);
+		//fparams.origin = new Vector2(0,0);
 		
 		Futile.instance.Init (fparams);
 		Futile.atlasManager.LoadAtlas("Atlases/Sprites");
