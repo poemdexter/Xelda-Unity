@@ -30,11 +30,12 @@ public class GamePage : FContainer
 	
 	//private FNode _cameraTarget = new FNode();
 	
-	private Map map;
+	private Dungeon _dungeon;
 	
 	public GamePage ()
 	{
-		map = new Map();
+		
+		_dungeon = new Dungeon();
 		
 		// images!
 		_floorSprite = new FSprite("xelda_map.png");
@@ -43,9 +44,8 @@ public class GamePage : FContainer
 		AddChild(_floorSprite);
 		
 		_manSprite = new FSprite("man.png");
-		_manSprite.x = -(map.GetMapWidth() / 2);
-		_manSprite.y = -(map.GetMapHeight() / 2);
-		Debug.Log(_manSprite.x + " " + _manSprite.y + "syx");
+		_manSprite.x = -(_dungeon.currentMap.GetMapWidth() / 2);
+		_manSprite.y = -(_dungeon.currentMap.GetMapHeight() / 2);
 		_manSprite.anchorX = 0;
 		_manSprite.anchorY = 0;
 		AddChild(_manSprite);
@@ -64,7 +64,7 @@ public class GamePage : FContainer
 		_player.box.height = 24;
 		
 		// *** debug to find collision boxes
-		foreach(collisionBox box in map.collisionBoxList)
+		foreach(collisionBox box in _dungeon.currentMap.collisionBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;
@@ -168,7 +168,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.y = collisionRect.y + _moveSpeed;
 			
-			foreach(collisionBox cbox in map.collisionBoxList)
+			foreach(collisionBox cbox in _dungeon.currentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -182,7 +182,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.y = collisionRect.y - _moveSpeed;
 			
-			foreach(collisionBox cbox in map.collisionBoxList)
+			foreach(collisionBox cbox in _dungeon.currentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -196,7 +196,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.x = collisionRect.x - _moveSpeed;
 			
-			foreach(collisionBox cbox in map.collisionBoxList)
+			foreach(collisionBox cbox in _dungeon.currentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -210,7 +210,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.x = collisionRect.x + _moveSpeed;
 			
-			foreach(collisionBox cbox in map.collisionBoxList)
+			foreach(collisionBox cbox in _dungeon.currentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{

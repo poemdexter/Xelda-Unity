@@ -70,7 +70,7 @@ public class Map
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
 						//Debug.Log("h: " + _mapHeight);
-						Debug.Log("got collision box");
+						//Debug.Log("got collision box");
 						collisionBoxList.Add(_cbox);
 					}
 				}
