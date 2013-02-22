@@ -1,0 +1,103 @@
+{ "height":10,
+ "layers":[
+        {
+         "data":[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         "height":10,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":10,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "height":10,
+         "name":"Objects",
+         "objects":[
+                {
+                 "height":24,
+                 "name":"collision_box",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":192,
+                 "y":24
+                }, 
+                {
+                 "height":24,
+                 "name":"collision_box",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":24,
+                 "y":24
+                }, 
+                {
+                 "height":24,
+                 "name":"collision_box",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":24,
+                 "y":192
+                }, 
+                {
+                 "height":24,
+                 "name":"collision_box",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":192,
+                 "y":192
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":10,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "tileheight":24,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"floor.png",
+         "imageheight":24,
+         "imagewidth":48,
+         "margin":0,
+         "name":"map_tileset",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":24,
+         "tilewidth":24,
+         "transparentcolor":"#ffffff"
+        }],
+ "tilewidth":24,
+ "version":1,
+ "width":10
+}
