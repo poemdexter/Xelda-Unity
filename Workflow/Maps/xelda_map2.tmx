@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="24" tileheight="24">
+ <tileset firstgid="1" name="map_tileset" tilewidth="24" tileheight="24">
+  <image source="floor.png" trans="ffffff" width="48" height="24"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYCQSM5EpN9wxNcMFAFOgAGk=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="10" height="10">
+  <object name="collision_box" type="COLLISION" x="192" y="24" width="24" height="24"/>
+  <object name="collision_box" type="COLLISION" x="24" y="24" width="24" height="24"/>
+  <object name="collision_box" type="COLLISION" x="24" y="192" width="24" height="24"/>
+  <object name="collision_box" type="COLLISION" x="192" y="192" width="24" height="24"/>
+ </objectgroup>
+</map>
