@@ -10,26 +10,45 @@ public struct collisionBox
 	public string tip;
 }
 
+public enum Direction
+{
+	N,
+	S,
+	W,
+	E
+}
+
 public class Map
 {
 	private int _tileSize;
-	public int mapWidth;
-	public int mapHeight;
+	private int _mapWidth;
+	private int _mapHeight;
+	public string mapName;
 	
 	private collisionBox _cbox;
 	public List<collisionBox> collisionBoxList = new List<collisionBox>();
 	
-	public Map ()
+	public int connected_N = -1;
+	public int connected_S = -1;
+	public int connected_W = -1;
+	public int connected_E = -1;
+	
+	public Map (String mapFile, Direction linkedMapDirection, int linkedMapListIndex) : this(mapFile)
 	{
-		TextAsset dataAsset = (TextAsset) Resources.Load ("Maps/xelda_map", typeof(TextAsset));
-		if(!dataAsset) 
-			Debug.Log("missing map txt file.");
+		ConnectToParentMap(linkedMapDirection, linkedMapListIndex);
+	}
+	
+	public Map (String mapFile)
+	{
+		TextAsset dataAsset = (TextAsset) Resources.Load (mapFile, typeof(TextAsset));
+		
+		if(!dataAsset) Debug.Log("missing map txt file.");
 		
 		Dictionary<string,object> hash = dataAsset.text.dictionaryFromJson();
 		
 		// Map Metadata
-		mapWidth = int.Parse(hash["width"].ToString());
-		mapHeight = int.Parse(hash["height"].ToString());
+		_mapWidth = int.Parse(hash["width"].ToString());
+		_mapHeight = int.Parse(hash["height"].ToString());
 		_tileSize = int.Parse(hash["tilewidth"].ToString());
 		
 		//Debug.Log(_mapWidth +"||"+ _mapHeight +"||"+ _tileSize);
@@ -40,6 +59,9 @@ public class Map
 		//string elementPath = tileset["image"].ToString();
 		//string [] pathSplit = elementPath.Split(new Char [] {'/'});
 		//string _tilesetElementName = pathSplit[pathSplit.Length-1];
+		
+		string[] pathSplit = mapFile.Split(new Char[] {'/'});
+		mapName = pathSplit[pathSplit.Length -1];
 		
 		List<object> layersList = (List<object>)hash["layers"];
 		
@@ -69,24 +91,95 @@ public class Map
 						_cbox.box.width = int.Parse(objHash["width"].ToString());
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
-						//Debug.Log("h: " + _mapHeight);
-						//Debug.Log("got collision box");
 						collisionBoxList.Add(_cbox);
 					}
 				}
 			}
 		}
-		//Debug.Log(_tilesetElementName);
 	}
 	
+	public void ConnectToParentMap(Direction parentMapDirection, int parentMapIndex)
+	{
+		switch (parentMapDirection)
+		{
+		case Direction.N:
+			connected_S = parentMapIndex;
+			break;
+		case Direction.S:
+			connected_N = parentMapIndex;
+			break;
+		case Direction.W:
+			connected_E = parentMapIndex;
+			break;
+		case Direction.E:
+			connected_W = parentMapIndex;
+			break;
+		}
+	}
+	
+	public void ConnectThisToNewMap(Direction linkedMapDirection, int linkedMapListIndex)
+	{
+		switch (linkedMapDirection)
+		{
+		case Direction.N:
+			connected_N = linkedMapListIndex;
+			break;
+		case Direction.S:
+			connected_S = linkedMapListIndex;
+			break;
+		case Direction.W:
+			connected_W = linkedMapListIndex;
+			break;
+		case Direction.E:
+			connected_E = linkedMapListIndex;
+			break;
+		}
+	}
 		
 	public int GetMapHeight()
 	{
-		return mapHeight * _tileSize;
+		return _mapHeight * _tileSize;
 	}
 	
 	public int GetMapWidth()
 	{
-		return mapHeight * _tileSize;
+		return _mapWidth * _tileSize;
+	}
+	
+	public int GetPossibleConnectionCount()
+	{
+		int amt = 0;
+		amt += (connected_N != -1) ? 0 : 1;
+		amt += (connected_S != -1) ? 0 : 1;
+		amt += (connected_W != -1) ? 0 : 1;
+		amt += (connected_E != -1) ? 0 : 1;
+		return amt;
+	}
+	
+	public List<Direction> GetPossibleConnectionDirections()
+	{
+		List<Direction> dList = new List<Direction>();
+		if (connected_N == -1) dList.Add(Direction.N);
+		if (connected_S == -1) dList.Add(Direction.S);
+		if (connected_W == -1) dList.Add(Direction.W);
+		if (connected_E == -1) dList.Add(Direction.E);
+		return dList;
+	}
+	
+	public List<Direction> GetConnectedDirections()
+	{
+		List<Direction> dList = new List<Direction>();
+		if (connected_N != -1) dList.Add(Direction.N);
+		if (connected_S != -1) dList.Add(Direction.S);
+		if (connected_W != -1) dList.Add(Direction.W);
+		if (connected_E != -1) dList.Add(Direction.E);
+		return dList;
+	}
+	
+	public Direction GetRandomDirectionForConnection()
+	{
+		System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
+		int r = rand.Next(GetPossibleConnectionCount());
+		return GetPossibleConnectionDirections()[r];
 	}
 }

@@ -24,7 +24,8 @@ public class XeldaGame : MonoBehaviour {
 		Futile.instance.Init (fparams);
 		Futile.atlasManager.LoadAtlas("Atlases/Sprites");
 		
-		GoToTitlePage();
+		//GoToTitlePage();
+		GoToDebugMapPage();
 	}
 	
 	public void GoToTitlePage()
@@ -40,6 +41,14 @@ public class XeldaGame : MonoBehaviour {
 		if (_currentPage != null) _currentPage.RemoveFromContainer();
 		
 		_currentPage = new GamePage();
+		Futile.stage.AddChild(_currentPage);
+	}
+	
+	public void GoToDebugMapPage()
+	{
+		if (_currentPage != null) _currentPage.RemoveFromContainer();
+		
+		_currentPage = new DebugMapPage();
 		Futile.stage.AddChild(_currentPage);
 	}
 	
