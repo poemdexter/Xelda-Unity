@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
 	"sourceSize": {"w":122,"h":48}
 },
-"xelda_map.png":
+"xelda_map1.png":
 {
 	"frame": {"x":2,"y":52,"w":240,"h":240},
 	"rotated": false,
@@ -47,6 +47,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:81edaeaccc3704c0db9e806893d53365$"
+	"smartupdate": "$TexturePacker:SmartUpdate:220062a52effbb16c056adfd2ca5fce5$"
 }
 }

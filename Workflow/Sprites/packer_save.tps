@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>unity</string>
         <key>textureFileName</key>
-        <filename>../../Xelda/Assets/Resources/Atlases/Sprites.png</filename>
+        <filename>../../Assets/Resources/Atlases/Sprites.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -111,7 +111,7 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>../../Xelda/Assets/Resources/Atlases/Sprites.txt</filename>
+        <filename>../../Assets/Resources/Atlases/Sprites.txt</filename>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
