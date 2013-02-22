@@ -24,6 +24,7 @@ public class Map
 	private int _mapWidth;
 	private int _mapHeight;
 	public string mapName;
+	public Vector2 DebugMapPosition;
 	
 	private collisionBox _cbox;
 	public List<collisionBox> collisionBoxList = new List<collisionBox>();

@@ -14,41 +14,57 @@ public class DebugMapPage : FContainer
 	
 	public DebugMapPage()
 	{
-		_dungeon = new Dungeon(2);
+		_dungeon = new Dungeon(5);
+		
+		int mapSep = 25;
+		float mapScale = .1f;
 		
 		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
+		_floorSprite.scale = mapScale;
 		AddChild(_floorSprite);
 		
-		int mapSep = 250;
-		foreach (Direction dir in _dungeon.CurrentMap.GetConnectedDirections())
+		// lets draw whole map not just current node and connections.
+		// todo: draw connections
+		foreach (Map currentMap in _dungeon.MapList)
 		{
-			switch(dir)
+			foreach (Direction dir in _dungeon.MapList[_dungeon.MapList.IndexOf(currentMap)].GetConnectedDirections())
 			{
-			case Direction.N:
-				FSprite tempSprite1 = new FSprite(_dungeon.MapList[1].mapName + ".png");
-				tempSprite1.y += mapSep;
-				AddChild (tempSprite1);
-				break;
-			case Direction.S:
-				FSprite tempSprite2 = new FSprite(_dungeon.MapList[1].mapName + ".png");
-				tempSprite2.y -= mapSep;
-				AddChild (tempSprite2);
-				break;
-			case Direction.W:
-				FSprite tempSprite3 = new FSprite(_dungeon.MapList[1].mapName + ".png");
-				tempSprite3.x -= mapSep;
-				AddChild (tempSprite3);
-				break;
-			case Direction.E:
-				FSprite tempSprite4 = new FSprite(_dungeon.MapList[1].mapName + ".png");
-				tempSprite4.x += mapSep;
-				AddChild (tempSprite4);
-				break;
+				switch(dir)
+				{
+				case Direction.N:
+					FSprite tempSprite1 = new FSprite(_dungeon.MapList[currentMap.connected_N].mapName + ".png");
+					tempSprite1.x += _dungeon.MapList[currentMap.connected_N].DebugMapPosition.x * mapSep;
+					tempSprite1.y += _dungeon.MapList[currentMap.connected_N].DebugMapPosition.y * mapSep;
+					tempSprite1.scale = mapScale;
+					AddChild (tempSprite1);
+					break;
+				case Direction.S:
+					FSprite tempSprite2 = new FSprite(_dungeon.MapList[currentMap.connected_S].mapName + ".png");
+					tempSprite2.x += _dungeon.MapList[currentMap.connected_S].DebugMapPosition.x * mapSep;
+					tempSprite2.y += _dungeon.MapList[currentMap.connected_S].DebugMapPosition.y * mapSep;
+					tempSprite2.scale = mapScale;
+					AddChild (tempSprite2);
+					break;
+				case Direction.W:
+					FSprite tempSprite3 = new FSprite(_dungeon.MapList[currentMap.connected_W].mapName + ".png");
+					tempSprite3.x += _dungeon.MapList[currentMap.connected_W].DebugMapPosition.x * mapSep;
+					tempSprite3.y += _dungeon.MapList[currentMap.connected_W].DebugMapPosition.y * mapSep;
+					tempSprite3.scale = mapScale;
+					AddChild (tempSprite3);
+					break;
+				case Direction.E:
+					FSprite tempSprite4 = new FSprite(_dungeon.MapList[currentMap.connected_E].mapName + ".png");
+					tempSprite4.x += _dungeon.MapList[currentMap.connected_E].DebugMapPosition.x * mapSep;
+					tempSprite4.y += _dungeon.MapList[currentMap.connected_E].DebugMapPosition.y * mapSep;
+					tempSprite4.scale = mapScale;
+					AddChild (tempSprite4);
+					break;
+				}
 			}
 		}
 		
 		// *** debug to find collision boxes
-		showCollisionsWithMen();
+		//showCollisionsWithMen();
 	}
 	
 	private void showCollisionsWithMen()
