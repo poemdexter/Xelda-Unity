@@ -28,6 +28,7 @@ public class Map
 	
 	private collisionBox _cbox;
 	public List<collisionBox> collisionBoxList = new List<collisionBox>();
+	public List<collisionBox> passageBoxList = new List<collisionBox>();
 	
 	public int connected_N = -1;
 	public int connected_S = -1;
@@ -93,6 +94,18 @@ public class Map
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
 						collisionBoxList.Add(_cbox);
+					}
+					
+					if (objHash["type"].ToString().ToUpper().Equals("PASSAGE"))
+					{
+						_cbox = new collisionBox();
+						_cbox.name = objHash["name"].ToString();
+						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
+						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						_cbox.box.width = (int.Parse(objHash["width"].ToString()) == 0) ? 1 : int.Parse(objHash["width"].ToString());
+						_cbox.box.height = (int.Parse(objHash["height"].ToString()) == 0) ? 1 : int.Parse(objHash["height"].ToString());
+						_cbox.box.y = _cbox.box.y - _cbox.box.height;
+						passageBoxList.Add(_cbox);
 					}
 				}
 			}

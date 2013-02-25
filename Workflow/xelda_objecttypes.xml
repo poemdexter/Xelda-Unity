@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="COLLISION" color="#00a000"/>
+ <objecttype name="PLAYER_SPAWN" color="#a0a000"/>
+ <objecttype name="ENEMY_SPAWN" color="#ff7d00"/>
+ <objecttype name="PASSAGE" color="#a000a4"/>
+</objecttypes>

@@ -8,7 +8,7 @@
    eJxjYmBgYELDjFjEYOL4MC3UEaOXWDFcZtLDH8SGMQBs4ACJ
   </data>
  </layer>
- <objectgroup name="Objects" width="10" height="10" visible="0">
+ <objectgroup name="Objects" width="10" height="10">
   <object type="COLLISION" x="0" y="0" width="120" height="24"/>
   <object type="COLLISION" x="0" y="24" width="24" height="72"/>
   <object type="cOLLISION" x="0" y="120" width="24" height="120"/>
@@ -18,5 +18,9 @@
   <object type="COLLISION" x="216" y="0" width="24" height="120"/>
   <object type="COLLISION" x="144" y="0" width="72" height="24"/>
   <object type="COLLISION" x="96" y="96" width="48" height="48"/>
+  <object type="PASSAGE" x="240" y="120" height="24"/>
+  <object type="PASSAGE" x="0" y="96" height="24"/>
+  <object type="PASSAGE" x="120" y="0" width="24"/>
+  <object type="PASSAGE" x="96" y="240" width="24"/>
  </objectgroup>
 </map>

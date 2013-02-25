@@ -131,10 +131,62 @@
                  "width":48,
                  "x":96,
                  "y":96
+                }, 
+                {
+                 "height":24,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":0,
+                 "x":240,
+                 "y":120
+                }, 
+                {
+                 "height":24,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":0,
+                 "x":0,
+                 "y":96
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":24,
+                 "x":120,
+                 "y":0
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":24,
+                 "x":96,
+                 "y":240
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":10,
          "x":0,
          "y":0

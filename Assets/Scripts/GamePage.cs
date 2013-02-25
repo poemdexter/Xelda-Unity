@@ -78,6 +78,16 @@ public class GamePage : FContainer
 			cb.anchorY = 0;
 			AddChild(cb);
 		}
+		
+		foreach(collisionBox box in _dungeon.CurrentMap.passageBoxList)
+		{
+			FSprite cb = new FSprite("man.png");
+			cb.x = box.box.x;
+			cb.y = box.box.y;
+			cb.anchorX = 0;
+			cb.anchorY = 0;
+			AddChild(cb);
+		}
 	}
 	
 	override public void HandleAddedToStage()
@@ -181,6 +191,16 @@ public class GamePage : FContainer
 					break;
 				}
 			}
+			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box))
+				{
+					_collideUp = true;
+					Debug.Log("PASSAGED!");
+					break;
+				}
+			}
 		}
 		if (_keyDown)
 		{
@@ -192,6 +212,16 @@ public class GamePage : FContainer
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideDown = true;
+					break;
+				}
+			}
+			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box))
+				{
+					_collideDown = true;
+					Debug.Log("PASSAGED!");
 					break;
 				}
 			}
@@ -209,6 +239,16 @@ public class GamePage : FContainer
 					break;
 				}
 			}
+			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box))
+				{
+					_collideLeft = true;
+					Debug.Log("PASSAGED!");
+					break;
+				}
+			}
 		}
 		if (_keyRight)
 		{
@@ -220,6 +260,16 @@ public class GamePage : FContainer
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideRight = true;
+					break;
+				}
+			}
+			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box))
+				{
+					_collideRight = true;
+					Debug.Log("PASSAGED!");
 					break;
 				}
 			}
