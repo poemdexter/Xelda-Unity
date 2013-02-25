@@ -38,14 +38,14 @@ public class GamePage : FContainer
 		_dungeon = new Dungeon(2);
 		
 		// images!
-		_floorSprite = new FSprite("xelda_map2.png");
+		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
 		//_floorSprite.anchorX = 0;
 		//_floorSprite.anchorY = 0;
 		AddChild(_floorSprite);
 		
 		_manSprite = new FSprite("man.png");
-		_manSprite.x = -(_dungeon.CurrentMap.GetMapWidth() / 2);
-		_manSprite.y = -(_dungeon.CurrentMap.GetMapHeight() / 2);
+		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
+		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
 		_manSprite.anchorX = 0;
 		_manSprite.anchorY = 0;
 		AddChild(_manSprite);
@@ -58,13 +58,13 @@ public class GamePage : FContainer
 		//Futile.stage.Follow(_cameraTarget,true,false);
 		
 		_player = new Player();
-		_player.box.x = _manSprite.x;
-		_player.box.y = _manSprite.y;
-		_player.box.width = 24;
-		_player.box.height = 24;
+		_player.box.x = _manSprite.x + 4;
+		_player.box.y = _manSprite.y + 4;
+		_player.box.width = _manSprite.width - 8;
+		_player.box.height = _manSprite.height - 8;
 		
 		// *** debug to find collision boxes
-		// showCollisionsWithMen();
+		//showCollisionsWithMen();
 	}
 	
 	private void showCollisionsWithMen()
@@ -155,8 +155,8 @@ public class GamePage : FContainer
 			_manSprite.x += _moveSpeed;
 		}
 		
-		_player.box.x = _manSprite.x;
-		_player.box.y = _manSprite.y;
+		_player.box.x = _manSprite.x + 4;
+		_player.box.y = _manSprite.y + 4;
 		
 		//Debug.Log(_cameraTarget.x + " ct " + _cameraTarget.y);
 	}

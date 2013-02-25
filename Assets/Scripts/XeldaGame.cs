@@ -25,8 +25,8 @@ public class XeldaGame : MonoBehaviour {
 		Futile.atlasManager.LoadAtlas("Atlases/Sprites");
 		
 		// *** Goes to initial page ***
-		//GoToTitlePage();
-		GoToDebugMapPage();
+		GoToTitlePage();
+		//GoToDebugMapPage();
 	}
 	
 	public void GoToTitlePage()
