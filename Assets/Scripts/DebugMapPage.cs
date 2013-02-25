@@ -16,8 +16,8 @@ public class DebugMapPage : FContainer
 	{
 		_dungeon = new Dungeon(5);
 		
-		int mapSep = 25;
-		float mapScale = .1f;
+		int mapSep = 250;
+		float mapScale = 1f;
 		
 		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
 		_floorSprite.scale = mapScale;
