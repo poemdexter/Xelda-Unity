@@ -134,7 +134,7 @@
                 }, 
                 {
                  "height":24,
-                 "name":"",
+                 "name":"EAST",
                  "properties":
                     {
 
@@ -147,7 +147,7 @@
                 }, 
                 {
                  "height":24,
-                 "name":"",
+                 "name":"WEST",
                  "properties":
                     {
 
@@ -160,7 +160,7 @@
                 }, 
                 {
                  "height":0,
-                 "name":"",
+                 "name":"NORTH",
                  "properties":
                     {
 
@@ -173,7 +173,7 @@
                 }, 
                 {
                  "height":0,
-                 "name":"",
+                 "name":"SOUTH",
                  "properties":
                     {
 

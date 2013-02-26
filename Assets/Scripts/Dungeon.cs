@@ -93,8 +93,22 @@ public class Dungeon
 		}
 	}
 	
-	public void TransitionToConnectedMap(int direction)
+	public void PassageToConnectedMap(string direction)
 	{
-		
+		switch(direction)
+		{
+		case "NORTH":
+			if (CurrentMap.connected_N != -1) CurrentMap = MapList[CurrentMap.connected_N];
+			break;
+		case "SOUTH":
+			if (CurrentMap.connected_S != -1) CurrentMap = MapList[CurrentMap.connected_S];
+			break;
+		case "WEST":
+			if (CurrentMap.connected_W != -1) CurrentMap = MapList[CurrentMap.connected_W];
+			break;
+		case "EAST":
+			if (CurrentMap.connected_E != -1) CurrentMap = MapList[CurrentMap.connected_E];
+			break;
+		}
 	}
 }

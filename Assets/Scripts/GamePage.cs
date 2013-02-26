@@ -34,21 +34,10 @@ public class GamePage : FContainer
 	
 	public GamePage ()
 	{
+		_manSprite = new FSprite("man.png");
 		
 		_dungeon = new Dungeon(2);
-		
-		// images!
-		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
-		//_floorSprite.anchorX = 0;
-		//_floorSprite.anchorY = 0;
-		AddChild(_floorSprite);
-		
-		_manSprite = new FSprite("man.png");
-		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
-		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
-		_manSprite.anchorX = 0;
-		_manSprite.anchorY = 0;
-		AddChild(_manSprite);
+		SwitchMap(_dungeon.CurrentMap);
 		
 		//_cameraTarget.x = -200;
 		//_cameraTarget.y = -100;
@@ -198,6 +187,8 @@ public class GamePage : FContainer
 				{
 					_collideUp = true;
 					Debug.Log("PASSAGED!");
+					_dungeon.PassageToConnectedMap(cbox.name);
+					SwitchMap(_dungeon.CurrentMap);
 					break;
 				}
 			}
@@ -222,6 +213,8 @@ public class GamePage : FContainer
 				{
 					_collideDown = true;
 					Debug.Log("PASSAGED!");
+					_dungeon.PassageToConnectedMap(cbox.name);
+					SwitchMap(_dungeon.CurrentMap);
 					break;
 				}
 			}
@@ -246,6 +239,8 @@ public class GamePage : FContainer
 				{
 					_collideLeft = true;
 					Debug.Log("PASSAGED!");
+					_dungeon.PassageToConnectedMap(cbox.name);
+					SwitchMap(_dungeon.CurrentMap);
 					break;
 				}
 			}
@@ -270,10 +265,30 @@ public class GamePage : FContainer
 				{
 					_collideRight = true;
 					Debug.Log("PASSAGED!");
+					_dungeon.PassageToConnectedMap(cbox.name);
+					SwitchMap(_dungeon.CurrentMap);
 					break;
 				}
 			}
 		}
+	}
+	
+	private void SwitchMap(Map map)
+	{
+		// remove old one if exists
+		if (_floorSprite != null) RemoveChild(_floorSprite);
+		
+		// set new map to draw
+		_floorSprite = new FSprite(map.mapName + ".png");
+		AddChild(_floorSprite);
+		
+		// reset man position
+		if (_manSprite != null) RemoveChild(_manSprite);
+		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
+		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
+		_manSprite.anchorX = 0;
+		_manSprite.anchorY = 0;
+		AddChild(_manSprite);
 	}
 }
 
