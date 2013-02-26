@@ -13,6 +13,7 @@ public class GamePage : FContainer
 {
 	private FSprite _manSprite;
 	private FSprite _floorSprite;
+	private FSprite transitionMapSprite;
 	
 	private bool _keyUp = false;
 	private bool _keyDown = false;
@@ -23,6 +24,8 @@ public class GamePage : FContainer
 	private bool _collideDown = false;
 	private bool _collideLeft = false;
 	private bool _collideRight = false;
+	
+	private Direction _mapTransitionDirection = Direction.None;
 	
 	private Player _player;
 	
@@ -37,7 +40,20 @@ public class GamePage : FContainer
 		_manSprite = new FSprite("man.png");
 		
 		_dungeon = new Dungeon(2);
-		SwitchMap(_dungeon.CurrentMap);
+		
+		// remove old one if exists
+		if (_floorSprite != null) RemoveChild(_floorSprite);
+		
+		// set new map to draw
+		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
+		AddChild(_floorSprite);
+		
+		if (_manSprite != null) RemoveChild(_manSprite);
+		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
+		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
+		_manSprite.anchorX = 0;
+		_manSprite.anchorY = 0;
+		AddChild(_manSprite);
 		
 		//_cameraTarget.x = -200;
 		//_cameraTarget.y = -100;
@@ -93,9 +109,16 @@ public class GamePage : FContainer
 	
 	void HandleUpdate()
 	{
+		if (_mapTransitionDirection != Direction.None) 
+		{
+			DoMapTransition(_mapTransitionDirection);
+		}
+		else 
+		{
 		HandleInputs();
 		TestForCollisions();
 		HandleMovement();
+		}
 	}
 	
 	void HandleInputs()
@@ -188,7 +211,7 @@ public class GamePage : FContainer
 					_collideUp = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap);
+					SwitchMap(_dungeon.CurrentMap, Direction.N);
 					break;
 				}
 			}
@@ -214,7 +237,7 @@ public class GamePage : FContainer
 					_collideDown = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap);
+					SwitchMap(_dungeon.CurrentMap, Direction.S);
 					break;
 				}
 			}
@@ -240,7 +263,7 @@ public class GamePage : FContainer
 					_collideLeft = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap);
+					SwitchMap(_dungeon.CurrentMap, Direction.W);
 					break;
 				}
 			}
@@ -266,29 +289,107 @@ public class GamePage : FContainer
 					_collideRight = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap);
+					SwitchMap(_dungeon.CurrentMap, Direction.E);
 					break;
 				}
 			}
 		}
 	}
 	
-	private void SwitchMap(Map map)
+	private void SwitchMap(Map map, Direction dir)
 	{
+		transitionMapSprite = new FSprite(map.mapName + ".png");
+		
+		switch (dir)
+		{
+		case Direction.N:
+			transitionMapSprite.y += map.GetMapHeight();
+			break;
+		case Direction.S:
+			transitionMapSprite.y -= map.GetMapHeight();
+			break;
+		case Direction.W:
+			transitionMapSprite.x -= map.GetMapWidth();
+			break;
+		case Direction.E:
+			transitionMapSprite.x += map.GetMapWidth();
+			break;
+		}
+		
+		AddChildAtIndex(transitionMapSprite, 0);
+		
+		_mapTransitionDirection = dir;
+		
 		// remove old one if exists
-		if (_floorSprite != null) RemoveChild(_floorSprite);
+		//if (_floorSprite != null) RemoveChild(_floorSprite);
 		
 		// set new map to draw
-		_floorSprite = new FSprite(map.mapName + ".png");
-		AddChild(_floorSprite);
+		//_floorSprite = new FSprite(map.mapName + ".png");
+		//AddChild(_floorSprite);
 		
 		// reset man position
-		if (_manSprite != null) RemoveChild(_manSprite);
-		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
-		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
-		_manSprite.anchorX = 0;
-		_manSprite.anchorY = 0;
-		AddChild(_manSprite);
+//		if (_manSprite != null) RemoveChild(_manSprite);
+//		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
+//		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
+//		_manSprite.anchorX = 0;
+//		_manSprite.anchorY = 0;
+//		AddChild(_manSprite);
+	}
+	
+	private void DoMapTransition(Direction dir)
+	{
+		float transitionSpeed = 2f;
+		float playerTransSpeed = .4f;
+		resetKeys();
+		
+		switch(dir)
+		{
+		case Direction.N:
+			this.y -= transitionSpeed;
+			_manSprite.y += playerTransSpeed;
+			if (this.y <= -_dungeon.CurrentMap.GetMapHeight()) _mapTransitionDirection = Direction.None;
+			break;
+		case Direction.S:
+			this.y -= transitionSpeed;
+			_manSprite.y += playerTransSpeed;
+			if (this.y >= _dungeon.CurrentMap.GetMapHeight()) _mapTransitionDirection = Direction.None;
+			break;
+		case Direction.W:
+			this.x += transitionSpeed;
+			_manSprite.x -= playerTransSpeed;
+			if (this.x >= _dungeon.CurrentMap.GetMapWidth()) _mapTransitionDirection = Direction.None;
+			break;
+		case Direction.E:
+			this.x -= transitionSpeed;
+			_manSprite.x += playerTransSpeed;
+			if (this.x <= -_dungeon.CurrentMap.GetMapWidth()) 
+			{
+				ResetMapDrawn();
+				_mapTransitionDirection = Direction.None;
+			}
+			break;
+		}
+	}
+	
+	private void resetKeys()
+	{
+		_keyUp = false;
+		_keyDown = false;
+ 		_keyLeft = false;
+		_keyRight = false;
+	}
+	
+	private void ResetMapDrawn()
+	{
+		this.RemoveChild(transitionMapSprite);
+		this.RemoveChild(_floorSprite);
+			
+		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
+		AddChildAtIndex(_floorSprite,0);
+		_manSprite.x -= _dungeon.CurrentMap.GetMapWidth();
+		_player.box.x = _manSprite.x + 4;
+		_player.box.y = _manSprite.y + 4;
+		this.x = 0;
 	}
 }
 

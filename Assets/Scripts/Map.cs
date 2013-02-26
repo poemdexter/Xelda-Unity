@@ -15,7 +15,8 @@ public enum Direction
 	N,
 	S,
 	W,
-	E
+	E,
+	None
 }
 
 public class Map
