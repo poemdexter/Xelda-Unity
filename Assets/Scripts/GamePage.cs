@@ -211,7 +211,7 @@ public class GamePage : FContainer
 					_collideUp = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap, Direction.N);
+					SwitchMap(_dungeon.CurrentMap.mapName, Direction.N);
 					break;
 				}
 			}
@@ -237,7 +237,7 @@ public class GamePage : FContainer
 					_collideDown = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap, Direction.S);
+					SwitchMap(_dungeon.CurrentMap.mapName, Direction.S);
 					break;
 				}
 			}
@@ -263,7 +263,7 @@ public class GamePage : FContainer
 					_collideLeft = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap, Direction.W);
+					SwitchMap(_dungeon.CurrentMap.mapName, Direction.W);
 					break;
 				}
 			}
@@ -289,80 +289,67 @@ public class GamePage : FContainer
 					_collideRight = true;
 					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.CurrentMap, Direction.E);
+					SwitchMap(_dungeon.CurrentMap.mapName, Direction.E);
 					break;
 				}
 			}
 		}
 	}
 	
-	private void SwitchMap(Map map, Direction dir)
+	private void SwitchMap(string mapName, Direction dir)
 	{
-		transitionMapSprite = new FSprite(map.mapName + ".png");
+		transitionMapSprite = new FSprite(mapName + ".png");
 		
+		// position map offset in direction we need
 		switch (dir)
 		{
 		case Direction.N:
-			transitionMapSprite.y += map.GetMapHeight();
+			transitionMapSprite.y += _dungeon.MapHeight;
 			break;
 		case Direction.S:
-			transitionMapSprite.y -= map.GetMapHeight();
+			transitionMapSprite.y -= _dungeon.MapHeight;
 			break;
 		case Direction.W:
-			transitionMapSprite.x -= map.GetMapWidth();
+			transitionMapSprite.x -= _dungeon.MapWidth;
 			break;
 		case Direction.E:
-			transitionMapSprite.x += map.GetMapWidth();
+			transitionMapSprite.x += _dungeon.MapWidth;
 			break;
 		}
 		
+		// put up map we want to transition to
 		AddChildAtIndex(transitionMapSprite, 0);
-		
 		_mapTransitionDirection = dir;
-		
-		// remove old one if exists
-		//if (_floorSprite != null) RemoveChild(_floorSprite);
-		
-		// set new map to draw
-		//_floorSprite = new FSprite(map.mapName + ".png");
-		//AddChild(_floorSprite);
-		
-		// reset man position
-//		if (_manSprite != null) RemoveChild(_manSprite);
-//		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
-//		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
-//		_manSprite.anchorX = 0;
-//		_manSprite.anchorY = 0;
-//		AddChild(_manSprite);
 	}
 	
 	private void DoMapTransition(Direction dir)
 	{
 		float transitionSpeed = 2f;
 		float playerTransSpeed = .4f;
-		resetKeys();
+		
+		resetKeys(); // do this since we never catch keyUp after hitting a passage
 		
 		switch(dir)
 		{
 		case Direction.N:
 			this.y -= transitionSpeed;
 			_manSprite.y += playerTransSpeed;
-			if (this.y <= -_dungeon.CurrentMap.GetMapHeight()) _mapTransitionDirection = Direction.None;
+			if (this.y <= -_dungeon.MapHeight) _mapTransitionDirection = Direction.None;
 			break;
 		case Direction.S:
 			this.y -= transitionSpeed;
 			_manSprite.y += playerTransSpeed;
-			if (this.y >= _dungeon.CurrentMap.GetMapHeight()) _mapTransitionDirection = Direction.None;
+			if (this.y >= _dungeon.MapHeight) _mapTransitionDirection = Direction.None;
 			break;
 		case Direction.W:
 			this.x += transitionSpeed;
 			_manSprite.x -= playerTransSpeed;
-			if (this.x >= _dungeon.CurrentMap.GetMapWidth()) _mapTransitionDirection = Direction.None;
+			if (this.x >= _dungeon.MapWidth) _mapTransitionDirection = Direction.None;
 			break;
 		case Direction.E:
 			this.x -= transitionSpeed;
 			_manSprite.x += playerTransSpeed;
-			if (this.x <= -_dungeon.CurrentMap.GetMapWidth()) 
+			if (this.x <= -_dungeon.MapWidth) 
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -379,6 +366,8 @@ public class GamePage : FContainer
 		_keyRight = false;
 	}
 	
+	// removes the old map sprite and the temp new map sprite
+	// resets camera back to origin and moves player as well
 	private void ResetMapDrawn()
 	{
 		this.RemoveChild(transitionMapSprite);
@@ -386,7 +375,8 @@ public class GamePage : FContainer
 			
 		_floorSprite = new FSprite(_dungeon.CurrentMap.mapName + ".png");
 		AddChildAtIndex(_floorSprite,0);
-		_manSprite.x -= _dungeon.CurrentMap.GetMapWidth();
+		if (this.x != 0) _manSprite.x += (this.x > 0) ? _dungeon.MapWidth : -_dungeon.MapWidth;
+		if (this.y != 0) _manSprite.y += (this.y > 0) ? _dungeon.MapHeight : -_dungeon.MapHeight;
 		_player.box.x = _manSprite.x + 4;
 		_player.box.y = _manSprite.y + 4;
 		this.x = 0;

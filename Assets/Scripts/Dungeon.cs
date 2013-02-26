@@ -7,6 +7,8 @@ public class Dungeon
 {
 	public List<Map> MapList {get;set;}
 	public Map CurrentMap {get;set;}
+	public int MapWidth {get;set;}
+	public int MapHeight {get;set;}
 	
 	private int _maxRooms;
 	private int _currentAmtOfRooms;
@@ -34,6 +36,10 @@ public class Dungeon
 		startMap.DebugMapPosition = new Vector2(0,0);
 		MapList.Add(startMap);
 		_currentAmtOfRooms++;
+		
+		// set some properties
+		MapWidth = startMap.GetMapWidth();
+		MapHeight = startMap.GetMapHeight();
 		
 		while (true)
 		{
