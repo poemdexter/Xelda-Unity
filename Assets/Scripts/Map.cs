@@ -39,6 +39,8 @@ public class Map : FContainer
 	public int connected_W = -1;
 	public int connected_E = -1;
 	
+	private FSprite _floorSprite;
+	
 	public Map (String mapFile, Direction linkedMapDirection, int linkedMapListIndex) : this(mapFile)
 	{
 		ConnectToParentMap(linkedMapDirection, linkedMapListIndex);
@@ -127,6 +129,10 @@ public class Map : FContainer
 				}
 			}
 		}
+		
+		// non json related initiotion
+		_floorSprite = new FSprite(mapName + ".png");
+		AddChild(_floorSprite);
 	}
 	
 	override public void HandleAddedToStage()

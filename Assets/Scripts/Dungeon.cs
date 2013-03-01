@@ -7,6 +7,7 @@ public class Dungeon
 {
 	public List<Map> MapList {get;set;}
 	public Map CurrentMap {get;set;}
+	public Map TransitionMap {get;set;}
 	public int MapWidth {get;set;}
 	public int MapHeight {get;set;}
 	
@@ -111,17 +112,25 @@ public class Dungeon
 		switch(direction)
 		{
 		case "NORTH":
-			if (CurrentMap.connected_N != -1) CurrentMap = MapList[CurrentMap.connected_N];
+			if (CurrentMap.connected_N != -1) TransitionMap = MapList[CurrentMap.connected_N];
 			break;
 		case "SOUTH":
-			if (CurrentMap.connected_S != -1) CurrentMap = MapList[CurrentMap.connected_S];
+			if (CurrentMap.connected_S != -1) TransitionMap = MapList[CurrentMap.connected_S];
 			break;
 		case "WEST":
-			if (CurrentMap.connected_W != -1) CurrentMap = MapList[CurrentMap.connected_W];
+			if (CurrentMap.connected_W != -1) TransitionMap = MapList[CurrentMap.connected_W];
 			break;
 		case "EAST":
-			if (CurrentMap.connected_E != -1) CurrentMap = MapList[CurrentMap.connected_E];
+			if (CurrentMap.connected_E != -1) TransitionMap = MapList[CurrentMap.connected_E];
 			break;
 		}
+	}
+	
+	public void ChangeTransitionToCurrentMap()
+	{
+		CurrentMap = TransitionMap;
+		// ret position since transitioning changed these values
+		CurrentMap.x = 0;
+		CurrentMap.y = 0;
 	}
 }
