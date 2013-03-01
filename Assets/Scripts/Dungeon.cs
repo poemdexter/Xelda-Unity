@@ -80,6 +80,7 @@ public class Dungeon
 		}
 	}
 	
+	// debug helping method that sets x,y point of map
 	private void SetDebugMapPosition(Map parentMap, Map newMap, Direction dir)
 	{
 		switch(dir)

@@ -49,6 +49,7 @@ public class GamePage : FContainer
 		AddChild(_floorSprite);
 		
 		if (_manSprite != null) RemoveChild(_manSprite);
+		// put man at origin
 		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
 		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
 		_manSprite.anchorX = 0;
@@ -62,6 +63,7 @@ public class GamePage : FContainer
 		// *** Stay focused on map
 		//Futile.stage.Follow(_cameraTarget,true,false);
 		
+		// create player
 		_player = new Player();
 		_player.box.x = _manSprite.x + 4;
 		_player.box.y = _manSprite.y + 4;
@@ -72,6 +74,7 @@ public class GamePage : FContainer
 		//showCollisionsWithMen();
 	}
 	
+	// debug method to overlay man with collision boxes
 	private void showCollisionsWithMen()
 	{
 		foreach(collisionBox box in _dungeon.CurrentMap.collisionBoxList)
