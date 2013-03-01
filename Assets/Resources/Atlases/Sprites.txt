@@ -24,6 +24,14 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
 	"sourceSize": {"w":122,"h":48}
 },
+"wall_segment.png":
+{
+	"frame": {"x":276,"y":2,"w":24,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+	"sourceSize": {"w":24,"h":24}
+},
 "xelda_map1.png":
 {
 	"frame": {"x":2,"y":52,"w":240,"h":240},
@@ -47,6 +55,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e0b910b527cb590ec5bb35fcda1ae623$"
+	"smartupdate": "$TexturePacker:SmartUpdate:3ccc6a6967ae86d1e2b954e61b07d597$"
 }
 }
