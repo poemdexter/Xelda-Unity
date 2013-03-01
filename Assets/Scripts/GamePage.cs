@@ -337,17 +337,29 @@ public class GamePage : FContainer
 		case Direction.N:
 			this.y -= transitionSpeed;
 			_manSprite.y += playerTransSpeed;
-			if (this.y <= -_dungeon.MapHeight) _mapTransitionDirection = Direction.None;
+			if (this.y <= -_dungeon.MapHeight)
+			{
+				ResetMapDrawn();
+				_mapTransitionDirection = Direction.None;
+			}
 			break;
 		case Direction.S:
-			this.y -= transitionSpeed;
-			_manSprite.y += playerTransSpeed;
-			if (this.y >= _dungeon.MapHeight) _mapTransitionDirection = Direction.None;
+			this.y += transitionSpeed;
+			_manSprite.y -= playerTransSpeed;
+			if (this.y >= _dungeon.MapHeight)
+			{
+				ResetMapDrawn();
+				_mapTransitionDirection = Direction.None;
+			}
 			break;
 		case Direction.W:
 			this.x += transitionSpeed;
 			_manSprite.x -= playerTransSpeed;
-			if (this.x >= _dungeon.MapWidth) _mapTransitionDirection = Direction.None;
+			if (this.x >= _dungeon.MapWidth)
+			{
+				ResetMapDrawn();
+				_mapTransitionDirection = Direction.None;
+			}
 			break;
 		case Direction.E:
 			this.x -= transitionSpeed;
@@ -383,6 +395,7 @@ public class GamePage : FContainer
 		_player.box.x = _manSprite.x + 4;
 		_player.box.y = _manSprite.y + 4;
 		this.x = 0;
+		this.y = 0;
 	}
 }
 

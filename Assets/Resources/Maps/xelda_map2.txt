@@ -1,7 +1,7 @@
 { "height":10,
  "layers":[
         {
-         "data":[2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2],
+         "data":[2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2],
          "height":10,
          "name":"Tile Layer 1",
          "opacity":1,
@@ -24,64 +24,25 @@
                     },
                  "type":"COLLISION",
                  "visible":true,
-                 "width":96,
-                 "x":144,
-                 "y":0
-                }, 
-                {
-                 "height":96,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
-                 "visible":true,
-                 "width":24,
-                 "x":216,
-                 "y":24
-                }, 
-                {
-                 "height":24,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
-                 "visible":true,
-                 "width":96,
-                 "x":120,
+                 "width":120,
+                 "x":0,
                  "y":216
                 }, 
                 {
-                 "height":96,
-                 "name":"",
+                 "height":24,
+                 "name":"WEST",
                  "properties":
                     {
 
                     },
-                 "type":"COLLISION",
+                 "type":"PASSAGE",
                  "visible":true,
-                 "width":24,
-                 "x":216,
-                 "y":144
-                }, 
-                {
-                 "height":96,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
-                 "visible":true,
-                 "width":24,
+                 "width":0,
                  "x":0,
                  "y":120
                 }, 
                 {
-                 "height":96,
+                 "height":48,
                  "name":"",
                  "properties":
                     {
@@ -89,9 +50,9 @@
                     },
                  "type":"COLLISION",
                  "visible":true,
-                 "width":24,
-                 "x":0,
-                 "y":0
+                 "width":48,
+                 "x":48,
+                 "y":48
                 }, 
                 {
                  "height":24,
@@ -103,8 +64,34 @@
                  "type":"COLLISION",
                  "visible":true,
                  "width":96,
-                 "x":0,
+                 "x":144,
                  "y":216
+                }, 
+                {
+                 "height":24,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":72,
+                 "x":144,
+                 "y":0
+                }, 
+                {
+                 "height":120,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":216,
+                 "y":0
                 }, 
                 {
                  "height":24,
@@ -120,7 +107,7 @@
                  "y":0
                 }, 
                 {
-                 "height":48,
+                 "height":120,
                  "name":"",
                  "properties":
                     {
@@ -128,9 +115,74 @@
                     },
                  "type":"COLLISION",
                  "visible":true,
-                 "width":48,
-                 "x":48,
-                 "y":48
+                 "width":24,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "height":72,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":0,
+                 "y":144
+                }, 
+                {
+                 "height":0,
+                 "name":"SOUTH",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":24,
+                 "x":120,
+                 "y":240
+                }, 
+                {
+                 "height":24,
+                 "name":"EAST",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":0,
+                 "x":240,
+                 "y":120
+                }, 
+                {
+                 "height":72,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":24,
+                 "x":216,
+                 "y":144
+                }, 
+                {
+                 "height":0,
+                 "name":"NORTH",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":24,
+                 "x":120,
+                 "y":0
                 }, 
                 {
                  "height":48,
@@ -147,7 +199,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":10,
          "x":0,
          "y":0

@@ -1,14 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GamePage.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Map.cs" Line="19" Column="6" />
-      <File FileName="Assets/Scripts/Dungeon.cs" Line="102" Column="21" />
-      <File FileName="Assets/Scripts/GamePage.cs" Line="253" Column="6" />
-      <File FileName="Assets/Scripts/XeldaGame.cs" Line="24" Column="34" />
-      <File FileName="Assets/Scripts/DebugMapPage.cs" Line="20" Column="12" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

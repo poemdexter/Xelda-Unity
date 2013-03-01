@@ -5,22 +5,22 @@
  </tileset>
  <layer name="Tile Layer 1" width="10" height="10">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYELDjFjEYOL4MC3UEaOXWDFcZtLDH8SGMQBs4ACJ
+   eJxjYmBgYELDjFjEYOL4MD3U4RIj1o6B9Acx4QwAbQwAiQ==
   </data>
  </layer>
  <objectgroup name="Objects" width="10" height="10">
-  <object type="COLLISION" x="0" y="0" width="120" height="24"/>
-  <object type="COLLISION" x="0" y="24" width="24" height="72"/>
-  <object type="cOLLISION" x="0" y="120" width="24" height="120"/>
-  <object type="COLLISION" x="24" y="216" width="72" height="24"/>
-  <object type="COLLISION" x="120" y="216" width="120" height="24"/>
+  <object type="COLLISION" x="24" y="0" width="96" height="24"/>
+  <object type="COLLISION" x="0" y="144" width="24" height="72"/>
+  <object type="COLLISION" x="144" y="216" width="96" height="24"/>
+  <object type="COLLISION" x="0" y="216" width="120" height="24"/>
   <object type="COLLISION" x="216" y="144" width="24" height="72"/>
-  <object type="COLLISION" x="216" y="0" width="24" height="120"/>
+  <object type="COLLISION" x="0" y="0" width="24" height="120"/>
   <object type="COLLISION" x="144" y="0" width="72" height="24"/>
   <object type="COLLISION" x="96" y="96" width="48" height="48"/>
   <object name="EAST" type="PASSAGE" x="240" y="120" height="24"/>
-  <object name="WEST" type="PASSAGE" x="0" y="96" height="24"/>
+  <object name="WEST" type="PASSAGE" x="0" y="120" height="24"/>
   <object name="NORTH" type="PASSAGE" x="120" y="0" width="24"/>
-  <object name="SOUTH" type="PASSAGE" x="96" y="240" width="24"/>
+  <object name="SOUTH" type="PASSAGE" x="120" y="240" width="24"/>
+  <object type="COLLISION" x="216" y="0" width="24" height="120"/>
  </objectgroup>
 </map>
