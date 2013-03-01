@@ -203,6 +203,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.y = collisionRect.y + _moveSpeed;
 			
+			// hit wall
 			foreach(collisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
@@ -212,12 +213,22 @@ public class GamePage : FContainer
 				}
 			}
 			
+			// hit wall segment blocking passageway
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
+				{
+					_collideUp = true;
+					break;
+				}
+			}
+			
+			// hit passageway
 			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideUp = true;
-					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
 					SwitchMap(_dungeon.TransitionMap, Direction.N);
 					break;
@@ -238,12 +249,20 @@ public class GamePage : FContainer
 				}
 			}
 			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
+				{
+					_collideDown = true;
+					break;
+				}
+			}
+			
 			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideDown = true;
-					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
 					SwitchMap(_dungeon.TransitionMap, Direction.S);
 					break;
@@ -264,12 +283,20 @@ public class GamePage : FContainer
 				}
 			}
 			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
+				{
+					_collideLeft = true;
+					break;
+				}
+			}
+			
 			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideLeft = true;
-					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
 					SwitchMap(_dungeon.TransitionMap, Direction.W);
 					break;
@@ -290,12 +317,20 @@ public class GamePage : FContainer
 				}
 			}
 			
+			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			{
+				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
+				{
+					_collideRight = true;
+					break;
+				}
+			}
+			
 			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideRight = true;
-					Debug.Log("PASSAGED!");
 					_dungeon.PassageToConnectedMap(cbox.name);
 					SwitchMap(_dungeon.TransitionMap, Direction.E);
 					break;

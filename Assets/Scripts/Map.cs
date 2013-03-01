@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public struct collisionBox
+public class collisionBox
 {
 	public Rect box;
 	public string name;
@@ -151,9 +151,8 @@ public class Map : FContainer
 	
 	private void RemoveWallForPassage(String direction)
 	{
-		collisionBox box;
-		box = passageBoxList.FirstOrDefault(x => x.name==direction);
-		box.active = false;
+		int index = passageObjectBoxList.FindIndex(x => x.name==direction);
+		passageObjectBoxList[index].active = false;
 	}
 	
 	public void ConnectToParentMap(Direction parentMapDirection, int parentMapIndex)
@@ -204,7 +203,19 @@ public class Map : FContainer
 	
 	public void AddPassageWalls()
 	{
-		
+		foreach(collisionBox cb in passageObjectBoxList)
+		{
+			if (cb.active)
+			{
+				// draw a wall!
+				FSprite wall = new FSprite("wall_segment.png");
+				wall.x = cb.box.x;
+				wall.y = cb.box.y;
+				wall.anchorX = 0;
+				wall.anchorY = 0;
+				AddChild(wall);
+			}
+		}
 	}
 		
 	public int GetMapHeight()
