@@ -96,6 +96,16 @@ public class GamePage : FContainer
 			cb.anchorY = 0;
 			AddChild(cb);
 		}
+		
+		foreach(collisionBox box in _dungeon.CurrentMap.passageObjectBoxList)
+		{
+			FSprite cb = new FSprite("man.png");
+			cb.x = box.box.x;
+			cb.y = box.box.y;
+			cb.anchorX = 0;
+			cb.anchorY = 0;
+			AddChild(cb);
+		}
 	}
 	
 	override public void HandleAddedToStage()

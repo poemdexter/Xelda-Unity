@@ -2,12 +2,14 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public struct collisionBox
 {
 	public Rect box;
 	public string name;
 	public string tip;
+	public bool active;
 }
 
 public enum Direction
@@ -19,7 +21,7 @@ public enum Direction
 	None
 }
 
-public class Map
+public class Map : FContainer
 {
 	private int _tileSize;
 	private int _mapWidth;
@@ -30,6 +32,7 @@ public class Map
 	private collisionBox _cbox;
 	public List<collisionBox> collisionBoxList = new List<collisionBox>();
 	public List<collisionBox> passageBoxList = new List<collisionBox>();
+	public List<collisionBox> passageObjectBoxList = new List<collisionBox>();
 	
 	public int connected_N = -1;
 	public int connected_S = -1;
@@ -108,9 +111,43 @@ public class Map
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
 						passageBoxList.Add(_cbox);
 					}
+					
+					if (objHash["type"].ToString().ToUpper().Equals("PASSAGE_OBJECT"))
+					{
+						_cbox = new collisionBox();
+						_cbox.name = objHash["name"].ToString();
+						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
+						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						_cbox.box.width = int.Parse(objHash["width"].ToString());
+						_cbox.box.height = int.Parse(objHash["height"].ToString());
+						_cbox.box.y = _cbox.box.y - _cbox.box.height;
+						_cbox.active = true;
+						passageObjectBoxList.Add(_cbox);
+					}
 				}
 			}
 		}
+	}
+	
+	override public void HandleAddedToStage()
+	{
+		Futile.instance.SignalUpdate += HandleUpdate;
+		base.HandleAddedToStage();
+	}
+	
+	override public void HandleRemovedFromStage()
+	{
+		Futile.instance.SignalUpdate -= HandleUpdate;
+		base.HandleRemovedFromStage();
+	}
+	
+	void HandleUpdate() {}
+	
+	private void RemoveWallForPassage(String direction)
+	{
+		collisionBox box;
+		box = passageBoxList.FirstOrDefault(x => x.name==direction);
+		box.active = false;
 	}
 	
 	public void ConnectToParentMap(Direction parentMapDirection, int parentMapIndex)
@@ -119,36 +156,49 @@ public class Map
 		{
 		case Direction.N:
 			connected_S = parentMapIndex;
+			RemoveWallForPassage("SOUTH");
 			break;
 		case Direction.S:
 			connected_N = parentMapIndex;
+			RemoveWallForPassage("NORTH");
 			break;
 		case Direction.W:
 			connected_E = parentMapIndex;
+			RemoveWallForPassage("EAST");
 			break;
 		case Direction.E:
 			connected_W = parentMapIndex;
+			RemoveWallForPassage("WEST");
 			break;
 		}
 	}
 	
 	public void ConnectThisToNewMap(Direction linkedMapDirection, int linkedMapListIndex)
-	{
+	{	
 		switch (linkedMapDirection)
 		{
 		case Direction.N:
 			connected_N = linkedMapListIndex;
+			RemoveWallForPassage("NORTH");
 			break;
 		case Direction.S:
 			connected_S = linkedMapListIndex;
+			RemoveWallForPassage("SOUTH");
 			break;
 		case Direction.W:
 			connected_W = linkedMapListIndex;
+			RemoveWallForPassage("WEST");
 			break;
 		case Direction.E:
 			connected_E = linkedMapListIndex;
+			RemoveWallForPassage("EAST");
 			break;
 		}
+	}
+	
+	public void AddPassageWalls()
+	{
+		
 	}
 		
 	public int GetMapHeight()

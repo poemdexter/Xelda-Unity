@@ -34,27 +34,27 @@
 },
 "xelda_map1.png":
 {
-	"frame": {"x":2,"y":52,"w":240,"h":240},
+	"frame": {"x":2,"y":52,"w":288,"h":288},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":240,"h":240},
-	"sourceSize": {"w":240,"h":240}
+	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":288},
+	"sourceSize": {"w":288,"h":288}
 },
 "xelda_map2.png":
 {
-	"frame": {"x":244,"y":52,"w":240,"h":240},
+	"frame": {"x":2,"y":342,"w":288,"h":288},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":240,"h":240},
-	"sourceSize": {"w":240,"h":240}
+	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":288},
+	"sourceSize": {"w":288,"h":288}
 }},
 "meta": {
 	"app": "http://www.texturepacker.com",
 	"version": "1.0",
 	"image": "Sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3ccc6a6967ae86d1e2b954e61b07d597$"
+	"smartupdate": "$TexturePacker:SmartUpdate:fc0911bdcfb84ef692e055044fa7b144$"
 }
 }

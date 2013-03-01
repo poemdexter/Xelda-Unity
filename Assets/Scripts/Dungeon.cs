@@ -38,8 +38,11 @@ public class Dungeon
 		_currentAmtOfRooms++;
 		
 		// set some properties
-		MapWidth = startMap.GetMapWidth();
-		MapHeight = startMap.GetMapHeight();
+		// tile size is 24x24.  We need to adjust map width and height so we don't get the extra space around the map that holds
+		// the collisions for the passages.
+		int tileSize = 24;
+		MapWidth = startMap.GetMapWidth() - (2 * tileSize);
+		MapHeight = startMap.GetMapHeight() - (2 * tileSize);
 		
 		while (true)
 		{
@@ -70,6 +73,9 @@ public class Dungeon
 		
 		// set CurrentMap back to 0 so player starts at first node.
 		CurrentMap = MapList[0];
+		
+		// tell each map to add walls to block passages that have no adjacent map to connect
+		foreach(Map map in MapList) map.AddPassageWalls();
 		
 		// make sure everything is connected here via debug
 		int a = 0;

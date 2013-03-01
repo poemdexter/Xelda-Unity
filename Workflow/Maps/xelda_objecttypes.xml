@@ -4,4 +4,5 @@
  <objecttype name="PLAYER_SPAWN" color="#a0a000"/>
  <objecttype name="ENEMY_SPAWN" color="#ff7d00"/>
  <objecttype name="PASSAGE" color="#a000a4"/>
+ <objecttype name="PASSAGE_OBJECT" color="#a4004c"/>
 </objecttypes>

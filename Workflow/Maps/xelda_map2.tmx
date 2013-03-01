@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="24" tileheight="24">
+<map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="24" tileheight="24">
  <tileset firstgid="1" name="map_tileset" tilewidth="24" tileheight="24">
   <image source="floor.png" trans="ffffff" width="48" height="24"/>
  </tileset>
- <layer name="Tile Layer 1" width="10" height="10">
+ <layer name="Tile Layer 1" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYmBgYELDjFjEYOL4MDb91FJHyF5CagippbbbsekhJpwBcDQAjQ==
+   eJxjYCAdMGHBjFjEkNUzEsDY1DPh0UsN9cS6h5BaGCZkPnpYUVs9Pv+SEl+kAAChDACN
   </data>
  </layer>
- <objectgroup name="Objects" width="10" height="10">
-  <object type="COLLISION" x="0" y="216" width="120" height="24"/>
-  <object name="WEST" type="PASSAGE" x="0" y="120" height="24"/>
-  <object type="COLLISION" x="48" y="48" width="48" height="48"/>
-  <object type="COLLISION" x="144" y="216" width="96" height="24"/>
-  <object type="COLLISION" x="144" y="0" width="72" height="24"/>
-  <object type="COLLISION" x="216" y="0" width="24" height="120"/>
-  <object type="COLLISION" x="24" y="0" width="96" height="24"/>
-  <object type="COLLISION" x="0" y="0" width="24" height="120"/>
-  <object type="COLLISION" x="0" y="144" width="24" height="72"/>
-  <object name="SOUTH" type="PASSAGE" x="120" y="240" width="24"/>
-  <object name="EAST" type="PASSAGE" x="240" y="120" height="24"/>
-  <object type="COLLISION" x="216" y="144" width="24" height="72"/>
-  <object name="NORTH" type="PASSAGE" x="120" y="0" width="24"/>
-  <object type="COLLISION" x="144" y="144" width="48" height="48"/>
+ <objectgroup name="Objects" width="12" height="12">
+  <object type="COLLISION" x="24" y="240" width="120" height="24"/>
+  <object name="WEST" type="PASSAGE" x="0" y="144" width="24" height="24"/>
+  <object type="COLLISION" x="72" y="72" width="48" height="48"/>
+  <object type="COLLISION" x="168" y="240" width="96" height="24"/>
+  <object type="COLLISION" x="168" y="24" width="72" height="24"/>
+  <object type="COLLISION" x="240" y="24" width="24" height="120"/>
+  <object type="COLLISION" x="48" y="24" width="96" height="24"/>
+  <object type="COLLISION" x="24" y="24" width="24" height="120"/>
+  <object type="COLLISION" x="24" y="168" width="24" height="72"/>
+  <object name="SOUTH" type="PASSAGE" x="144" y="264" width="24" height="24"/>
+  <object name="EAST" type="PASSAGE" x="264" y="144" width="24" height="24"/>
+  <object type="COLLISION" x="240" y="168" width="24" height="72"/>
+  <object name="NORTH" type="PASSAGE" x="144" y="0" width="24" height="24"/>
+  <object type="COLLISION" x="168" y="168" width="48" height="48"/>
+  <object name="NORTH" type="PASSAGE_OBJECT" x="144" y="24" width="24" height="24"/>
+  <object name="WEST" type="PASSAGE_OBJECT" x="24" y="144" width="24" height="24"/>
+  <object name="SOUTH" type="PASSAGE_OBJECT" x="144" y="240" width="24" height="24"/>
+  <object name="EAST" type="PASSAGE_OBJECT" x="240" y="144" width="24" height="24"/>
  </objectgroup>
 </map>
