@@ -40,45 +40,11 @@ public class GamePage : FContainer
 		AddChild(_dungeon.CurrentMap);
 		
 		// create player
-		_player = new Mob("man", 0, 50);
+		_player = new Mob("man", -10, 50);
 		AddChild(_player);
 		
 		// *** debug to find collision boxes
 		//showCollisionsWithMen();
-	}
-	
-	// debug method to overlay man with collision boxes
-	private void showCollisionsWithMen()
-	{
-		foreach(collisionBox box in _dungeon.CurrentMap.collisionBoxList)
-		{
-			FSprite cb = new FSprite("man.png");
-			cb.x = box.box.x;
-			cb.y = box.box.y;
-			cb.anchorX = 0;
-			cb.anchorY = 0;
-			AddChild(cb);
-		}
-		
-		foreach(collisionBox box in _dungeon.CurrentMap.passageBoxList)
-		{
-			FSprite cb = new FSprite("man.png");
-			cb.x = box.box.x;
-			cb.y = box.box.y;
-			cb.anchorX = 0;
-			cb.anchorY = 0;
-			AddChild(cb);
-		}
-		
-		foreach(collisionBox box in _dungeon.CurrentMap.passageObjectBoxList)
-		{
-			FSprite cb = new FSprite("man.png");
-			cb.x = box.box.x;
-			cb.y = box.box.y;
-			cb.anchorX = 0;
-			cb.anchorY = 0;
-			AddChild(cb);
-		}
 	}
 	
 	override public void HandleAddedToStage()
@@ -95,53 +61,28 @@ public class GamePage : FContainer
 	
 	void HandleUpdate()
 	{
-		if (_mapTransitionDirection != Direction.None) 
-		{
-			DoMapTransition(_mapTransitionDirection);
-		}
+		if (_mapTransitionDirection != Direction.None) DoMapTransition(_mapTransitionDirection);
 		else 
 		{
-		HandleInputs();
-		TestForCollisions();
-		HandleMovement();
+			HandleInputs();
+			TestForCollisions();
+			HandleMovement();
 		}
 	}
 	
 	void HandleInputs()
 	{
-		if (Input.GetKeyUp(KeyCode.W))
-		{
-			_keyUp = false;
-		}
-		if (Input.GetKeyUp(KeyCode.S))
-		{
-			_keyDown = false;
-		}
-		if (Input.GetKeyUp(KeyCode.A))
-		{
-			_keyLeft = false;
-		}
-		if (Input.GetKeyUp(KeyCode.D))
-		{
-			_keyRight = false;
-		}
-	
-		if (Input.GetKeyDown(KeyCode.W))
-		{
-			_keyUp = true;
-		}
-		if (Input.GetKeyDown(KeyCode.S))
-		{
-			_keyDown = true;
-		}
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			_keyLeft = true;
-		}
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			_keyRight = true;
-		}	
+		// pushed key
+		if (Input.GetKeyDown(KeyCode.W)) _keyUp = true;
+		if (Input.GetKeyDown(KeyCode.S)) _keyDown = true;
+		if (Input.GetKeyDown(KeyCode.A)) _keyLeft = true;
+		if (Input.GetKeyDown(KeyCode.D)) _keyRight = true;
+		
+		// let go of key
+		if (Input.GetKeyUp(KeyCode.W)) _keyUp = false;
+		if (Input.GetKeyUp(KeyCode.S)) _keyDown = false;
+		if (Input.GetKeyUp(KeyCode.A)) _keyLeft = false;
+		if (Input.GetKeyUp(KeyCode.D)) _keyRight = false;
 	}
 	
 	void HandleMovement()
@@ -399,6 +340,41 @@ public class GamePage : FContainer
 		this.x = 0;
 		this.y = 0;
 	}
+	
+	// debug method to overlay man with collision boxes
+	private void showCollisionsWithMen()
+	{
+		foreach(collisionBox box in _dungeon.CurrentMap.collisionBoxList)
+		{
+			FSprite cb = new FSprite("man.png");
+			cb.x = box.box.x;
+			cb.y = box.box.y;
+			cb.anchorX = 0;
+			cb.anchorY = 0;
+			AddChild(cb);
+		}
+		
+		foreach(collisionBox box in _dungeon.CurrentMap.passageBoxList)
+		{
+			FSprite cb = new FSprite("man.png");
+			cb.x = box.box.x;
+			cb.y = box.box.y;
+			cb.anchorX = 0;
+			cb.anchorY = 0;
+			AddChild(cb);
+		}
+		
+		foreach(collisionBox box in _dungeon.CurrentMap.passageObjectBoxList)
+		{
+			FSprite cb = new FSprite("man.png");
+			cb.x = box.box.x;
+			cb.y = box.box.y;
+			cb.anchorX = 0;
+			cb.anchorY = 0;
+			AddChild(cb);
+		}
+	}
+	
 }
 
 

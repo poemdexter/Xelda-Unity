@@ -34,6 +34,8 @@ public class Map : FContainer
 	public List<collisionBox> passageBoxList = new List<collisionBox>();
 	public List<collisionBox> passageObjectBoxList = new List<collisionBox>();
 	
+	public List<Mob> mobList = new List<Mob>();
+	
 	public int connected_N = -1;
 	public int connected_S = -1;
 	public int connected_W = -1;
@@ -133,6 +135,11 @@ public class Map : FContainer
 		// non json related initiotion
 		_floorSprite = new FSprite(mapName + ".png");
 		AddChild(_floorSprite);
+		
+		// add mob
+		Mob mapMob = new Mob("man", 35, 25);
+		mobList.Add(mapMob);
+		AddChild(mapMob);
 	}
 	
 	override public void HandleAddedToStage()
