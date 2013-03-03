@@ -45,7 +45,7 @@ public class GamePage : FContainer
 		
 		if (_manSprite != null) RemoveChild(_manSprite);
 		// put man at origin
-		_manSprite.x = 50; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
+		_manSprite.x = 0; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
 		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
 		_manSprite.anchorX = 0;
 		_manSprite.anchorY = 0;
@@ -345,16 +345,16 @@ public class GamePage : FContainer
 		switch (dir)
 		{
 		case Direction.N:
-			map.y += _dungeon.MapHeight;
+			map.y += _dungeon.MapHeight - 16;
 			break;
 		case Direction.S:
-			map.y -= _dungeon.MapHeight;
+			map.y -= _dungeon.MapHeight - 16;
 			break;
 		case Direction.W:
-			map.x -= _dungeon.MapWidth;
+			map.x -= _dungeon.MapWidth - 16;
 			break;
 		case Direction.E:
-			map.x += _dungeon.MapWidth;
+			map.x += _dungeon.MapWidth - 16;
 			break;
 		}
 		
@@ -365,7 +365,7 @@ public class GamePage : FContainer
 	
 	private void DoMapTransition(Direction dir)
 	{
-		float transitionSpeed = 2f;
+		float transitionSpeed = 4f;
 		float playerTransSpeed = .4f;
 		
 		resetKeys(); // do this since we never catch keyUp after hitting a passage
@@ -375,7 +375,7 @@ public class GamePage : FContainer
 		case Direction.N:
 			this.y -= transitionSpeed;
 			_manSprite.y += playerTransSpeed;
-			if (this.y <= -_dungeon.MapHeight)
+			if (this.y <= -_dungeon.MapHeight +16)
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -384,7 +384,7 @@ public class GamePage : FContainer
 		case Direction.S:
 			this.y += transitionSpeed;
 			_manSprite.y -= playerTransSpeed;
-			if (this.y >= _dungeon.MapHeight)
+			if (this.y >= _dungeon.MapHeight -16)
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -393,7 +393,7 @@ public class GamePage : FContainer
 		case Direction.W:
 			this.x += transitionSpeed;
 			_manSprite.x -= playerTransSpeed;
-			if (this.x >= _dungeon.MapWidth)
+			if (this.x >= _dungeon.MapWidth -16)
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -402,7 +402,7 @@ public class GamePage : FContainer
 		case Direction.E:
 			this.x -= transitionSpeed;
 			_manSprite.x += playerTransSpeed;
-			if (this.x <= -_dungeon.MapWidth) 
+			if (this.x <= -_dungeon.MapWidth +16) 
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -430,8 +430,8 @@ public class GamePage : FContainer
 		this.AddChildAtIndex(_dungeon.CurrentMap,0);
 		
 		// readjust player
-		if (this.x != 0) _manSprite.x += (this.x > 0) ? _dungeon.MapWidth : -_dungeon.MapWidth;
-		if (this.y != 0) _manSprite.y += (this.y > 0) ? _dungeon.MapHeight : -_dungeon.MapHeight;
+		if (this.x != 0) _manSprite.x += (this.x > 0) ? _dungeon.MapWidth -16 : -_dungeon.MapWidth +16;
+		if (this.y != 0) _manSprite.y += (this.y > 0) ? _dungeon.MapHeight -16 : -_dungeon.MapHeight +16;
 		_player.box.x = _manSprite.x + 4;
 		_player.box.y = _manSprite.y + 4;
 		this.x = 0;
