@@ -14,7 +14,9 @@ public class Dungeon
 	private int _maxRooms;
 	private int _currentAmtOfRooms;
 	private int _currentRoomIndex;
-	private int _maxRoomTemplates=3;
+	
+	//*** NUMBER OF ROOM TEMPLATES
+	private int _maxRoomTemplates = 3;
 
 	
 	public Dungeon (int maxRooms)
@@ -43,7 +45,7 @@ public class Dungeon
 		// set some properties
 		// tile size is 24x24.  We need to adjust map width and height so we don't get the extra space around the map that holds
 		// the collisions for the passages.
-		int tileSize = 24;
+		int tileSize = 32;
 		MapWidth = startMap.GetMapWidth() - (2 * tileSize);
 		MapHeight = startMap.GetMapHeight() - (2 * tileSize);
 		

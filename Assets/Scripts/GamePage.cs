@@ -345,16 +345,16 @@ public class GamePage : FContainer
 		switch (dir)
 		{
 		case Direction.N:
-			map.y += _dungeon.MapHeight - 16;
+			map.y += _dungeon.MapHeight;
 			break;
 		case Direction.S:
-			map.y -= _dungeon.MapHeight - 16;
+			map.y -= _dungeon.MapHeight;
 			break;
 		case Direction.W:
-			map.x -= _dungeon.MapWidth - 16;
+			map.x -= _dungeon.MapWidth;
 			break;
 		case Direction.E:
-			map.x += _dungeon.MapWidth - 16;
+			map.x += _dungeon.MapWidth;
 			break;
 		}
 		
@@ -375,7 +375,7 @@ public class GamePage : FContainer
 		case Direction.N:
 			this.y -= transitionSpeed;
 			_manSprite.y += playerTransSpeed;
-			if (this.y <= -_dungeon.MapHeight +16)
+			if (this.y <= -_dungeon.MapHeight)
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -384,7 +384,7 @@ public class GamePage : FContainer
 		case Direction.S:
 			this.y += transitionSpeed;
 			_manSprite.y -= playerTransSpeed;
-			if (this.y >= _dungeon.MapHeight -16)
+			if (this.y >= _dungeon.MapHeight)
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -393,7 +393,7 @@ public class GamePage : FContainer
 		case Direction.W:
 			this.x += transitionSpeed;
 			_manSprite.x -= playerTransSpeed;
-			if (this.x >= _dungeon.MapWidth -16)
+			if (this.x >= _dungeon.MapWidth)
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -402,7 +402,7 @@ public class GamePage : FContainer
 		case Direction.E:
 			this.x -= transitionSpeed;
 			_manSprite.x += playerTransSpeed;
-			if (this.x <= -_dungeon.MapWidth +16) 
+			if (this.x <= -_dungeon.MapWidth) 
 			{
 				ResetMapDrawn();
 				_mapTransitionDirection = Direction.None;
@@ -430,8 +430,8 @@ public class GamePage : FContainer
 		this.AddChildAtIndex(_dungeon.CurrentMap,0);
 		
 		// readjust player
-		if (this.x != 0) _manSprite.x += (this.x > 0) ? _dungeon.MapWidth -16 : -_dungeon.MapWidth +16;
-		if (this.y != 0) _manSprite.y += (this.y > 0) ? _dungeon.MapHeight -16 : -_dungeon.MapHeight +16;
+		if (this.x != 0) _manSprite.x += (this.x > 0) ? _dungeon.MapWidth : -_dungeon.MapWidth;
+		if (this.y != 0) _manSprite.y += (this.y > 0) ? _dungeon.MapHeight : -_dungeon.MapHeight;
 		_player.box.x = _manSprite.x + 4;
 		_player.box.y = _manSprite.y + 4;
 		this.x = 0;
