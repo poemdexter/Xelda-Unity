@@ -2,15 +2,15 @@
 
 "man.png":
 {
-	"frame": {"x":2,"y":2,"w":24,"h":24},
+	"frame": {"x":2,"y":2,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
-	"sourceSize": {"w":24,"h":24}
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
 },
 "start_down.png":
 {
-	"frame": {"x":28,"y":2,"w":122,"h":48},
+	"frame": {"x":36,"y":2,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -18,7 +18,7 @@
 },
 "start_up.png":
 {
-	"frame": {"x":152,"y":2,"w":122,"h":48},
+	"frame": {"x":160,"y":2,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -26,35 +26,43 @@
 },
 "wall_segment.png":
 {
-	"frame": {"x":276,"y":2,"w":24,"h":24},
+	"frame": {"x":284,"y":2,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
-	"sourceSize": {"w":24,"h":24}
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
 },
 "xelda_map1.png":
 {
-	"frame": {"x":2,"y":52,"w":288,"h":288},
+	"frame": {"x":318,"y":2,"w":384,"h":384},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":288},
-	"sourceSize": {"w":288,"h":288}
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
+	"sourceSize": {"w":384,"h":384}
 },
 "xelda_map2.png":
 {
-	"frame": {"x":2,"y":342,"w":288,"h":288},
+	"frame": {"x":2,"y":388,"w":384,"h":384},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":288,"h":288},
-	"sourceSize": {"w":288,"h":288}
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
+	"sourceSize": {"w":384,"h":384}
+},
+"xelda_map3.png":
+{
+	"frame": {"x":388,"y":388,"w":384,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
+	"sourceSize": {"w":384,"h":384}
 }},
 "meta": {
 	"app": "http://www.texturepacker.com",
 	"version": "1.0",
 	"image": "Sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":1024},
+	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:fc0911bdcfb84ef692e055044fa7b144$"
+	"smartupdate": "$TexturePacker:SmartUpdate:11b5fdb3461d9ce9cf23dc91be629a41$"
 }
 }
