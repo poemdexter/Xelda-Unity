@@ -14,6 +14,8 @@ public class Dungeon
 	private int _maxRooms;
 	private int _currentAmtOfRooms;
 	private int _currentRoomIndex;
+	private int _maxRoomTemplates=3;
+
 	
 	public Dungeon (int maxRooms)
 	{
@@ -30,7 +32,7 @@ public class Dungeon
 		System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
 		
 		// get random map
-		int mapNumber = rand.Next(1,3);
+		int mapNumber = rand.Next(1, _maxRoomTemplates + 1);
 		
 		// create initial map point
 		Map startMap = new Map("Maps/xelda_map"+mapNumber);
@@ -60,7 +62,7 @@ public class Dungeon
 			for (int i = 0; i < todoConnections; i++)
 			{
 				Direction dir = CurrentMap.GetRandomDirectionForConnection();
-				mapNumber = rand.Next(1,3);
+				mapNumber = rand.Next(1, _maxRoomTemplates + 1);
 				Map map = new Map("Maps/xelda_map"+mapNumber, dir, MapList.IndexOf(CurrentMap));
 				SetDebugMapPosition(CurrentMap, map, dir);
 				MapList.Add(map);
