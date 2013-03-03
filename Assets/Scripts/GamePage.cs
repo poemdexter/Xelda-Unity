@@ -11,9 +11,6 @@ public struct Player
 
 public class GamePage : FContainer
 {
-	private FSprite _manSprite;
-	private FSprite transitionMapSprite;
-	
 	private bool _keyUp = false;
 	private bool _keyDown = false;
 	private bool _keyLeft = false;
@@ -26,7 +23,7 @@ public class GamePage : FContainer
 	
 	private Direction _mapTransitionDirection = Direction.None;
 	
-	private Player _player;
+	private Mob _player;
 	
 	private float _moveSpeed = 2f;
 	
@@ -36,34 +33,15 @@ public class GamePage : FContainer
 	
 	public GamePage ()
 	{
-		_manSprite = new FSprite("man.png");
-		
+		// create dungeon
 		_dungeon = new Dungeon(2);
 		
 		// set current map to draw
 		AddChild(_dungeon.CurrentMap);
 		
-		if (_manSprite != null) RemoveChild(_manSprite);
-		// put man at origin
-		_manSprite.x = 0; //-(_dungeon.CurrentMap.GetMapWidth() / 2);
-		_manSprite.y = 50; //-(_dungeon.CurrentMap.GetMapHeight() / 2);
-		_manSprite.anchorX = 0;
-		_manSprite.anchorY = 0;
-		AddChild(_manSprite);
-		
-		//_cameraTarget.x = -200;
-		//_cameraTarget.y = -100;
-		//AddChild(_cameraTarget);
-		
-		// *** Stay focused on map
-		//Futile.stage.Follow(_cameraTarget,true,false);
-		
 		// create player
-		_player = new Player();
-		_player.box.x = _manSprite.x + 4;
-		_player.box.y = _manSprite.y + 4;
-		_player.box.width = _manSprite.width - 8;
-		_player.box.height = _manSprite.height - 8;
+		_player = new Mob("man", 0, 50);
+		AddChild(_player);
 		
 		// *** debug to find collision boxes
 		//showCollisionsWithMen();
@@ -168,27 +146,10 @@ public class GamePage : FContainer
 	
 	void HandleMovement()
 	{
-		if (_keyUp && !_collideUp)
-		{
-			_manSprite.y += _moveSpeed;
-		}
-		if (_keyDown && !_collideDown)
-		{
-			_manSprite.y -= _moveSpeed;
-		}
-		if (_keyLeft && !_collideLeft)
-		{
-			_manSprite.x -= _moveSpeed;
-		}
-		if (_keyRight && !_collideRight)
-		{
-			_manSprite.x += _moveSpeed;
-		}
-		
-		_player.box.x = _manSprite.x + 4;
-		_player.box.y = _manSprite.y + 4;
-		
-		//Debug.Log(_cameraTarget.x + " ct " + _cameraTarget.y);
+		if (_keyUp && !_collideUp)       _player.Move(0, _moveSpeed);
+		if (_keyDown && !_collideDown)   _player.Move(0, -_moveSpeed);
+		if (_keyLeft && !_collideLeft)   _player.Move(-_moveSpeed, 0);
+		if (_keyRight && !_collideRight) _player.Move(_moveSpeed, 0);
 	}
 	
 	void TestForCollisions()
@@ -374,7 +335,7 @@ public class GamePage : FContainer
 		{
 		case Direction.N:
 			this.y -= transitionSpeed;
-			_manSprite.y += playerTransSpeed;
+			_player.Move(0, playerTransSpeed);
 			if (this.y <= -_dungeon.MapHeight)
 			{
 				ResetMapDrawn();
@@ -383,7 +344,7 @@ public class GamePage : FContainer
 			break;
 		case Direction.S:
 			this.y += transitionSpeed;
-			_manSprite.y -= playerTransSpeed;
+			_player.Move(0, -playerTransSpeed);
 			if (this.y >= _dungeon.MapHeight)
 			{
 				ResetMapDrawn();
@@ -392,7 +353,7 @@ public class GamePage : FContainer
 			break;
 		case Direction.W:
 			this.x += transitionSpeed;
-			_manSprite.x -= playerTransSpeed;
+			_player.Move(-playerTransSpeed, 0);
 			if (this.x >= _dungeon.MapWidth)
 			{
 				ResetMapDrawn();
@@ -401,7 +362,7 @@ public class GamePage : FContainer
 			break;
 		case Direction.E:
 			this.x -= transitionSpeed;
-			_manSprite.x += playerTransSpeed;
+			_player.Move(playerTransSpeed, 0);
 			if (this.x <= -_dungeon.MapWidth) 
 			{
 				ResetMapDrawn();
@@ -430,10 +391,11 @@ public class GamePage : FContainer
 		this.AddChildAtIndex(_dungeon.CurrentMap,0);
 		
 		// readjust player
-		if (this.x != 0) _manSprite.x += (this.x > 0) ? _dungeon.MapWidth : -_dungeon.MapWidth;
-		if (this.y != 0) _manSprite.y += (this.y > 0) ? _dungeon.MapHeight : -_dungeon.MapHeight;
-		_player.box.x = _manSprite.x + 4;
-		_player.box.y = _manSprite.y + 4;
+		int x = 0;
+		int y = 0;
+		if (this.x != 0) x = (this.x > 0) ? _dungeon.MapWidth : -_dungeon.MapWidth;
+		if (this.y != 0) y = (this.y > 0) ? _dungeon.MapHeight : -_dungeon.MapHeight;
+		_player.Move(x,y);
 		this.x = 0;
 		this.y = 0;
 	}
