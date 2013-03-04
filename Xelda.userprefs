@@ -1,22 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Dungeon.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Mob.cs" Line="5" Column="1" />
-      <File FileName="Assets/Scripts/Map.cs" Line="15" Column="22" />
-      <File FileName="Assets/Scripts/TitlePage.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/XeldaGame.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GamePage.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Dungeon.cs" Line="14" Column="24" />
-      <File FileName="Assets/Scripts/DebugMapPage.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Dungeon.cs" selected="True" />
+                <Node name="Mobs" expanded="True" />
+                <Node name="Map.cs" selected="True" />
               </Node>
             </Node>
           </Node>

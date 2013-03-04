@@ -137,9 +137,9 @@ public class Map : FContainer
 		AddChild(_floorSprite);
 		
 		// add mob
-		Mob mapMob = new Mob("man", 35, 25);
-		mobList.Add(mapMob);
-		AddChild(mapMob);
+		Skeleton skeleton = new Skeleton(35, 25);
+		mobList.Add(skeleton);
+		AddChild(skeleton);
 	}
 	
 	override public void HandleAddedToStage()
@@ -270,5 +270,43 @@ public class Map : FContainer
 		System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
 		int r = rand.Next(GetPossibleConnectionCount());
 		return GetPossibleConnectionDirections()[r];
+	}
+	
+	// *** CHECK OUT MY TERRIBLE FINITE STATE MACHINE HEH *** //
+	public void HandleMobAI(Mob player)
+	{
+		foreach (Mob mob in mobList)
+		{
+			switch (mob.mobState)
+			{
+			case MobState.Wander:
+				if (mob.WithinRangeOfPlayer())
+				{
+					mob.mobState = MobState.Aggressive;
+					break;
+				}
+				else 
+				{
+					mob.Wander(this);
+					break;
+				}
+			case MobState.Aggressive:
+				if (mob.CanAttackPlayer())
+				{
+					mob.AttackPlayer();
+					break;
+				}
+				else if (!mob.WithinRangeOfPlayer())
+				{
+					mob.mobState = MobState.Wander;
+					break;
+				}
+				else
+				{
+					mob.MoveTowardsPlayer();
+					break;
+				}
+			}
+		}
 	}
 }
