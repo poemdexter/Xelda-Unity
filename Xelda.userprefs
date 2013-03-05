@@ -1,14 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Map.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Map.cs" Line="272" Column="3" />
+      <File FileName="Assets/Scripts/GamePage.cs" Line="70" Column="58" />
+      <File FileName="Assets/Scripts/Managers/FSM_Manager.cs" Line="40" Column="41" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Mobs" expanded="True" />
-                <Node name="GamePage.cs" selected="True" />
+                <Node name="Managers" expanded="True" />
+                <Node name="Mobs" expanded="True">
+                  <Node name="Mob.cs" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
