@@ -15,6 +15,7 @@ public class Mob : FSprite
 	public string name;
 	public MobState mobState;
 	protected float _moveSpeed;
+	protected double _hostileDistance;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -32,11 +33,17 @@ public class Mob : FSprite
 		mobState = MobState.Wander;
 	}
 	
-	public virtual bool WithinRangeOfPlayer(Mob player) { return false; }
+	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
+	public virtual bool WithinRangeOfPlayer(Mob player) 
+	{
+		return (getDistanceToPlayer(player) < _hostileDistance);
+	}
+	
 	public virtual bool CanAttackPlayer(Mob player) { return false; }
 	public virtual void MoveTowardsPlayer(Mob player, Map map) {}
 	public virtual void AttackPlayer(Mob player) {}
 	public virtual void Wander(Map map) {}
+	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
 	
 	public void Move (float X, float Y)
 	{
@@ -44,6 +51,11 @@ public class Mob : FSprite
 		this.y += Y;
 		this.box.x = this.x + 4;
 		this.box.y = this.y + 4;
+	}
+	
+	protected double getDistanceToPlayer(Mob player)
+	{
+		return Math.Sqrt((this.x - player.x) * (this.x - player.x) + (this.y - player.y) * (this.y - player.y));
 	}
 	
 	protected bool CollisionOccurred(Direction d, Map map)
@@ -61,7 +73,6 @@ public class Mob : FSprite
 		{
 			if (collisionRect.CheckIntersect(cbox.box))
 			{
-				Debug.Log("collision:)");
 				collision = true;
 				break;
 			}
@@ -73,7 +84,6 @@ public class Mob : FSprite
 		{
 			if (collisionRect.CheckIntersect(cbox.box))
 			{
-				Debug.Log("collision:)");
 				collision = true;
 				break;
 			}

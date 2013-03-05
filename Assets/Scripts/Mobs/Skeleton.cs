@@ -11,10 +11,12 @@ public class Skeleton : Mob
 	public Skeleton (int x, int y) : base("man", x, y) 
 	{
 		_moveSpeed = 2f;
+		_hostileDistance = 100.0;
 	}
 	
 	public override void Wander(Map map) 
 	{
+		// if we aren't moving
 		if (duration <= 0) {
 			// select a random direction
 			dir = (Direction)XeldaGame.rand.Next(0,4);
@@ -23,10 +25,11 @@ public class Skeleton : Mob
 			while (CollisionOccurred(dir, map)) dir = (Direction)XeldaGame.rand.Next(0,4);
 			
 			// select a random duration
-			duration = 100; //XeldaGame.rand.Next(10,100);
+			duration = XeldaGame.rand.Next(50,200);
 		}
-		else
+		else // we're moving
 		{
+			// if we hit something, restart the wandering process
 			if (CollisionOccurred(dir, map))
 			{
 				duration = 0;
@@ -40,7 +43,7 @@ public class Skeleton : Mob
 				if (dir == Direction.W) Move (-1,0);
 				if (dir == Direction.E) Move (1,0);
 				
-				// decrement
+				// decrement timer
 				duration--;
 			}
 		}
