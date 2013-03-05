@@ -31,10 +31,8 @@ public class Dungeon
 	
 	private void Generate()
 	{
-		System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-		
 		// get random map
-		int mapNumber = rand.Next(1, _maxRoomTemplates + 1);
+		int mapNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
 		
 		// create initial map point
 		Map startMap = new Map("Maps/xelda_map"+mapNumber);
@@ -59,12 +57,12 @@ public class Dungeon
 			// generated max amount of rooms
 			if (maxPossibleConnections == 0) break;
 			
-			int todoConnections = rand.Next(1, maxPossibleConnections+1);
+			int todoConnections = XeldaGame.rand.Next(1, maxPossibleConnections+1);
 			// for each needed room, generate and connect the maps
 			for (int i = 0; i < todoConnections; i++)
 			{
 				Direction dir = CurrentMap.GetRandomDirectionForConnection();
-				mapNumber = rand.Next(1, _maxRoomTemplates + 1);
+				mapNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
 				Map map = new Map("Maps/xelda_map"+mapNumber, dir, MapList.IndexOf(CurrentMap));
 				SetDebugMapPosition(CurrentMap, map, dir);
 				MapList.Add(map);

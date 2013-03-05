@@ -6,8 +6,8 @@ using System;
 public class XeldaGame : MonoBehaviour {
 	
 	public static XeldaGame instance;
-		
 	private FContainer _currentPage;
+	public static System.Random rand;
 	
 	// Use this for initialization
 	void Start () {
@@ -23,6 +23,8 @@ public class XeldaGame : MonoBehaviour {
 		
 		Futile.instance.Init (fparams);
 		Futile.atlasManager.LoadAtlas("Atlases/Sprites");
+		
+		rand = new System.Random(System.DateTime.Now.Millisecond);
 		
 		// *** Goes to initial page ***
 		GoToTitlePage();

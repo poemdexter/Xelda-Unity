@@ -267,8 +267,7 @@ public class Map : FContainer
 	
 	public Direction GetRandomDirectionForConnection()
 	{
-		System.Random rand = new System.Random(System.DateTime.Now.Millisecond);
-		int r = rand.Next(GetPossibleConnectionCount());
+		int r = XeldaGame.rand.Next(GetPossibleConnectionCount());
 		return GetPossibleConnectionDirections()[r];
 	}
 	
@@ -280,7 +279,7 @@ public class Map : FContainer
 			switch (mob.mobState)
 			{
 			case MobState.Wander:
-				if (mob.WithinRangeOfPlayer())
+				if (mob.WithinRangeOfPlayer(player))
 				{
 					mob.mobState = MobState.Aggressive;
 					break;
@@ -291,19 +290,19 @@ public class Map : FContainer
 					break;
 				}
 			case MobState.Aggressive:
-				if (mob.CanAttackPlayer())
+				if (mob.CanAttackPlayer(player))
 				{
-					mob.AttackPlayer();
+					mob.AttackPlayer(player);
 					break;
 				}
-				else if (!mob.WithinRangeOfPlayer())
+				else if (!mob.WithinRangeOfPlayer(player))
 				{
 					mob.mobState = MobState.Wander;
 					break;
 				}
 				else
 				{
-					mob.MoveTowardsPlayer();
+					mob.MoveTowardsPlayer(player, this);
 					break;
 				}
 			}
