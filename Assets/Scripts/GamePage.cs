@@ -67,7 +67,7 @@ public class GamePage : FContainer
 			HandleInputs();
 			TestForCollisions();
 			HandleMovement();
-			_dungeon.CurrentMap.HandleMobAI(_player);
+			FSM_Manager.HandleMobAI(_player, _dungeon.CurrentMap);
 		}
 	}
 	

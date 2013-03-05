@@ -270,42 +270,4 @@ public class Map : FContainer
 		int r = XeldaGame.rand.Next(GetPossibleConnectionCount());
 		return GetPossibleConnectionDirections()[r];
 	}
-	
-	// *** CHECK OUT MY TERRIBLE FINITE STATE MACHINE HEH *** //
-	public void HandleMobAI(Mob player)
-	{
-		foreach (Mob mob in mobList)
-		{
-			switch (mob.mobState)
-			{
-			case MobState.Wander:
-				if (mob.WithinRangeOfPlayer(player))
-				{
-					mob.mobState = MobState.Aggressive;
-					break;
-				}
-				else 
-				{
-					mob.Wander(this);
-					break;
-				}
-			case MobState.Aggressive:
-				if (mob.CanAttackPlayer(player))
-				{
-					mob.AttackPlayer(player);
-					break;
-				}
-				else if (!mob.WithinRangeOfPlayer(player))
-				{
-					mob.mobState = MobState.Wander;
-					break;
-				}
-				else
-				{
-					mob.MoveTowardsPlayer(player, this);
-					break;
-				}
-			}
-		}
-	}
 }
