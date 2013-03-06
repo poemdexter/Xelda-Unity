@@ -69,7 +69,7 @@ public class DebugMapPage : FContainer
 	
 	private void showCollisionsWithMen()
 	{
-		foreach(collisionBox box in _dungeon.CurrentMap.collisionBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentMap.collisionBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;

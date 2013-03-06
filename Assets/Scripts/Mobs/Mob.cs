@@ -204,7 +204,7 @@ public class Mob : FSprite
 		if (d == Direction.E) collisionRect.x = collisionRect.x + _moveSpeed;
 		
 		// hit wall
-		foreach(collisionBox cbox in map.collisionBoxList)
+		foreach(CollisionBox cbox in map.collisionBoxList)
 		{
 			if (collisionRect.CheckIntersect(cbox.box))
 			{
@@ -215,7 +215,7 @@ public class Mob : FSprite
 		
 		// hit wall segment blocking passageway
 		// we don't care if it's active or not because we don't want mobs to try to transition
-		foreach(collisionBox cbox in map.passageObjectBoxList)
+		foreach(CollisionBox cbox in map.passageObjectBoxList)
 		{
 			if (collisionRect.CheckIntersect(cbox.box))
 			{

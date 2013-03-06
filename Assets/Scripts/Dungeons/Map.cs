@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class collisionBox
+public class CollisionBox : ObjectBox
+{
+	public bool active;
+}
+
+public class ObjectBox
 {
 	public Rect box;
 	public string name;
-	public string tip;
-	public bool active;
 }
 
 public enum Direction
@@ -29,10 +32,10 @@ public class Map : FContainer
 	public string mapName;
 	public Vector2 DebugMapPosition;
 	
-	private collisionBox _cbox;
-	public List<collisionBox> collisionBoxList = new List<collisionBox>();
-	public List<collisionBox> passageBoxList = new List<collisionBox>();
-	public List<collisionBox> passageObjectBoxList = new List<collisionBox>();
+	public List<CollisionBox> collisionBoxList = new List<CollisionBox>();
+	public List<CollisionBox> passageBoxList = new List<CollisionBox>();
+	public List<CollisionBox> passageObjectBoxList = new List<CollisionBox>();
+	public List<ObjectBox> enemySpawnBoxList = new List<ObjectBox>();
 	
 	public List<Mob> mobList = new List<Mob>();
 	
@@ -94,7 +97,7 @@ public class Map : FContainer
 					
 					if (objHash["type"].ToString().ToUpper().Equals("COLLISION"))
 					{
-						_cbox = new collisionBox();
+						CollisionBox _cbox = new CollisionBox();
 						_cbox.name = objHash["name"].ToString();
 						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
 						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
@@ -106,7 +109,7 @@ public class Map : FContainer
 					
 					if (objHash["type"].ToString().ToUpper().Equals("PASSAGE"))
 					{
-						_cbox = new collisionBox();
+						CollisionBox _cbox = new CollisionBox();
 						_cbox.name = objHash["name"].ToString();
 						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
 						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
@@ -118,7 +121,7 @@ public class Map : FContainer
 					
 					if (objHash["type"].ToString().ToUpper().Equals("PASSAGE_OBJECT"))
 					{
-						_cbox = new collisionBox();
+						CollisionBox _cbox = new CollisionBox();
 						_cbox.name = objHash["name"].ToString();
 						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
 						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
@@ -127,6 +130,18 @@ public class Map : FContainer
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
 						_cbox.active = true;
 						passageObjectBoxList.Add(_cbox);
+					}
+					
+					if (objHash["type"].ToString().ToUpper().Equals("ENEMY_SPAWN"))
+					{
+						ObjectBox obox = new ObjectBox();
+						obox.name = objHash["name"].ToString();
+						obox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
+						obox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						obox.box.width = (int.Parse(objHash["width"].ToString()) == 0) ? 1 : int.Parse(objHash["width"].ToString());
+						obox.box.height = (int.Parse(objHash["height"].ToString()) == 0) ? 1 : int.Parse(objHash["height"].ToString());
+						obox.box.y = obox.box.y - obox.box.height;
+						enemySpawnBoxList.Add(obox);
 					}
 				}
 			}
@@ -210,7 +225,7 @@ public class Map : FContainer
 	
 	public void AddPassageWalls()
 	{
-		foreach(collisionBox cb in passageObjectBoxList)
+		foreach(CollisionBox cb in passageObjectBoxList)
 		{
 			if (cb.active)
 			{

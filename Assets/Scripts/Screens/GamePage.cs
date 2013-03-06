@@ -107,7 +107,7 @@ public class GamePage : FContainer
 			collisionRect.y = collisionRect.y + _moveSpeed;
 			
 			// hit wall
-			foreach(collisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -117,7 +117,7 @@ public class GamePage : FContainer
 			}
 			
 			// hit wall segment blocking passageway
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -127,7 +127,7 @@ public class GamePage : FContainer
 			}
 			
 			// hit passageway
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -143,7 +143,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.y = collisionRect.y - _moveSpeed;
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -152,7 +152,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -161,7 +161,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -177,7 +177,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.x = collisionRect.x - _moveSpeed;
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -186,7 +186,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -195,7 +195,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -211,7 +211,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.x = collisionRect.x + _moveSpeed;
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -220,7 +220,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -229,7 +229,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(collisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -345,7 +345,7 @@ public class GamePage : FContainer
 	// debug method to overlay man with collision boxes
 	private void showCollisionsWithMen()
 	{
-		foreach(collisionBox box in _dungeon.CurrentMap.collisionBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentMap.collisionBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;
@@ -355,7 +355,7 @@ public class GamePage : FContainer
 			AddChild(cb);
 		}
 		
-		foreach(collisionBox box in _dungeon.CurrentMap.passageBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentMap.passageBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;
@@ -365,7 +365,7 @@ public class GamePage : FContainer
 			AddChild(cb);
 		}
 		
-		foreach(collisionBox box in _dungeon.CurrentMap.passageObjectBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentMap.passageObjectBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;
