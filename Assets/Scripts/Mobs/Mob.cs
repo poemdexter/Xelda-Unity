@@ -18,7 +18,9 @@ public class Mob : FSprite
 	protected double _hostileDistance;
 	protected double _attackDistance;
 	protected int duration = 0;
+	protected int a_duration = 0;
 	protected Direction dir;
+	protected Direction a_dir;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -50,7 +52,8 @@ public class Mob : FSprite
 	public virtual void Wander(Map map) 
 	{
 		// if we aren't moving
-		if (duration <= 0) {
+		if (duration <= 0) 
+		{
 			// select a random direction
 			dir = (Direction)XeldaGame.rand.Next(0,4);
 			
@@ -84,14 +87,34 @@ public class Mob : FSprite
 	
 	public virtual void MoveTowardsPlayer(Mob player, Map map)
 	{
-		Direction dir = getDirectionTowardsPlayer(player, map);
-		if (dir == Direction.N) Move (0,1);
-		if (dir == Direction.S) Move (0,-1);
-		if (dir == Direction.W) Move (-1,0);
-		if (dir == Direction.E) Move (1,0);
+		if (a_duration <= 0)
+		{
+			a_dir = getDirectionTowardsPlayer(player, map);
+			a_duration = 20;
+		}
+		else
+		{
+			if (CollisionOccurred(a_dir, map))
+			{
+				a_duration = 0;
+				return;
+			}
+			else
+			{
+				if (a_dir == Direction.N) Move (0,1);
+				if (a_dir == Direction.S) Move (0,-1);
+				if (a_dir == Direction.W) Move (-1,0);
+				if (a_dir == Direction.E) Move (1,0);
+				
+				a_duration--;
+			}
+		}
 	}
 	
-	public virtual void AttackPlayer(Mob player) {}
+	public virtual void AttackPlayer(Mob player) 
+	{
+		
+	}
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
 	
 	public void Move (float X, float Y)
@@ -102,7 +125,6 @@ public class Mob : FSprite
 		this.box.y = this.y + 4;
 	}
 	
-	// TODO: if we get collision, we need to pick a different direction
 	protected Direction getDirectionTowardsPlayer(Mob player, Map map)
 	{
 		float dx = this.x - player.x;
@@ -114,10 +136,26 @@ public class Mob : FSprite
 			if (dx >= 0)
 			{
 				if (!CollisionOccurred(Direction.W, map)) return Direction.W;
+				else if (dy >= 0)
+				{
+					if (!CollisionOccurred(Direction.S, map)) return Direction.S;
+				}
+				else
+				{
+					if (!CollisionOccurred(Direction.N, map)) return Direction.N;
+				}
 			}
 			else
 			{
 				if (!CollisionOccurred(Direction.E, map)) return Direction.E;
+				else if (dy >= 0)
+				{
+					if (!CollisionOccurred(Direction.S, map)) return Direction.S;
+				}
+				else
+				{
+					if (!CollisionOccurred(Direction.N, map)) return Direction.N;
+				}
 			}
 		}
 		else // player is further north/south than east/west
@@ -125,10 +163,26 @@ public class Mob : FSprite
 			if (dy >= 0)
 			{
 				if (!CollisionOccurred(Direction.S, map)) return Direction.S;
+				else if (dx >= 0)
+				{
+					if (!CollisionOccurred(Direction.W, map)) return Direction.W;
+				}
+				else
+				{
+					if (!CollisionOccurred(Direction.E, map)) return Direction.E;
+				}
 			}
 			else
 			{
 				if (!CollisionOccurred(Direction.N, map)) return Direction.N;
+				else if (dx >= 0)
+				{
+					if (!CollisionOccurred(Direction.W, map)) return Direction.W;
+				}
+				else
+				{
+					if (!CollisionOccurred(Direction.E, map)) return Direction.E;
+				}
 			}
 		}
 		return Direction.None;

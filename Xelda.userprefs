@@ -1,11 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Map.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Map.cs" Line="272" Column="3" />
-      <File FileName="Assets/Scripts/GamePage.cs" Line="70" Column="58" />
-      <File FileName="Assets/Scripts/Managers/FSM_Manager.cs" Line="40" Column="41" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
