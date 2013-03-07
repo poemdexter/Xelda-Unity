@@ -24,13 +24,13 @@ public enum Direction
 	None
 }
 
-public class Map : FContainer
+public class Room : FContainer
 {
 	private int _tileSize;
-	private int _mapWidth;
-	private int _mapHeight;
-	public string mapName;
-	public Vector2 DebugMapPosition;
+	private int _roomWidth;
+	private int _roomHeight;
+	public string roomName;
+	public Vector2 DebugRoomPosition;
 	
 	public List<CollisionBox> collisionBoxList = new List<CollisionBox>();
 	public List<CollisionBox> passageBoxList = new List<CollisionBox>();
@@ -46,25 +46,25 @@ public class Map : FContainer
 	
 	private FSprite _floorSprite;
 	
-	public Map (String mapFile, Direction linkedMapDirection, int linkedMapListIndex) : this(mapFile)
+	public Room (String roomFile, Direction linkedRoomDirection, int linkedRoomListIndex) : this(roomFile)
 	{
-		ConnectToParentMap(linkedMapDirection, linkedMapListIndex);
+		ConnectToParentRoom(linkedRoomDirection, linkedRoomListIndex);
 	}
 	
-	public Map (String mapFile)
+	public Room (String roomFile)
 	{
-		TextAsset dataAsset = (TextAsset) Resources.Load (mapFile, typeof(TextAsset));
+		TextAsset dataAsset = (TextAsset) Resources.Load (roomFile, typeof(TextAsset));
 		
-		if(!dataAsset) Debug.Log("missing map txt file.");
+		if(!dataAsset) Debug.Log("missing room txt file.");
 		
 		Dictionary<string,object> hash = dataAsset.text.dictionaryFromJson();
 		
-		// Map Metadata
-		_mapWidth = int.Parse(hash["width"].ToString());
-		_mapHeight = int.Parse(hash["height"].ToString());
+		// Room Metadata
+		_roomWidth = int.Parse(hash["width"].ToString());
+		_roomHeight = int.Parse(hash["height"].ToString());
 		_tileSize = int.Parse(hash["tilewidth"].ToString());
 		
-		//Debug.Log(_mapWidth +"||"+ _mapHeight +"||"+ _tileSize);
+		//Debug.Log(_roomWidth +"||"+ _roomHeight +"||"+ _tileSize);
 		
 		//List<object> tilesetsList = (List<object>)hash["tilesets"];
 		//Dictionary<string,object> tileset = (Dictionary<string,object>)tilesetsList[0];
@@ -73,8 +73,8 @@ public class Map : FContainer
 		//string [] pathSplit = elementPath.Split(new Char [] {'/'});
 		//string _tilesetElementName = pathSplit[pathSplit.Length-1];
 		
-		string[] pathSplit = mapFile.Split(new Char[] {'/'});
-		mapName = pathSplit[pathSplit.Length -1];
+		string[] pathSplit = roomFile.Split(new Char[] {'/'});
+		roomName = pathSplit[pathSplit.Length -1];
 		
 		List<object> layersList = (List<object>)hash["layers"];
 		
@@ -99,8 +99,8 @@ public class Map : FContainer
 					{
 						CollisionBox _cbox = new CollisionBox();
 						_cbox.name = objHash["name"].ToString();
-						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
-						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetRoomWidth() / 2);
+						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetRoomHeight() / 2));
 						_cbox.box.width = int.Parse(objHash["width"].ToString());
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
@@ -111,8 +111,8 @@ public class Map : FContainer
 					{
 						CollisionBox _cbox = new CollisionBox();
 						_cbox.name = objHash["name"].ToString();
-						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
-						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetRoomWidth() / 2);
+						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetRoomHeight() / 2));
 						_cbox.box.width = (int.Parse(objHash["width"].ToString()) == 0) ? 1 : int.Parse(objHash["width"].ToString());
 						_cbox.box.height = (int.Parse(objHash["height"].ToString()) == 0) ? 1 : int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
@@ -123,8 +123,8 @@ public class Map : FContainer
 					{
 						CollisionBox _cbox = new CollisionBox();
 						_cbox.name = objHash["name"].ToString();
-						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
-						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						_cbox.box.x = int.Parse(objHash["x"].ToString()) - (GetRoomWidth() / 2);
+						_cbox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetRoomHeight() / 2));
 						_cbox.box.width = int.Parse(objHash["width"].ToString());
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
@@ -136,8 +136,8 @@ public class Map : FContainer
 					{
 						ObjectBox obox = new ObjectBox();
 						obox.name = objHash["name"].ToString();
-						obox.box.x = int.Parse(objHash["x"].ToString()) - (GetMapWidth() / 2);
-						obox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetMapHeight() / 2));
+						obox.box.x = int.Parse(objHash["x"].ToString()) - (GetRoomWidth() / 2);
+						obox.box.y = -(int.Parse(objHash["y"].ToString()) - (GetRoomHeight() / 2));
 						obox.box.width = (int.Parse(objHash["width"].ToString()) == 0) ? 1 : int.Parse(objHash["width"].ToString());
 						obox.box.height = (int.Parse(objHash["height"].ToString()) == 0) ? 1 : int.Parse(objHash["height"].ToString());
 						obox.box.y = obox.box.y - obox.box.height;
@@ -148,7 +148,7 @@ public class Map : FContainer
 		}
 		
 		// non json related initiotion
-		_floorSprite = new FSprite(mapName + ".png");
+		_floorSprite = new FSprite(roomName + ".png");
 		AddChild(_floorSprite);
 		
 		// add mob
@@ -177,47 +177,47 @@ public class Map : FContainer
 		passageObjectBoxList[index].active = false;
 	}
 	
-	public void ConnectToParentMap(Direction parentMapDirection, int parentMapIndex)
+	public void ConnectToParentRoom(Direction parentRoomDirection, int parentRoomIndex)
 	{
-		switch (parentMapDirection)
+		switch (parentRoomDirection)
 		{
 		case Direction.N:
-			connected_S = parentMapIndex;
+			connected_S = parentRoomIndex;
 			RemoveWallForPassage("SOUTH");
 			break;
 		case Direction.S:
-			connected_N = parentMapIndex;
+			connected_N = parentRoomIndex;
 			RemoveWallForPassage("NORTH");
 			break;
 		case Direction.W:
-			connected_E = parentMapIndex;
+			connected_E = parentRoomIndex;
 			RemoveWallForPassage("EAST");
 			break;
 		case Direction.E:
-			connected_W = parentMapIndex;
+			connected_W = parentRoomIndex;
 			RemoveWallForPassage("WEST");
 			break;
 		}
 	}
 	
-	public void ConnectThisToNewMap(Direction linkedMapDirection, int linkedMapListIndex)
+	public void ConnectThisToNewRoom(Direction linkedRoomDirection, int linkedRoomListIndex)
 	{	
-		switch (linkedMapDirection)
+		switch (linkedRoomDirection)
 		{
 		case Direction.N:
-			connected_N = linkedMapListIndex;
+			connected_N = linkedRoomListIndex;
 			RemoveWallForPassage("NORTH");
 			break;
 		case Direction.S:
-			connected_S = linkedMapListIndex;
+			connected_S = linkedRoomListIndex;
 			RemoveWallForPassage("SOUTH");
 			break;
 		case Direction.W:
-			connected_W = linkedMapListIndex;
+			connected_W = linkedRoomListIndex;
 			RemoveWallForPassage("WEST");
 			break;
 		case Direction.E:
-			connected_E = linkedMapListIndex;
+			connected_E = linkedRoomListIndex;
 			RemoveWallForPassage("EAST");
 			break;
 		}
@@ -240,14 +240,14 @@ public class Map : FContainer
 		}
 	}
 		
-	public int GetMapHeight()
+	public int GetRoomHeight()
 	{
-		return _mapHeight * _tileSize;
+		return _roomHeight * _tileSize;
 	}
 	
-	public int GetMapWidth()
+	public int GetRoomWidth()
 	{
-		return _mapWidth * _tileSize;
+		return _roomWidth * _tileSize;
 	}
 	
 	public int GetPossibleConnectionCount()

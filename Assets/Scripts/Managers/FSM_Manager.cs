@@ -7,9 +7,9 @@ using System.Linq;
 public static class FSM_Manager
 {
 	// *** CHECK OUT MY TERRIBLE FINITE STATE MACHINE HEH *** //
-	public static void HandleMobAI(Mob player, Map map)
+	public static void HandleMobAI(Mob player, Room room)
 	{
-		foreach (Mob mob in map.mobList)
+		foreach (Mob mob in room.mobList)
 		{
 			switch (mob.mobState)
 			{
@@ -21,7 +21,7 @@ public static class FSM_Manager
 				}
 				else 
 				{
-					mob.Wander(map);
+					mob.Wander(room);
 					break;
 				}
 			case MobState.Aggressive:
@@ -37,7 +37,7 @@ public static class FSM_Manager
 				}
 				else
 				{
-					mob.MoveTowardsPlayer(player, map);
+					mob.MoveTowardsPlayer(player, room);
 					break;
 				}
 			}

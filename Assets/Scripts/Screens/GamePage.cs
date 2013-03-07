@@ -21,7 +21,7 @@ public class GamePage : FContainer
 	private bool _collideLeft = false;
 	private bool _collideRight = false;
 	
-	private Direction _mapTransitionDirection = Direction.None;
+	private Direction _roomTransitionDirection = Direction.None;
 	
 	private Mob _player;
 	
@@ -36,8 +36,8 @@ public class GamePage : FContainer
 		// create dungeon
 		_dungeon = new Dungeon(2);
 		
-		// set current map to draw
-		AddChild(_dungeon.CurrentMap);
+		// set current room to draw
+		AddChild(_dungeon.CurrentRoom);
 		
 		// create player
 		_player = new Mob("man", -10, 50);
@@ -61,13 +61,13 @@ public class GamePage : FContainer
 	
 	void HandleUpdate()
 	{
-		if (_mapTransitionDirection != Direction.None) DoMapTransition(_mapTransitionDirection);
+		if (_roomTransitionDirection != Direction.None) DoRoomTransition(_roomTransitionDirection);
 		else 
 		{
 			HandleInputs();
 			TestForCollisions();
 			HandleMovement();
-			FSM_Manager.HandleMobAI(_player, _dungeon.CurrentMap);
+			FSM_Manager.HandleMobAI(_player, _dungeon.CurrentRoom);
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class GamePage : FContainer
 			collisionRect.y = collisionRect.y + _moveSpeed;
 			
 			// hit wall
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -117,7 +117,7 @@ public class GamePage : FContainer
 			}
 			
 			// hit wall segment blocking passageway
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -127,13 +127,13 @@ public class GamePage : FContainer
 			}
 			
 			// hit passageway
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideUp = true;
-					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.TransitionMap, Direction.N);
+					_dungeon.PassageToConnectedRoom(cbox.name);
+					SwitchRoom(_dungeon.TransitionRoom, Direction.N);
 					break;
 				}
 			}
@@ -143,7 +143,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.y = collisionRect.y - _moveSpeed;
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -152,7 +152,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -161,13 +161,13 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideDown = true;
-					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.TransitionMap, Direction.S);
+					_dungeon.PassageToConnectedRoom(cbox.name);
+					SwitchRoom(_dungeon.TransitionRoom, Direction.S);
 					break;
 				}
 			}
@@ -177,7 +177,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.x = collisionRect.x - _moveSpeed;
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -186,7 +186,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -195,13 +195,13 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideLeft = true;
-					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.TransitionMap, Direction.W);
+					_dungeon.PassageToConnectedRoom(cbox.name);
+					SwitchRoom(_dungeon.TransitionRoom, Direction.W);
 					break;
 				}
 			}
@@ -211,7 +211,7 @@ public class GamePage : FContainer
 			Rect collisionRect = _player.box;
 			collisionRect.x = collisionRect.x + _moveSpeed;
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.collisionBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
@@ -220,7 +220,7 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageObjectBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageObjectBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box) && cbox.active)
 				{
@@ -229,44 +229,44 @@ public class GamePage : FContainer
 				}
 			}
 			
-			foreach(CollisionBox cbox in _dungeon.CurrentMap.passageBoxList)
+			foreach(CollisionBox cbox in _dungeon.CurrentRoom.passageBoxList)
 			{
 				if (collisionRect.CheckIntersect(cbox.box))
 				{
 					_collideRight = true;
-					_dungeon.PassageToConnectedMap(cbox.name);
-					SwitchMap(_dungeon.TransitionMap, Direction.E);
+					_dungeon.PassageToConnectedRoom(cbox.name);
+					SwitchRoom(_dungeon.TransitionRoom, Direction.E);
 					break;
 				}
 			}
 		}
 	}
 	
-	private void SwitchMap(Map map, Direction dir)
+	private void SwitchRoom(Room room, Direction dir)
 	{
-		// position map offset in direction we need
+		// position room offset in direction we need
 		switch (dir)
 		{
 		case Direction.N:
-			map.y += _dungeon.MapHeight;
+			room.y += _dungeon.RoomHeight;
 			break;
 		case Direction.S:
-			map.y -= _dungeon.MapHeight;
+			room.y -= _dungeon.RoomHeight;
 			break;
 		case Direction.W:
-			map.x -= _dungeon.MapWidth;
+			room.x -= _dungeon.RoomWidth;
 			break;
 		case Direction.E:
-			map.x += _dungeon.MapWidth;
+			room.x += _dungeon.RoomWidth;
 			break;
 		}
 		
-		// put up map we want to transition to
-		AddChildAtIndex(map, 0);
-		_mapTransitionDirection = dir;
+		// put up room we want to transition to
+		AddChildAtIndex(room, 0);
+		_roomTransitionDirection = dir;
 	}
 	
-	private void DoMapTransition(Direction dir)
+	private void DoRoomTransition(Direction dir)
 	{
 		float transitionSpeed = 4f;
 		float playerTransSpeed = .4f;
@@ -278,37 +278,37 @@ public class GamePage : FContainer
 		case Direction.N:
 			this.y -= transitionSpeed;
 			_player.Move(0, playerTransSpeed);
-			if (this.y <= -_dungeon.MapHeight)
+			if (this.y <= -_dungeon.RoomHeight)
 			{
-				ResetMapDrawn();
-				_mapTransitionDirection = Direction.None;
+				ResetRoomDrawn();
+				_roomTransitionDirection = Direction.None;
 			}
 			break;
 		case Direction.S:
 			this.y += transitionSpeed;
 			_player.Move(0, -playerTransSpeed);
-			if (this.y >= _dungeon.MapHeight)
+			if (this.y >= _dungeon.RoomHeight)
 			{
-				ResetMapDrawn();
-				_mapTransitionDirection = Direction.None;
+				ResetRoomDrawn();
+				_roomTransitionDirection = Direction.None;
 			}
 			break;
 		case Direction.W:
 			this.x += transitionSpeed;
 			_player.Move(-playerTransSpeed, 0);
-			if (this.x >= _dungeon.MapWidth)
+			if (this.x >= _dungeon.RoomWidth)
 			{
-				ResetMapDrawn();
-				_mapTransitionDirection = Direction.None;
+				ResetRoomDrawn();
+				_roomTransitionDirection = Direction.None;
 			}
 			break;
 		case Direction.E:
 			this.x -= transitionSpeed;
 			_player.Move(playerTransSpeed, 0);
-			if (this.x <= -_dungeon.MapWidth) 
+			if (this.x <= -_dungeon.RoomWidth) 
 			{
-				ResetMapDrawn();
-				_mapTransitionDirection = Direction.None;
+				ResetRoomDrawn();
+				_roomTransitionDirection = Direction.None;
 			}
 			break;
 		}
@@ -322,21 +322,21 @@ public class GamePage : FContainer
 		_keyRight = false;
 	}
 	
-	// removes the old map sprite and the temp new map sprite
+	// removes the old room sprite and the temp new room sprite
 	// resets camera back to origin and moves player as well
-	private void ResetMapDrawn()
+	private void ResetRoomDrawn()
 	{
 		// make transition the current and redraw
-		this.RemoveChild(_dungeon.CurrentMap);
-		_dungeon.ChangeTransitionToCurrentMap();
-		this.RemoveChild(_dungeon.TransitionMap);
-		this.AddChildAtIndex(_dungeon.CurrentMap,0);
+		this.RemoveChild(_dungeon.CurrentRoom);
+		_dungeon.ChangeTransitionToCurrentRoom();
+		this.RemoveChild(_dungeon.TransitionRoom);
+		this.AddChildAtIndex(_dungeon.CurrentRoom,0);
 		
 		// readjust player
 		int x = 0;
 		int y = 0;
-		if (this.x != 0) x = (this.x > 0) ? _dungeon.MapWidth : -_dungeon.MapWidth;
-		if (this.y != 0) y = (this.y > 0) ? _dungeon.MapHeight : -_dungeon.MapHeight;
+		if (this.x != 0) x = (this.x > 0) ? _dungeon.RoomWidth : -_dungeon.RoomWidth;
+		if (this.y != 0) y = (this.y > 0) ? _dungeon.RoomHeight : -_dungeon.RoomHeight;
 		_player.Move(x,y);
 		this.x = 0;
 		this.y = 0;
@@ -345,7 +345,7 @@ public class GamePage : FContainer
 	// debug method to overlay man with collision boxes
 	private void showCollisionsWithMen()
 	{
-		foreach(CollisionBox box in _dungeon.CurrentMap.collisionBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentRoom.collisionBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;
@@ -355,7 +355,7 @@ public class GamePage : FContainer
 			AddChild(cb);
 		}
 		
-		foreach(CollisionBox box in _dungeon.CurrentMap.passageBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentRoom.passageBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;
@@ -365,7 +365,7 @@ public class GamePage : FContainer
 			AddChild(cb);
 		}
 		
-		foreach(CollisionBox box in _dungeon.CurrentMap.passageObjectBoxList)
+		foreach(CollisionBox box in _dungeon.CurrentRoom.passageObjectBoxList)
 		{
 			FSprite cb = new FSprite("man.png");
 			cb.x = box.box.x;

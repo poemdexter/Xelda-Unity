@@ -7,9 +7,11 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
+                <Node name="Dungeons" expanded="True" />
                 <Node name="Managers" expanded="True" />
-                <Node name="Mobs" expanded="True">
-                  <Node name="Mob.cs" selected="True" />
+                <Node name="Mobs" expanded="True" />
+                <Node name="Screens" expanded="True">
+                  <Node name="TitlePage.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

@@ -28,7 +28,7 @@ public class XeldaGame : MonoBehaviour {
 		
 		// *** Goes to initial page ***
 		GoToTitlePage();
-		//GoToDebugMapPage();
+		//GoToDebugRoomPage();
 	}
 	
 	public void GoToTitlePage()
@@ -47,11 +47,11 @@ public class XeldaGame : MonoBehaviour {
 		Futile.stage.AddChild(_currentPage);
 	}
 	
-	public void GoToDebugMapPage()
+	public void GoToDebugRoomPage()
 	{
 		if (_currentPage != null) _currentPage.RemoveFromContainer();
 		
-		_currentPage = new DebugMapPage();
+		_currentPage = new DebugRoomPage();
 		Futile.stage.AddChild(_currentPage);
 	}
 	

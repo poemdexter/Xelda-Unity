@@ -49,7 +49,7 @@ public class Mob : FSprite
 		return (getDistanceToPlayer(player) < _attackDistance);
 	}
 	
-	public virtual void Wander(Map map) 
+	public virtual void Wander(Room room) 
 	{
 		// if we aren't moving
 		if (duration <= 0) 
@@ -58,7 +58,7 @@ public class Mob : FSprite
 			dir = (Direction)XeldaGame.rand.Next(0,4);
 			
 			// if collision, choose direction NOT in collision direction until we get a winner
-			while (CollisionOccurred(dir, map)) dir = (Direction)XeldaGame.rand.Next(0,4);
+			while (CollisionOccurred(dir, room)) dir = (Direction)XeldaGame.rand.Next(0,4);
 			
 			// select a random duration
 			duration = XeldaGame.rand.Next(50,200);
@@ -66,7 +66,7 @@ public class Mob : FSprite
 		else // we're moving
 		{
 			// if we hit something, restart the wandering process
-			if (CollisionOccurred(dir, map))
+			if (CollisionOccurred(dir, room))
 			{
 				duration = 0;
 				return;
@@ -85,16 +85,16 @@ public class Mob : FSprite
 		}
 	}
 	
-	public virtual void MoveTowardsPlayer(Mob player, Map map)
+	public virtual void MoveTowardsPlayer(Mob player, Room room)
 	{
 		if (a_duration <= 0)
 		{
-			a_dir = getDirectionTowardsPlayer(player, map);
+			a_dir = getDirectionTowardsPlayer(player, room);
 			a_duration = 20;
 		}
 		else
 		{
-			if (CollisionOccurred(a_dir, map))
+			if (CollisionOccurred(a_dir, room))
 			{
 				a_duration = 0;
 				return;
@@ -125,7 +125,7 @@ public class Mob : FSprite
 		this.box.y = this.y + 4;
 	}
 	
-	protected Direction getDirectionTowardsPlayer(Mob player, Map map)
+	protected Direction getDirectionTowardsPlayer(Mob player, Room room)
 	{
 		float dx = this.x - player.x;
 		float dy = this.y - player.y;
@@ -135,26 +135,26 @@ public class Mob : FSprite
 		{
 			if (dx >= 0)
 			{
-				if (!CollisionOccurred(Direction.W, map)) return Direction.W;
+				if (!CollisionOccurred(Direction.W, room)) return Direction.W;
 				else if (dy >= 0)
 				{
-					if (!CollisionOccurred(Direction.S, map)) return Direction.S;
+					if (!CollisionOccurred(Direction.S, room)) return Direction.S;
 				}
 				else
 				{
-					if (!CollisionOccurred(Direction.N, map)) return Direction.N;
+					if (!CollisionOccurred(Direction.N, room)) return Direction.N;
 				}
 			}
 			else
 			{
-				if (!CollisionOccurred(Direction.E, map)) return Direction.E;
+				if (!CollisionOccurred(Direction.E, room)) return Direction.E;
 				else if (dy >= 0)
 				{
-					if (!CollisionOccurred(Direction.S, map)) return Direction.S;
+					if (!CollisionOccurred(Direction.S, room)) return Direction.S;
 				}
 				else
 				{
-					if (!CollisionOccurred(Direction.N, map)) return Direction.N;
+					if (!CollisionOccurred(Direction.N, room)) return Direction.N;
 				}
 			}
 		}
@@ -162,26 +162,26 @@ public class Mob : FSprite
 		{
 			if (dy >= 0)
 			{
-				if (!CollisionOccurred(Direction.S, map)) return Direction.S;
+				if (!CollisionOccurred(Direction.S, room)) return Direction.S;
 				else if (dx >= 0)
 				{
-					if (!CollisionOccurred(Direction.W, map)) return Direction.W;
+					if (!CollisionOccurred(Direction.W, room)) return Direction.W;
 				}
 				else
 				{
-					if (!CollisionOccurred(Direction.E, map)) return Direction.E;
+					if (!CollisionOccurred(Direction.E, room)) return Direction.E;
 				}
 			}
 			else
 			{
-				if (!CollisionOccurred(Direction.N, map)) return Direction.N;
+				if (!CollisionOccurred(Direction.N, room)) return Direction.N;
 				else if (dx >= 0)
 				{
-					if (!CollisionOccurred(Direction.W, map)) return Direction.W;
+					if (!CollisionOccurred(Direction.W, room)) return Direction.W;
 				}
 				else
 				{
-					if (!CollisionOccurred(Direction.E, map)) return Direction.E;
+					if (!CollisionOccurred(Direction.E, room)) return Direction.E;
 				}
 			}
 		}
@@ -193,7 +193,7 @@ public class Mob : FSprite
 		return Math.Sqrt((this.x - player.x) * (this.x - player.x) + (this.y - player.y) * (this.y - player.y));
 	}
 	
-	protected bool CollisionOccurred(Direction d, Map map)
+	protected bool CollisionOccurred(Direction d, Room room)
 	{
 		Rect collisionRect = this.box;
 		bool collision = false;
@@ -204,7 +204,7 @@ public class Mob : FSprite
 		if (d == Direction.E) collisionRect.x = collisionRect.x + _moveSpeed;
 		
 		// hit wall
-		foreach(CollisionBox cbox in map.collisionBoxList)
+		foreach(CollisionBox cbox in room.collisionBoxList)
 		{
 			if (collisionRect.CheckIntersect(cbox.box))
 			{
@@ -215,7 +215,7 @@ public class Mob : FSprite
 		
 		// hit wall segment blocking passageway
 		// we don't care if it's active or not because we don't want mobs to try to transition
-		foreach(CollisionBox cbox in map.passageObjectBoxList)
+		foreach(CollisionBox cbox in room.passageObjectBoxList)
 		{
 			if (collisionRect.CheckIntersect(cbox.box))
 			{
