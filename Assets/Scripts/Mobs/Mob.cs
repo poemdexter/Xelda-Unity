@@ -92,23 +92,22 @@ public class Mob : FSprite
 			a_dir = getDirectionTowardsPlayer(player, room);
 			a_duration = 20;
 		}
+		
+		if (CollisionOccurred(a_dir, room))
+		{
+			a_duration = 0;
+			return;
+		}
 		else
 		{
-			if (CollisionOccurred(a_dir, room))
-			{
-				a_duration = 0;
-				return;
-			}
-			else
-			{
-				if (a_dir == Direction.N) Move (0,1);
-				if (a_dir == Direction.S) Move (0,-1);
-				if (a_dir == Direction.W) Move (-1,0);
-				if (a_dir == Direction.E) Move (1,0);
-				
-				a_duration--;
-			}
+			if (a_dir == Direction.N) Move (0,1);
+			if (a_dir == Direction.S) Move (0,-1);
+			if (a_dir == Direction.W) Move (-1,0);
+			if (a_dir == Direction.E) Move (1,0);
+			
+			a_duration--;
 		}
+		
 	}
 	
 	public virtual void AttackPlayer(Mob player) 

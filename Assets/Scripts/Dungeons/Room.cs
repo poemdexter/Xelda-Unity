@@ -36,7 +36,7 @@ public class Room : FContainer
 	public List<CollisionBox> passageBoxList = new List<CollisionBox>();
 	public List<CollisionBox> passageObjectBoxList = new List<CollisionBox>();
 	public List<ObjectBox> enemySpawnBoxList = new List<ObjectBox>();
-	
+	public ObjectBox playerSpawnBox;
 	public List<Mob> mobList = new List<Mob>();
 	
 	public int connected_N = -1;
@@ -143,6 +143,18 @@ public class Room : FContainer
 						obox.box.y = obox.box.y - obox.box.height;
 						enemySpawnBoxList.Add(obox);
 					}
+					
+					if (objHash["type"].ToString().ToUpper().Equals("PLAYER_SPAWN"))
+					{
+						ObjectBox spawn = new ObjectBox();
+						spawn.name = objHash["name"].ToString();
+						spawn.box.x = int.Parse(objHash["x"].ToString()) - (GetRoomWidth() / 2);
+						spawn.box.y = -(int.Parse(objHash["y"].ToString()) - (GetRoomHeight() / 2));
+						spawn.box.width = (int.Parse(objHash["width"].ToString()) == 0) ? 1 : int.Parse(objHash["width"].ToString());
+						spawn.box.height = (int.Parse(objHash["height"].ToString()) == 0) ? 1 : int.Parse(objHash["height"].ToString());
+						spawn.box.y = spawn.box.y - spawn.box.height;
+						playerSpawnBox = spawn;
+					}
 				}
 			}
 		}
@@ -151,10 +163,15 @@ public class Room : FContainer
 		_floorSprite = new FSprite(roomName + ".png");
 		AddChild(_floorSprite);
 		
-		// add mob
-		Skeleton skeleton = new Skeleton(35, 25);
-		mobList.Add(skeleton);
-		AddChild(skeleton);
+		// add mobs
+		foreach(ObjectBox spawner in enemySpawnBoxList)
+		{
+			int mx = (int)spawner.box.x;
+			int my = (int)spawner.box.y;
+			Skeleton skeleton = new Skeleton(mx, my);
+			mobList.Add(skeleton);
+			AddChild(skeleton);
+		}
 	}
 	
 	override public void HandleAddedToStage()
@@ -230,7 +247,12 @@ public class Room : FContainer
 			if (cb.active)
 			{
 				// draw a wall!
-				FSprite wall = new FSprite("wall_segment.png");
+				FSprite wall;
+				if (cb.name == "NORTH" || cb.name == "SOUTH") 
+					wall = new FSprite("wall_segment_NS.png");
+				else 
+					wall = new FSprite("wall_segment_EW.png");
+				
 				wall.x = cb.box.x;
 				wall.y = cb.box.y;
 				wall.anchorX = 0;

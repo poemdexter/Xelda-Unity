@@ -16,9 +16,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
 	"sourceSize": {"w":384,"h":384}
 },
+"room2.png":
+{
+	"frame": {"x":2,"y":388,"w":384,"h":384},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
+	"sourceSize": {"w":384,"h":384}
+},
 "start_down.png":
 {
-	"frame": {"x":2,"y":388,"w":122,"h":48},
+	"frame": {"x":388,"y":388,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -26,15 +34,23 @@
 },
 "start_up.png":
 {
-	"frame": {"x":126,"y":388,"w":122,"h":48},
+	"frame": {"x":2,"y":774,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
 	"sourceSize": {"w":122,"h":48}
 },
-"wall_segment.png":
+"wall_segment_EW.png":
 {
-	"frame": {"x":250,"y":388,"w":32,"h":32},
+	"frame": {"x":126,"y":774,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"wall_segment_NS.png":
+{
+	"frame": {"x":160,"y":774,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -45,8 +61,8 @@
 	"version": "1.0",
 	"image": "Sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3fec33ea7a9fe9a97255bcd8993e5d2a$"
+	"smartupdate": "$TexturePacker:SmartUpdate:795899629097f1540528e636cf52de0d$"
 }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="12" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="../../../../../../Applications/oryx_environment.tsx"/>
+ <tileset firstgid="257" source="../../../../../../Applications/oryx_environment_extras.tsx"/>
+ <layer name="Room" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdmAKxIRq2ReOboqm3JYAHs3pCamF4sLofPa6wxZchA3kAAJxvFpU=
+  </data>
+ </layer>
+ <layer name="Accessories" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAcmOBgIwMlRgYGWSBWYMQuPgpoD3DFDS5xYgAAEAEBdA==
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="12" height="12">
+  <object type="COLLISION" x="224" y="32" width="128" height="32"/>
+  <object type="COLLISION" x="320" y="64" width="32" height="128"/>
+  <object type="COLLISION" x="320" y="224" width="32" height="128"/>
+  <object type="COLLISION" x="224" y="320" width="96" height="32"/>
+  <object type="COLLISION" x="32" y="320" width="160" height="32"/>
+  <object type="COLLISION" x="32" y="224" width="32" height="96"/>
+  <object type="COLLISION" x="32" y="32" width="32" height="160"/>
+  <object type="COLLISION" x="64" y="32" width="128" height="32"/>
+  <object name="NORTH" type="PASSAGE_OBJECT" x="192" y="32" width="32" height="32"/>
+  <object name="NORTH" type="PASSAGE" x="192" y="0" width="32" height="32"/>
+  <object name="WEST" type="PASSAGE_OBJECT" x="32" y="192" width="32" height="32"/>
+  <object name="WEST" type="PASSAGE" x="0" y="192" width="32" height="32"/>
+  <object name="SOUTH" type="PASSAGE_OBJECT" x="192" y="320" width="32" height="32"/>
+  <object name="SOUTH" type="PASSAGE" x="192" y="352" width="32" height="32"/>
+  <object name="EAST" type="PASSAGE_OBJECT" x="320" y="192" width="32" height="32"/>
+  <object name="EAST" type="PASSAGE" x="352" y="192" width="32" height="32"/>
+  <object type="ENEMY_SPAWN" x="256" y="256" width="32" height="32"/>
+  <object type="COLLISION" x="256" y="64" width="64" height="32"/>
+  <object type="COLLISION" x="64" y="64" width="96" height="32"/>
+  <object type="PLAYER_SPAWN" x="192" y="160" width="32" height="32"/>
+  <object type="ENEMY_SPAWN" x="96" y="256" width="32" height="32"/>
+ </objectgroup>
+</map>

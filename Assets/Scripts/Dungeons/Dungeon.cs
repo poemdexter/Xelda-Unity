@@ -16,7 +16,7 @@ public class Dungeon
 	private int _currentRoomIndex;
 	
 	//*** NUMBER OF ROOM TEMPLATES
-	private int _maxRoomTemplates = 1;
+	private int _maxRoomTemplates = 2;
 
 	
 	public Dungeon (int maxRooms)

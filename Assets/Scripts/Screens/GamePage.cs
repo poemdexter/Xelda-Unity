@@ -40,7 +40,9 @@ public class GamePage : FContainer
 		AddChild(_dungeon.CurrentRoom);
 		
 		// create player
-		_player = new Mob("man", -10, 50);
+		int px = (int)_dungeon.CurrentRoom.playerSpawnBox.box.x;
+		int py = (int)_dungeon.CurrentRoom.playerSpawnBox.box.y;
+		_player = new Mob("man", px, py);
 		AddChild(_player);
 		
 		// *** debug to find collision boxes
