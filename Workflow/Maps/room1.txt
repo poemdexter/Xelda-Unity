@@ -1,9 +1,9 @@
 { "height":12,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 165, 165, 165, 165, 165, 177, 165, 165, 165, 165, 0, 0, 165, 177, 177, 177, 177, 177, 177, 177, 177, 165, 0, 0, 165, 177, 102, 102, 177, 177, 177, 177, 177, 165, 0, 0, 165, 177, 102, 102, 177, 177, 177, 177, 177, 165, 0, 0, 165, 177, 177, 177, 177, 177, 177, 177, 177, 165, 0, 0, 177, 177, 177, 177, 177, 177, 177, 177, 177, 177, 0, 0, 165, 177, 177, 177, 177, 177, 177, 177, 177, 165, 0, 0, 165, 177, 177, 177, 177, 177, 177, 177, 177, 165, 0, 0, 165, 177, 177, 177, 177, 177, 177, 177, 177, 165, 0, 0, 165, 165, 165, 165, 165, 177, 165, 165, 165, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 49, 49, 49, 49, 61, 49, 49, 49, 53, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 53, 61, 61, 61, 61, 61, 61, 61, 61, 53, 0, 0, 49, 49, 49, 49, 49, 61, 49, 49, 49, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
-         "name":"Tile Layer 1",
+         "name":"Room",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -12,7 +12,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 248, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 248, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 257, 257, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 260, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 282, 284, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "name":"Accessories",
          "opacity":1,
@@ -27,39 +27,16 @@
          "name":"Objects",
          "objects":[
                 {
-                 "height":64,
+                 "height":32,
                  "name":"",
                  "properties":
                     {
 
                     },
                  "type":"COLLISION",
-                 "width":64,
+                 "visible":true,
+                 "width":128,
                  "x":224,
-                 "y":224
-                }, 
-                {
-                 "height":64,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
-                 "width":64,
-                 "x":96,
-                 "y":96
-                }, 
-                {
-                 "height":160,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
-                 "width":32,
-                 "x":32,
                  "y":32
                 }, 
                 {
@@ -70,21 +47,10 @@
 
                     },
                  "type":"COLLISION",
-                 "width":32,
-                 "x":32,
-                 "y":224
-                }, 
-                {
-                 "height":160,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
+                 "visible":true,
                  "width":32,
                  "x":320,
-                 "y":32
+                 "y":64
                 }, 
                 {
                  "height":128,
@@ -94,6 +60,7 @@
 
                     },
                  "type":"COLLISION",
+                 "visible":true,
                  "width":32,
                  "x":320,
                  "y":224
@@ -106,6 +73,7 @@
 
                     },
                  "type":"COLLISION",
+                 "visible":true,
                  "width":96,
                  "x":224,
                  "y":320
@@ -118,11 +86,38 @@
 
                     },
                  "type":"COLLISION",
-                 "width":128,
-                 "x":64,
+                 "visible":true,
+                 "width":160,
+                 "x":32,
                  "y":320
                 }, 
                 {
+                 "height":96,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":224
+                }, 
+                {
+                 "height":160,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":32
+                }, 
+                {
                  "height":32,
                  "name":"",
                  "properties":
@@ -130,69 +125,10 @@
 
                     },
                  "type":"COLLISION",
+                 "visible":true,
                  "width":128,
                  "x":64,
                  "y":32
-                }, 
-                {
-                 "height":32,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"COLLISION",
-                 "width":96,
-                 "x":224,
-                 "y":32
-                }, 
-                {
-                 "height":32,
-                 "name":"WEST",
-                 "properties":
-                    {
-
-                    },
-                 "type":"PASSAGE_OBJECT",
-                 "width":32,
-                 "x":32,
-                 "y":192
-                }, 
-                {
-                 "height":32,
-                 "name":"WEST",
-                 "properties":
-                    {
-
-                    },
-                 "type":"PASSAGE",
-                 "width":32,
-                 "x":0,
-                 "y":192
-                }, 
-                {
-                 "height":32,
-                 "name":"EAST",
-                 "properties":
-                    {
-
-                    },
-                 "type":"PASSAGE",
-                 "width":32,
-                 "x":352,
-                 "y":192
-                }, 
-                {
-                 "height":32,
-                 "name":"EAST",
-                 "properties":
-                    {
-
-                    },
-                 "type":"PASSAGE_OBJECT",
-                 "width":32,
-                 "x":320,
-                 "y":192
                 }, 
                 {
                  "height":32,
@@ -202,6 +138,7 @@
 
                     },
                  "type":"PASSAGE_OBJECT",
+                 "visible":true,
                  "width":32,
                  "x":192,
                  "y":32
@@ -214,18 +151,46 @@
 
                     },
                  "type":"PASSAGE",
+                 "visible":true,
                  "width":32,
                  "x":192,
                  "y":0
                 }, 
                 {
                  "height":32,
+                 "name":"WEST",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE_OBJECT",
+                 "visible":true,
+                 "width":32,
+                 "x":32,
+                 "y":192
+                }, 
+                {
+                 "height":32,
+                 "name":"WEST",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":192
+                }, 
+                {
+                 "height":32,
                  "name":"SOUTH",
                  "properties":
                     {
 
                     },
                  "type":"PASSAGE_OBJECT",
+                 "visible":true,
                  "width":32,
                  "x":192,
                  "y":320
@@ -238,13 +203,105 @@
 
                     },
                  "type":"PASSAGE",
+                 "visible":true,
                  "width":32,
                  "x":192,
                  "y":352
+                }, 
+                {
+                 "height":32,
+                 "name":"EAST",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE_OBJECT",
+                 "visible":true,
+                 "width":32,
+                 "x":320,
+                 "y":192
+                }, 
+                {
+                 "height":32,
+                 "name":"EAST",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PASSAGE",
+                 "visible":true,
+                 "width":32,
+                 "x":352,
+                 "y":192
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"ENEMY_SPAWN",
+                 "visible":true,
+                 "width":32,
+                 "x":256,
+                 "y":96
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":64,
+                 "x":192,
+                 "y":224
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":64,
+                 "x":96,
+                 "y":96
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"COLLISION",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
+                 "y":128
+                }, 
+                {
+                 "height":32,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"PLAYER_SPAWN",
+                 "visible":true,
+                 "width":32,
+                 "x":192,
+                 "y":160
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "width":12,
          "x":0,
          "y":0
@@ -258,11 +315,27 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/orxy_env_tileset.png",
-         "imageheight":1024,
+         "image":"oryx_env.png",
+         "imageheight":512,
          "imagewidth":512,
          "margin":0,
-         "name":"orxy_env_tileset",
+         "name":"oryx_environment",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32,
+         "transparentcolor":"#000000"
+        }, 
+        {
+         "firstgid":257,
+         "image":"oryx_env_accessories.png",
+         "imageheight":224,
+         "imagewidth":384,
+         "margin":0,
+         "name":"oryx_environment_extras",
          "properties":
             {
 

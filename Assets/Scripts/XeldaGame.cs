@@ -6,8 +6,8 @@ using System;
 public class XeldaGame : MonoBehaviour {
 	
 	public static XeldaGame instance;
-		
 	private FContainer _currentPage;
+	public static System.Random rand;
 	
 	// Use this for initialization
 	void Start () {
@@ -24,9 +24,11 @@ public class XeldaGame : MonoBehaviour {
 		Futile.instance.Init (fparams);
 		Futile.atlasManager.LoadAtlas("Atlases/Sprites");
 		
+		rand = new System.Random(System.DateTime.Now.Millisecond);
+		
 		// *** Goes to initial page ***
 		GoToTitlePage();
-		//GoToDebugMapPage();
+		//GoToDebugRoomPage();
 	}
 	
 	public void GoToTitlePage()
@@ -45,11 +47,11 @@ public class XeldaGame : MonoBehaviour {
 		Futile.stage.AddChild(_currentPage);
 	}
 	
-	public void GoToDebugMapPage()
+	public void GoToDebugRoomPage()
 	{
 		if (_currentPage != null) _currentPage.RemoveFromContainer();
 		
-		_currentPage = new DebugMapPage();
+		_currentPage = new DebugRoomPage();
 		Futile.stage.AddChild(_currentPage);
 	}
 	
