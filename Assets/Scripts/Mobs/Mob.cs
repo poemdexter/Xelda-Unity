@@ -21,7 +21,11 @@ public class Mob : FSprite
 	protected int a_duration = 0;
 	protected Direction dir;
 	protected Direction a_dir;
+	
+	// combat related
 	protected int HP;
+	protected int AttackPower;
+	public bool Alive;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -37,6 +41,7 @@ public class Mob : FSprite
 		box.height = this.height - 8;
 		
 		mobState = MobState.Wander;
+		Alive = true;
 	}
 	
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
@@ -110,11 +115,18 @@ public class Mob : FSprite
 		
 	}
 	
-	public virtual void AttackPlayer(Mob player) 
+	public virtual void Attack(Mob mob) 
 	{
-		
+		mob.TakeDamage(AttackPower);
 	}
+	
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
+	
+	public void TakeDamage(int amount)
+	{
+		HP -= amount;
+		if (HP <= 0) Alive = false;
+	}
 	
 	public void Move (float X, float Y)
 	{

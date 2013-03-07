@@ -9,6 +9,7 @@ public class GamePage : FContainer
 	private bool _keyDown = false;
 	private bool _keyLeft = false;
 	private bool _keyRight = false;
+	private bool _keySpace = false;
 	
 	private bool _collideUp = false;
 	private bool _collideDown = false;
@@ -17,7 +18,7 @@ public class GamePage : FContainer
 	
 	private Direction _roomTransitionDirection = Direction.None;
 	
-	private Mob _player;
+	private Player _player;
 	
 	private float _moveSpeed = 2f;
 	
@@ -61,9 +62,19 @@ public class GamePage : FContainer
 		else 
 		{
 			HandleInputs();
+			HandleAttacking();
 			TestForCollisions();
 			HandleMovement();
 			FSM_Manager.HandleMobAI(_player, _dungeon.CurrentRoom);
+		}
+	}
+	
+	private void HandleAttacking()
+	{
+		if (_keySpace) // player hits attack button
+		{
+			_dungeon.CurrentRoom.attackBoxList.Add(_player.UseWeapon(_dungeon.CurrentRoom));
+			_keySpace = false;
 		}
 	}
 	
@@ -74,12 +85,14 @@ public class GamePage : FContainer
 		if (Input.GetKeyDown(KeyCode.S)) _keyDown = true;
 		if (Input.GetKeyDown(KeyCode.A)) _keyLeft = true;
 		if (Input.GetKeyDown(KeyCode.D)) _keyRight = true;
+		if (Input.GetKeyDown(KeyCode.Space)) _keySpace = true;
 		
 		// let go of key
 		if (Input.GetKeyUp(KeyCode.W)) _keyUp = false;
 		if (Input.GetKeyUp(KeyCode.S)) _keyDown = false;
 		if (Input.GetKeyUp(KeyCode.A)) _keyLeft = false;
 		if (Input.GetKeyUp(KeyCode.D)) _keyRight = false;
+		if (Input.GetKeyUp(KeyCode.Space)) _keySpace = false;
 	}
 	
 	void HandleMovement()
@@ -88,6 +101,15 @@ public class GamePage : FContainer
 		if (_keyDown && !_collideDown)   _player.Move(0, -_moveSpeed);
 		if (_keyLeft && !_collideLeft)   _player.Move(-_moveSpeed, 0);
 		if (_keyRight && !_collideRight) _player.Move(_moveSpeed, 0);
+	}
+	
+	private void resetKeys()
+	{
+		_keyUp = false;
+		_keyDown = false;
+ 		_keyLeft = false;
+		_keyRight = false;
+		_keySpace = false;
 	}
 	
 	void TestForCollisions()
@@ -308,14 +330,6 @@ public class GamePage : FContainer
 			}
 			break;
 		}
-	}
-	
-	private void resetKeys()
-	{
-		_keyUp = false;
-		_keyDown = false;
- 		_keyLeft = false;
-		_keyRight = false;
 	}
 	
 	// removes the old room sprite and the temp new room sprite

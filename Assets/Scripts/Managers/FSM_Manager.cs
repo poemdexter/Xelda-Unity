@@ -27,7 +27,7 @@ public static class FSM_Manager
 			case MobState.Aggressive:
 				if (mob.CanAttackPlayer(player))
 				{
-					mob.AttackPlayer(player);
+					mob.Attack(player);
 					break;
 				}
 				else if (!mob.WithinRangeOfPlayer(player))

@@ -15,6 +15,12 @@ public class ObjectBox
 	public string name;
 }
 
+public class AttackBox
+{
+	public Rect box;
+	public int Damage;
+}
+
 public enum Direction
 {
 	N,
@@ -38,6 +44,7 @@ public class Room : FContainer
 	public List<ObjectBox> enemySpawnBoxList = new List<ObjectBox>();
 	public ObjectBox playerSpawnBox;
 	public List<Mob> mobList = new List<Mob>();
+	public List<AttackBox> attackBoxList = new List<AttackBox>();
 	
 	public int connected_N = -1;
 	public int connected_S = -1;
@@ -186,7 +193,37 @@ public class Room : FContainer
 		base.HandleRemovedFromStage();
 	}
 	
-	void HandleUpdate() {}
+	void HandleUpdate() 
+	{
+		// check if mobs are getting hit with collision boxes of player attacks
+		CheckMobCollisionWithPlayerAttacks();
+		
+		// make sure mobs are still alive else remove them.
+		CheckForDeadMobs();
+	}
+	
+	private void CheckMobCollisionWithPlayerAttacks()
+	{
+		foreach(Mob mob in mobList)
+		{
+			foreach(AttackBox abox in attackBoxList)
+			{
+				if (abox.box.CheckIntersect(mob.box)) mob.TakeDamage(abox.Damage);
+			}
+		}
+	}
+	
+	private void CheckForDeadMobs()
+	{
+		for(int x = mobList.Count - 1; x >= 0; x--)
+		{
+			if (!mobList[x].Alive)
+			{
+				RemoveChild(mobList[x]);
+				mobList.Remove(mobList[x]);
+			}
+		}
+	}
 	
 	private void RemoveWallForPassage(String direction)
 	{
