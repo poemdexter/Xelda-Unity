@@ -14,13 +14,14 @@ public class Mob : FSprite
 	public Rect box;
 	public string name;
 	public MobState mobState;
-	protected float _moveSpeed;
-	protected double _hostileDistance;
-	protected double _attackDistance;
+	protected float moveSpeed;
+	protected double hostileDistance;
+	protected double attackDistance;
 	protected int duration = 0;
 	protected int a_duration = 0;
 	protected Direction dir;
 	protected Direction a_dir;
+	protected int HP;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -41,12 +42,12 @@ public class Mob : FSprite
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
 	public virtual bool WithinRangeOfPlayer(Mob player) 
 	{
-		return (getDistanceToPlayer(player) < _hostileDistance);
+		return (getDistanceToPlayer(player) < hostileDistance);
 	}
 	
 	public virtual bool CanAttackPlayer(Mob player) 
 	{
-		return (getDistanceToPlayer(player) < _attackDistance);
+		return (getDistanceToPlayer(player) < attackDistance);
 	}
 	
 	public virtual void Wander(Room room) 
@@ -91,8 +92,7 @@ public class Mob : FSprite
 		{
 			a_dir = getDirectionTowardsPlayer(player, room);
 			a_duration = 20;
-		}
-		
+		}		
 		if (CollisionOccurred(a_dir, room))
 		{
 			a_duration = 0;
@@ -197,10 +197,10 @@ public class Mob : FSprite
 		Rect collisionRect = this.box;
 		bool collision = false;
 	
-		if (d == Direction.N) collisionRect.y = collisionRect.y + _moveSpeed;
-		if (d == Direction.S) collisionRect.y = collisionRect.y - _moveSpeed;
-		if (d == Direction.W) collisionRect.x = collisionRect.x - _moveSpeed;
-		if (d == Direction.E) collisionRect.x = collisionRect.x + _moveSpeed;
+		if (d == Direction.N) collisionRect.y = collisionRect.y + moveSpeed;
+		if (d == Direction.S) collisionRect.y = collisionRect.y - moveSpeed;
+		if (d == Direction.W) collisionRect.x = collisionRect.x - moveSpeed;
+		if (d == Direction.E) collisionRect.x = collisionRect.x + moveSpeed;
 		
 		// hit wall
 		foreach(CollisionBox cbox in room.collisionBoxList)

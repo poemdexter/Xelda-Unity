@@ -3,12 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public struct Player
-{
-	public Rect box;
-	public string name;
-}
-
 public class GamePage : FContainer
 {
 	private bool _keyUp = false;
@@ -42,7 +36,7 @@ public class GamePage : FContainer
 		// create player
 		int px = (int)_dungeon.CurrentRoom.playerSpawnBox.box.x;
 		int py = (int)_dungeon.CurrentRoom.playerSpawnBox.box.y;
-		_player = new Mob("man", px, py);
+		_player = new Player(px, py);
 		AddChild(_player);
 		
 		// *** debug to find collision boxes
