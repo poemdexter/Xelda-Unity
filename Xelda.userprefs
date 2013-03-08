@@ -1,12 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Mobs/Player.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Dungeons/Room.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Mobs/Mob.cs" Line="118" Column="3" />
-      <File FileName="Assets/Scripts/Mobs/Skeleton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Mobs/Player.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -14,10 +8,10 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Dungeons" expanded="True" />
-                <Node name="Managers" expanded="True" />
-                <Node name="Mobs" expanded="True">
-                  <Node name="Player.cs" selected="True" />
+                <Node name="Managers" expanded="True">
+                  <Node name="Combat_Manager.cs" selected="True" />
                 </Node>
+                <Node name="Mobs" expanded="True" />
                 <Node name="Screens" expanded="True" />
               </Node>
             </Node>

@@ -14,6 +14,7 @@ public class Mob : FSprite
 	public Rect box;
 	public string name;
 	public MobState mobState;
+	
 	protected float moveSpeed;
 	protected double hostileDistance;
 	protected double attackDistance;
@@ -23,9 +24,11 @@ public class Mob : FSprite
 	protected Direction a_dir;
 	
 	// combat related
-	protected int HP;
-	protected int AttackPower;
+	public int HP;
+	public int AttackPower;
 	public bool Alive;
+	public int attackDelay = 0;
+	public int attackDelayTime = 50;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -52,7 +55,16 @@ public class Mob : FSprite
 	
 	public virtual bool CanAttackPlayer(Mob player) 
 	{
-		return (getDistanceToPlayer(player) < attackDistance);
+		if (attackDelay <= 0 && getDistanceToPlayer(player) < attackDistance)
+		{
+			attackDelay = attackDelayTime;
+			return true;
+		}
+		else
+		{
+			attackDelay--;
+			return false;
+		}
 	}
 	
 	public virtual void Wander(Room room) 
@@ -115,6 +127,7 @@ public class Mob : FSprite
 		
 	}
 	
+	// handles the actual attack animation or creation of projectiles
 	public virtual void Attack(Mob mob) 
 	{
 		mob.TakeDamage(AttackPower);
