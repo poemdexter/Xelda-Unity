@@ -38,7 +38,15 @@ public class Room : FContainer
 	public List<ObjectBox> enemySpawnBoxList = new List<ObjectBox>();
 	public ObjectBox playerSpawnBox;
 	public List<Mob> mobList = new List<Mob>();
-	public List<AttackBox> attackBoxList = new List<AttackBox>();
+	public List<Projectile> projectileList = new List<Projectile>();
+	
+	public List<CollisionBox> NonMobCollidables
+	{
+		get
+		{
+			return collisionBoxList.Concat(passageObjectBoxList).ToList();
+		}
+	}
 	
 	public int connected_N = -1;
 	public int connected_S = -1;
@@ -105,6 +113,7 @@ public class Room : FContainer
 						_cbox.box.width = int.Parse(objHash["width"].ToString());
 						_cbox.box.height = int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
+						_cbox.active = true;
 						collisionBoxList.Add(_cbox);
 					}
 					
@@ -117,6 +126,7 @@ public class Room : FContainer
 						_cbox.box.width = (int.Parse(objHash["width"].ToString()) == 0) ? 1 : int.Parse(objHash["width"].ToString());
 						_cbox.box.height = (int.Parse(objHash["height"].ToString()) == 0) ? 1 : int.Parse(objHash["height"].ToString());
 						_cbox.box.y = _cbox.box.y - _cbox.box.height;
+						_cbox.active = true;
 						passageBoxList.Add(_cbox);
 					}
 					
@@ -307,5 +317,17 @@ public class Room : FContainer
 	{
 		int r = XeldaGame.rand.Next(GetPossibleConnectionCount());
 		return GetPossibleConnectionDirections()[r];
+	}
+	
+	public void AddProjectile(Projectile p)
+	{
+		projectileList.Add(p);
+		AddChild(p);
+	}
+	
+	public void RemoveProjectile(Projectile p)
+	{
+		projectileList.Remove(p);
+		RemoveChild(p);
 	}
 }

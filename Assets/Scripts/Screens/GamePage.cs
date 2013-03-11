@@ -66,8 +66,9 @@ public class GamePage : FContainer
 			TestForPlayerCollisionsWithEnvironment();
 			HandlePlayerMovement();
 			FSM_Manager.HandleMobAI(player, _dungeon.CurrentRoom);
+			Combat_Manager.HandleProjectileMovement(_dungeon.CurrentRoom);
 			Combat_Manager.CheckCombatCollisions(player, _dungeon.CurrentRoom);
-			Combat_Manager.CheckForDeadAttackBoxes(_dungeon.CurrentRoom);
+			Combat_Manager.CheckForDeadProjectiles(_dungeon.CurrentRoom);
 			Combat_Manager.CheckForDeadMobs(_dungeon.CurrentRoom);
 			
 			// ** HANDLE PLAYER DEATH SOMETIME
@@ -88,12 +89,28 @@ public class GamePage : FContainer
 	void HandleInputs()
 	{
 		// pushed key
-		if (Input.GetKeyDown(KeyCode.W)) _keyUp = true;				// up
-		if (Input.GetKeyDown(KeyCode.S)) _keyDown = true;			// down
-		if (Input.GetKeyDown(KeyCode.A)) _keyLeft = true;			// left
-		if (Input.GetKeyDown(KeyCode.D)) _keyRight = true;			// right
+		if (Input.GetKeyDown(KeyCode.W)) // up
+		{
+			_keyUp = true;
+			player.Facing = Direction.N;
+		}
+		if (Input.GetKeyDown(KeyCode.S)) // down
+		{
+			_keyDown = true;
+			player.Facing = Direction.S;
+		}
+		if (Input.GetKeyDown(KeyCode.A)) // left
+		{
+			_keyLeft = true;
+			player.Facing = Direction.W;
+		}
+		if (Input.GetKeyDown(KeyCode.D)) // right
+		{
+			_keyRight = true;
+			player.Facing = Direction.E;
+		}
 	
-		if (Input.GetKeyDown(KeyCode.Space)) _keySpace = true;		// attack
+		if (Input.GetKeyDown(KeyCode.Space)) _keySpace = true; // attack
 		
 		// let go of key
 		if (Input.GetKeyUp(KeyCode.W)) _keyUp = false;

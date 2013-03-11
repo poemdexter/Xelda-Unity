@@ -3,85 +3,77 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class AttackBox
-{
-	public Rect box;
-	public int Damage;
-	public Mob owner;
-	public bool alive;
-	public AttackType attackType;
-}
-
-public enum AttackType
-{
-	Melee,
-	Ranged
-}
-
 public static class Combat_Manager
 {
+	public static void HandleProjectileMovement (Room currentRoom)
+	{
+		foreach(Projectile p in currentRoom.projectileList)
+		{
+			if (p.Facing == Direction.N) p.Move(0,1);
+			if (p.Facing == Direction.S) p.Move(0,-1);
+			if (p.Facing == Direction.W) p.Move(-1,0);
+			if (p.Facing == Direction.E) p.Move(1,0);
+		}
+	}
+	
 	public static void PlayerAttack(Player player, Room room)
 	{
-		// create collision box in room
-		AttackBox abox = new AttackBox();
-		abox.box = player.box;
-		abox.Damage = player.AttackPower;
-		abox.owner = player;
-		abox.alive = true;
-		abox.attackType = AttackType.Melee;
-		room.attackBoxList.Add(abox);
+		// create projectile box in room
+		Projectile proj = new Projectile(player);
+		room.AddProjectile(proj);
 	}
 	
 	public static void MobAttackPlayer(Mob mob, Player player, Room room)
 	{
 		// create collision box in room
-		AttackBox abox = new AttackBox();
-		abox.box = mob.box;
-		abox.Damage = mob.AttackPower;
-		abox.owner = mob;
-		abox.alive = true;
-		abox.attackType = AttackType.Melee;
-		room.attackBoxList.Add(abox);
+		Projectile proj = new Projectile(mob);
+		room.AddProjectile(proj);
 	}
 	
 	public static void CheckCombatCollisions(Player player, Room room)
 	{
-		// check collisions of attacks against mobs
-		foreach (Mob mob in room.mobList)
-		{
-			foreach (AttackBox abox in room.attackBoxList)
-			{
-				// player attack hit mob
-				if (abox.alive && abox.owner == player && abox.box.CheckIntersect(mob.box))
-				{
-					mob.HP -= abox.Damage;
-					if (mob.HP <= 0) mob.Alive = false;
-					abox.alive = false;
-				}
-			}
-		}
-		
-		// check collisions of attacks against player
-		foreach (AttackBox abox in room.attackBoxList)
+		// check collisions of projectiles
+		foreach (Projectile p in room.projectileList)
 		{
 			// mob attack hits player
-			if (abox.alive && abox.owner != player && abox.box.CheckIntersect(player.box))
+			if (p.Alive && p.Owner != player && p.Box.CheckIntersect(player.box))
 			{
-				player.HP -= abox.Damage;
+				player.HP -= p.Damage;
 				if (player.HP <= 0) player.Alive = false;
-				abox.alive = false;
+				p.Alive = false;
+			}
+				
+			foreach (Mob mob in room.mobList)
+			{	
+				// player attack hit mob
+				if (p.Alive && p.Owner == player && p.Box.CheckIntersect(mob.box))
+				{
+					mob.HP -= p.Damage;
+					if (mob.HP <= 0) mob.Alive = false;
+					p.Alive = false;
+				}
+			}
+			
+			// projectile hit wall or other non mob entity
+			foreach (CollisionBox box in room.NonMobCollidables)
+			{
+				if (p.Alive && box.active && p.Box.CheckIntersect(box.box))
+				{
+					Debug.Log("p hit wall");
+					p.Alive = false;
+				}
 			}
 		}
 	}
 	
-	public static void CheckForDeadAttackBoxes(Room room)
+	public static void CheckForDeadProjectiles(Room room)
 	{
-		for(int x = room.attackBoxList.Count - 1; x >= 0; x--)
+		for(int x = room.projectileList.Count - 1; x >= 0; x--)
 		{
-			// if attack is dead or melee, get rid of it.  melee attacks only last 1 frame atm
-			if (!room.attackBoxList[x].alive || room.attackBoxList[x].attackType == AttackType.Melee)
+			// if projectile is dead, remove it
+			if (!room.projectileList[x].Alive)
 			{
-				room.attackBoxList.Remove(room.attackBoxList[x]);
+				room.RemoveProjectile(room.projectileList[x]);
 			}
 		}
 	}

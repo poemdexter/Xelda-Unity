@@ -14,13 +14,13 @@ public class Mob : FSprite
 	public Rect box;
 	public string name;
 	public MobState mobState;
+	public Direction Facing {get; set;}
 	
 	protected float moveSpeed;
 	protected double hostileDistance;
 	protected double attackDistance;
 	protected int duration = 0;
 	protected int a_duration = 0;
-	protected Direction dir;
 	protected Direction a_dir;
 	
 	// combat related
@@ -43,6 +43,7 @@ public class Mob : FSprite
 		box.width = this.width - 8;
 		box.height = this.height - 8;
 		
+		Facing = Direction.S;
 		mobState = MobState.Wander;
 		Alive = true;
 	}
@@ -69,6 +70,8 @@ public class Mob : FSprite
 	
 	public virtual void Wander(Room room) 
 	{
+		Direction dir = Direction.None;
+		
 		// if we aren't moving
 		if (duration <= 0) 
 		{
@@ -80,11 +83,14 @@ public class Mob : FSprite
 			
 			// select a random duration
 			duration = XeldaGame.rand.Next(50,200);
+			
+			// set facing direction
+			this.Facing = dir;
 		}
 		else // we're moving
 		{
 			// if we hit something, restart the wandering process
-			if (CollisionOccurred(dir, room))
+			if (CollisionOccurred(this.Facing, room))
 			{
 				duration = 0;
 				return;
@@ -92,10 +98,10 @@ public class Mob : FSprite
 			else
 			{
 				// move in that direction
-				if (dir == Direction.N) Move (0,1);
-				if (dir == Direction.S) Move (0,-1);
-				if (dir == Direction.W) Move (-1,0);
-				if (dir == Direction.E) Move (1,0);
+				if (this.Facing == Direction.N) Move (0,1);
+				if (this.Facing == Direction.S) Move (0,-1);
+				if (this.Facing == Direction.W) Move (-1,0);
+				if (this.Facing == Direction.E) Move (1,0);
 				
 				// decrement timer
 				duration--;
@@ -103,43 +109,32 @@ public class Mob : FSprite
 		}
 	}
 	
+	// added a duration so that mob isn't gyrating diagonally
 	public virtual void MoveTowardsPlayer(Mob player, Room room)
 	{
 		if (a_duration <= 0)
 		{
-			a_dir = getDirectionTowardsPlayer(player, room);
+			this.Facing = getDirectionTowardsPlayer(player, room);
 			a_duration = 20;
 		}		
-		if (CollisionOccurred(a_dir, room))
+		if (CollisionOccurred(this.Facing, room))
 		{
 			a_duration = 0;
 			return;
 		}
 		else
 		{
-			if (a_dir == Direction.N) Move (0,1);
-			if (a_dir == Direction.S) Move (0,-1);
-			if (a_dir == Direction.W) Move (-1,0);
-			if (a_dir == Direction.E) Move (1,0);
+			if (this.Facing == Direction.N) Move (0,1);
+			if (this.Facing == Direction.S) Move (0,-1);
+			if (this.Facing == Direction.W) Move (-1,0);
+			if (this.Facing == Direction.E) Move (1,0);
 			
 			a_duration--;
 		}
 		
 	}
 	
-	// handles the actual attack animation or creation of projectiles
-	public virtual void Attack(Mob mob) 
-	{
-		mob.TakeDamage(AttackPower);
-	}
-	
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
-	
-	public void TakeDamage(int amount)
-	{
-		HP -= amount;
-		if (HP <= 0) Alive = false;
-	}
 	
 	public void Move (float X, float Y)
 	{
