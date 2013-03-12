@@ -10,8 +10,9 @@
                 <Node name="Dungeons" expanded="True" />
                 <Node name="Managers" expanded="True" />
                 <Node name="Mobs" expanded="True" />
-                <Node name="Screens" expanded="True">
-                  <Node name="TitlePage.cs" selected="True" />
+                <Node name="Screens" expanded="True" />
+                <Node name="Weapons" expanded="True">
+                  <Node name="Projectile.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

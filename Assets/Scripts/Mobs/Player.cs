@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Skeleton : Mob
+public class Player : Mob
 {
-	public Skeleton (int x, int y) : base("skeleton", x, y) 
+	public Player (int x, int y) : base("man", x, y) 
 	{
 		moveSpeed = 2f;
 		hostileDistance = 100.0;
+		attackDistance = 30.0;
 		HP = 3;
-		AttackPower = 1;
+		AttackPower = 3;
+		CanAttack = true;
 	}
 }

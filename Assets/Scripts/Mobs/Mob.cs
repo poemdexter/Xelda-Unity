@@ -14,13 +14,22 @@ public class Mob : FSprite
 	public Rect box;
 	public string name;
 	public MobState mobState;
-	protected float _moveSpeed;
-	protected double _hostileDistance;
-	protected double _attackDistance;
+	public Direction Facing {get; set;}
+	
+	protected float moveSpeed;
+	protected double hostileDistance;
 	protected int duration = 0;
 	protected int a_duration = 0;
-	protected Direction dir;
 	protected Direction a_dir;
+	
+	// combat related
+	public int HP;
+	public int AttackPower;
+	public bool Alive;
+	public int attackDelay = 0;
+	public int attackDelayTime = 50;
+	protected bool CanAttack = false;
+	protected double attackDistance = 0;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -35,22 +44,35 @@ public class Mob : FSprite
 		box.width = this.width - 8;
 		box.height = this.height - 8;
 		
+		Facing = Direction.S;
 		mobState = MobState.Wander;
+		Alive = true;
 	}
 	
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
 	public virtual bool WithinRangeOfPlayer(Mob player) 
 	{
-		return (getDistanceToPlayer(player) < _hostileDistance);
+		return (getDistanceToPlayer(player) < hostileDistance);
 	}
 	
 	public virtual bool CanAttackPlayer(Mob player) 
 	{
-		return (getDistanceToPlayer(player) < _attackDistance);
+		if (attackDelay <= 0 && CanAttack && getDistanceToPlayer(player) < attackDistance)
+		{
+			attackDelay = attackDelayTime;
+			return true;
+		}
+		else
+		{
+			attackDelay--;
+			return false;
+		}
 	}
 	
 	public virtual void Wander(Room room) 
 	{
+		Direction dir = Direction.None;
+		
 		// if we aren't moving
 		if (duration <= 0) 
 		{
@@ -62,11 +84,14 @@ public class Mob : FSprite
 			
 			// select a random duration
 			duration = XeldaGame.rand.Next(50,200);
+			
+			// set facing direction
+			this.Facing = dir;
 		}
 		else // we're moving
 		{
 			// if we hit something, restart the wandering process
-			if (CollisionOccurred(dir, room))
+			if (CollisionOccurred(this.Facing, room))
 			{
 				duration = 0;
 				return;
@@ -74,10 +99,10 @@ public class Mob : FSprite
 			else
 			{
 				// move in that direction
-				if (dir == Direction.N) Move (0,1);
-				if (dir == Direction.S) Move (0,-1);
-				if (dir == Direction.W) Move (-1,0);
-				if (dir == Direction.E) Move (1,0);
+				if (this.Facing == Direction.N) Move (0,1);
+				if (this.Facing == Direction.S) Move (0,-1);
+				if (this.Facing == Direction.W) Move (-1,0);
+				if (this.Facing == Direction.E) Move (1,0);
 				
 				// decrement timer
 				duration--;
@@ -85,36 +110,38 @@ public class Mob : FSprite
 		}
 	}
 	
+	// added a duration so that mob isn't gyrating diagonally
 	public virtual void MoveTowardsPlayer(Mob player, Room room)
 	{
 		if (a_duration <= 0)
 		{
-			a_dir = getDirectionTowardsPlayer(player, room);
+			this.Facing = getDirectionTowardsPlayer(player, room);
 			a_duration = 20;
-		}
-		
-		if (CollisionOccurred(a_dir, room))
+		}		
+		if (CollisionOccurred(this.Facing, room))
 		{
 			a_duration = 0;
 			return;
 		}
 		else
 		{
-			if (a_dir == Direction.N) Move (0,1);
-			if (a_dir == Direction.S) Move (0,-1);
-			if (a_dir == Direction.W) Move (-1,0);
-			if (a_dir == Direction.E) Move (1,0);
+			if (this.Facing == Direction.N) Move (0,1);
+			if (this.Facing == Direction.S) Move (0,-1);
+			if (this.Facing == Direction.W) Move (-1,0);
+			if (this.Facing == Direction.E) Move (1,0);
 			
 			a_duration--;
 		}
 		
 	}
 	
-	public virtual void AttackPlayer(Mob player) 
-	{
-		
-	}
 	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
+	
+	public void ResolveDamage(int damage)
+	{
+		this.HP -= damage;
+		if (this.HP <= 0) this.Alive = false;
+	}
 	
 	public void Move (float X, float Y)
 	{
@@ -197,10 +224,10 @@ public class Mob : FSprite
 		Rect collisionRect = this.box;
 		bool collision = false;
 	
-		if (d == Direction.N) collisionRect.y = collisionRect.y + _moveSpeed;
-		if (d == Direction.S) collisionRect.y = collisionRect.y - _moveSpeed;
-		if (d == Direction.W) collisionRect.x = collisionRect.x - _moveSpeed;
-		if (d == Direction.E) collisionRect.x = collisionRect.x + _moveSpeed;
+		if (d == Direction.N) collisionRect.y = collisionRect.y + moveSpeed;
+		if (d == Direction.S) collisionRect.y = collisionRect.y - moveSpeed;
+		if (d == Direction.W) collisionRect.x = collisionRect.x - moveSpeed;
+		if (d == Direction.E) collisionRect.x = collisionRect.x + moveSpeed;
 		
 		// hit wall
 		foreach(CollisionBox cbox in room.collisionBoxList)

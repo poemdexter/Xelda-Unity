@@ -7,7 +7,7 @@ using System.Linq;
 public static class FSM_Manager
 {
 	// *** CHECK OUT MY TERRIBLE FINITE STATE MACHINE HEH *** //
-	public static void HandleMobAI(Mob player, Room room)
+	public static void HandleMobAI(Player player, Room room)
 	{
 		foreach (Mob mob in room.mobList)
 		{
@@ -27,7 +27,7 @@ public static class FSM_Manager
 			case MobState.Aggressive:
 				if (mob.CanAttackPlayer(player))
 				{
-					mob.AttackPlayer(player);
+					Combat_Manager.MobAttackPlayer(mob, player, room);
 					break;
 				}
 				else if (!mob.WithinRangeOfPlayer(player))

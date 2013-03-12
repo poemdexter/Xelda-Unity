@@ -3,18 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public struct Player
-{
-	public Rect box;
-	public string name;
-}
-
 public class GamePage : FContainer
 {
 	private bool _keyUp = false;
 	private bool _keyDown = false;
 	private bool _keyLeft = false;
 	private bool _keyRight = false;
+	private bool _keySpace = false;
 	
 	private bool _collideUp = false;
 	private bool _collideDown = false;
@@ -23,7 +18,7 @@ public class GamePage : FContainer
 	
 	private Direction _roomTransitionDirection = Direction.None;
 	
-	private Mob _player;
+	private Player player;
 	
 	private float _moveSpeed = 2f;
 	
@@ -42,8 +37,8 @@ public class GamePage : FContainer
 		// create player
 		int px = (int)_dungeon.CurrentRoom.playerSpawnBox.box.x;
 		int py = (int)_dungeon.CurrentRoom.playerSpawnBox.box.y;
-		_player = new Mob("man", px, py);
-		AddChild(_player);
+		player = new Player(px, py);
+		AddChild(player);
 		
 		// *** debug to find collision boxes
 		//showCollisionsWithMen();
@@ -67,36 +62,83 @@ public class GamePage : FContainer
 		else 
 		{
 			HandleInputs();
-			TestForCollisions();
-			HandleMovement();
-			FSM_Manager.HandleMobAI(_player, _dungeon.CurrentRoom);
+			HandlePlayerAttacking();
+			TestForPlayerCollisionsWithEnvironment();
+			HandlePlayerMovement();
+			FSM_Manager.HandleMobAI(player, _dungeon.CurrentRoom);
+			Combat_Manager.HandleProjectileMovement(_dungeon.CurrentRoom);
+			Combat_Manager.CheckCombatCollisions(player, _dungeon.CurrentRoom);
+			Combat_Manager.CheckForDeadProjectiles(_dungeon.CurrentRoom);
+			Combat_Manager.CheckForDeadMobs(_dungeon.CurrentRoom);
+			
+			// ** HANDLE PLAYER DEATH SOMETIME
+			if (!player.Alive) Debug.Log("Player Death.");
 		}
+	}
+	
+	private void HandlePlayerAttacking()
+	{
+		if (_keySpace && player.attackDelay <= 0) // player hits attack button
+		{
+			Combat_Manager.PlayerAttack(player, _dungeon.CurrentRoom);
+			player.attackDelay = player.attackDelayTime;
+		}
+		else player.attackDelay--;
 	}
 	
 	void HandleInputs()
 	{
 		// pushed key
-		if (Input.GetKeyDown(KeyCode.W)) _keyUp = true;
-		if (Input.GetKeyDown(KeyCode.S)) _keyDown = true;
-		if (Input.GetKeyDown(KeyCode.A)) _keyLeft = true;
-		if (Input.GetKeyDown(KeyCode.D)) _keyRight = true;
+		if (Input.GetKeyDown(KeyCode.W)) // up
+		{
+			_keyUp = true;
+			player.Facing = Direction.N;
+		}
+		if (Input.GetKeyDown(KeyCode.S)) // down
+		{
+			_keyDown = true;
+			player.Facing = Direction.S;
+		}
+		if (Input.GetKeyDown(KeyCode.A)) // left
+		{
+			_keyLeft = true;
+			player.Facing = Direction.W;
+		}
+		if (Input.GetKeyDown(KeyCode.D)) // right
+		{
+			_keyRight = true;
+			player.Facing = Direction.E;
+		}
+	
+		if (Input.GetKeyDown(KeyCode.Space)) _keySpace = true; // attack
 		
 		// let go of key
 		if (Input.GetKeyUp(KeyCode.W)) _keyUp = false;
 		if (Input.GetKeyUp(KeyCode.S)) _keyDown = false;
 		if (Input.GetKeyUp(KeyCode.A)) _keyLeft = false;
 		if (Input.GetKeyUp(KeyCode.D)) _keyRight = false;
+		
+		if (Input.GetKeyUp(KeyCode.Space)) _keySpace = false;
 	}
 	
-	void HandleMovement()
+	void HandlePlayerMovement()
 	{
-		if (_keyUp && !_collideUp)       _player.Move(0, _moveSpeed);
-		if (_keyDown && !_collideDown)   _player.Move(0, -_moveSpeed);
-		if (_keyLeft && !_collideLeft)   _player.Move(-_moveSpeed, 0);
-		if (_keyRight && !_collideRight) _player.Move(_moveSpeed, 0);
+		if (_keyUp && !_collideUp)       player.Move(0, _moveSpeed);
+		if (_keyDown && !_collideDown)   player.Move(0, -_moveSpeed);
+		if (_keyLeft && !_collideLeft)   player.Move(-_moveSpeed, 0);
+		if (_keyRight && !_collideRight) player.Move(_moveSpeed, 0);
 	}
 	
-	void TestForCollisions()
+	private void resetKeys()
+	{
+		_keyUp = false;
+		_keyDown = false;
+ 		_keyLeft = false;
+		_keyRight = false;
+		_keySpace = false;
+	}
+	
+	void TestForPlayerCollisionsWithEnvironment()
 	{
 		_collideUp = false;
 		_collideDown = false;
@@ -105,7 +147,7 @@ public class GamePage : FContainer
 		
 		if (_keyUp)
 		{
-			Rect collisionRect = _player.box;
+			Rect collisionRect = player.box;
 			collisionRect.y = collisionRect.y + _moveSpeed;
 			
 			// hit wall
@@ -142,7 +184,7 @@ public class GamePage : FContainer
 		}
 		if (_keyDown)
 		{
-			Rect collisionRect = _player.box;
+			Rect collisionRect = player.box;
 			collisionRect.y = collisionRect.y - _moveSpeed;
 			
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
@@ -176,7 +218,7 @@ public class GamePage : FContainer
 		}
 		if (_keyLeft)
 		{
-			Rect collisionRect = _player.box;
+			Rect collisionRect = player.box;
 			collisionRect.x = collisionRect.x - _moveSpeed;
 			
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
@@ -210,7 +252,7 @@ public class GamePage : FContainer
 		}
 		if (_keyRight)
 		{
-			Rect collisionRect = _player.box;
+			Rect collisionRect = player.box;
 			collisionRect.x = collisionRect.x + _moveSpeed;
 			
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
@@ -279,7 +321,7 @@ public class GamePage : FContainer
 		{
 		case Direction.N:
 			this.y -= transitionSpeed;
-			_player.Move(0, playerTransSpeed);
+			player.Move(0, playerTransSpeed);
 			if (this.y <= -_dungeon.RoomHeight)
 			{
 				ResetRoomDrawn();
@@ -288,7 +330,7 @@ public class GamePage : FContainer
 			break;
 		case Direction.S:
 			this.y += transitionSpeed;
-			_player.Move(0, -playerTransSpeed);
+			player.Move(0, -playerTransSpeed);
 			if (this.y >= _dungeon.RoomHeight)
 			{
 				ResetRoomDrawn();
@@ -297,7 +339,7 @@ public class GamePage : FContainer
 			break;
 		case Direction.W:
 			this.x += transitionSpeed;
-			_player.Move(-playerTransSpeed, 0);
+			player.Move(-playerTransSpeed, 0);
 			if (this.x >= _dungeon.RoomWidth)
 			{
 				ResetRoomDrawn();
@@ -306,7 +348,7 @@ public class GamePage : FContainer
 			break;
 		case Direction.E:
 			this.x -= transitionSpeed;
-			_player.Move(playerTransSpeed, 0);
+			player.Move(playerTransSpeed, 0);
 			if (this.x <= -_dungeon.RoomWidth) 
 			{
 				ResetRoomDrawn();
@@ -314,14 +356,6 @@ public class GamePage : FContainer
 			}
 			break;
 		}
-	}
-	
-	private void resetKeys()
-	{
-		_keyUp = false;
-		_keyDown = false;
- 		_keyLeft = false;
-		_keyRight = false;
 	}
 	
 	// removes the old room sprite and the temp new room sprite
@@ -339,7 +373,7 @@ public class GamePage : FContainer
 		int y = 0;
 		if (this.x != 0) x = (this.x > 0) ? _dungeon.RoomWidth : -_dungeon.RoomWidth;
 		if (this.y != 0) y = (this.y > 0) ? _dungeon.RoomHeight : -_dungeon.RoomHeight;
-		_player.Move(x,y);
+		player.Move(x,y);
 		this.x = 0;
 		this.y = 0;
 	}
