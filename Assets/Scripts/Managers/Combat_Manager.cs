@@ -38,8 +38,7 @@ public static class Combat_Manager
 			// mob attack hits player
 			if (p.Alive && p.Owner != player && p.Box.CheckIntersect(player.box))
 			{
-				player.HP -= p.Damage;
-				if (player.HP <= 0) player.Alive = false;
+				player.ResolveDamage(p.Damage);
 				p.Alive = false;
 			}
 				
@@ -48,8 +47,7 @@ public static class Combat_Manager
 				// player attack hit mob
 				if (p.Alive && p.Owner == player && p.Box.CheckIntersect(mob.box))
 				{
-					mob.HP -= p.Damage;
-					if (mob.HP <= 0) mob.Alive = false;
+					mob.ResolveDamage(p.Damage);
 					p.Alive = false;
 				}
 			}
