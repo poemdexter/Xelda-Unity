@@ -7,6 +7,7 @@ public class Loot : FSprite
 {
 	public Rect Box;
 	public bool Alive;
+	public string Name;
 	
 	public Loot (float x, float y, string name) : base(name + ".png")
 	{
@@ -16,5 +17,6 @@ public class Loot : FSprite
 		this.anchorY = 0;
 		Box = new Rect(this.x, this.y, this.width, this.height);
 		Alive = true;
+		this.Name = name;
 	}
 }

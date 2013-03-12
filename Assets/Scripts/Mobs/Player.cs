@@ -16,4 +16,10 @@ public class Player : Mob
 		AttackPower = 3;
 		CanAttack = true;
 	}
+	
+	public void ModifyGoldTotal(int amount)
+	{
+		GoldCount += amount;
+		if (GoldCount < 0) GoldCount = 0;
+	}
 }

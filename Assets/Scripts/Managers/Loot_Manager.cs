@@ -19,8 +19,11 @@ public static class Loot_Manager
 		{
 			if (l.Alive && l.Box.CheckIntersect(player.box))
 			{
-				player.GoldCount++;
-				Debug.Log("golds: " + player.GoldCount);
+				if (l.Name == "gold")
+				{
+					player.ModifyGoldTotal((l as Gold).Amount);
+					Debug.Log("golds: " + player.GoldCount);
+				}
 				l.Alive = false;
 			}
 		}
