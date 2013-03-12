@@ -20,11 +20,26 @@ public class Projectile : FSprite
 		Facing = mob.Facing;
 		MoveSpeed = 3;
 		
-		// sprite stuff
-		this.x = mob.x;
-		this.y = mob.y;
-		this.anchorX = 0;
-		this.anchorY = 0;
+		// make bullet come from correct place of sprite
+		switch(Facing)
+		{
+		case Direction.N:
+			this.x = mob.x + (mob.width / 2);
+			this.y = mob.y + mob.height;
+			break;
+		case Direction.S:
+			this.x = mob.x + (mob.width / 2);
+			this.y = mob.y;
+			break;
+		case Direction.W:
+			this.x = mob.x;
+			this.y = mob.y + (mob.height / 2);
+			break;
+		case Direction.E:
+			this.x = mob.x + mob.width;
+			this.y = mob.y + (mob.height / 2);
+			break;
+		}
 		
 		Box = new Rect(this.x, this.y, this.width, this.height);
 	}
