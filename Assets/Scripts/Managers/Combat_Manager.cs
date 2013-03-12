@@ -55,11 +55,7 @@ public static class Combat_Manager
 			// projectile hit wall or other non mob entity
 			foreach (CollisionBox box in room.NonMobCollidables)
 			{
-				if (p.Alive && box.active && p.Box.CheckIntersect(box.box))
-				{
-					Debug.Log("p hit wall");
-					p.Alive = false;
-				}
+				if (p.Alive && box.active && p.Box.CheckIntersect(box.box)) p.Alive = false;
 			}
 		}
 	}

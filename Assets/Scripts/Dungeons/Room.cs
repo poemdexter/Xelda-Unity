@@ -44,7 +44,7 @@ public class Room : FContainer
 	{
 		get
 		{
-			return collisionBoxList.Concat(passageObjectBoxList).ToList();
+			return collisionBoxList.Concat(passageObjectBoxList).Concat(passageBoxList).ToList();
 		}
 	}
 	
