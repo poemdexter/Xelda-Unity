@@ -5,6 +5,8 @@ using System;
 
 public class Player : Mob
 {
+	public int GoldCount = 0;
+	
 	public Player (int x, int y) : base("man", x, y) 
 	{
 		moveSpeed = 2f;

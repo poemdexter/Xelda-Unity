@@ -1,6 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Managers/Loot_Manager.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Screens/GamePage.cs" Line="70" Column="71" />
+      <File FileName="Assets/Scripts/Managers/Combat_Manager.cs" Line="79" Column="12" />
+      <File FileName="Assets/Scripts/Dungeons/Room.cs" Line="42" Column="48" />
+      <File FileName="Assets/Scripts/Mobs/Mob.cs" Line="133" Column="17" />
+      <File FileName="Assets/Scripts/Mobs/Player.cs" Line="9" Column="2" />
+      <File FileName="Assets/Scripts/Weapons/Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Mobs/Skeleton.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Managers/FSM_Manager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Managers/Loot_Manager.cs" Line="11" Column="17" />
+      <File FileName="Assets/Scripts/Loot/Loot.cs" Line="11" Column="44" />
+      <File FileName="Assets/Scripts/Loot/Gold.cs" Line="7" Column="32" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -8,12 +21,12 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Dungeons" expanded="True" />
-                <Node name="Managers" expanded="True" />
+                <Node name="Loot" expanded="True" />
+                <Node name="Managers" expanded="True">
+                  <Node name="Loot_Manager.cs" selected="True" />
+                </Node>
                 <Node name="Mobs" expanded="True" />
                 <Node name="Screens" expanded="True" />
-                <Node name="Weapons" expanded="True">
-                  <Node name="Projectile.cs" selected="True" />
-                </Node>
               </Node>
             </Node>
           </Node>
