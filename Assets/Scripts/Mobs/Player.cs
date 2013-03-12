@@ -12,5 +12,6 @@ public class Player : Mob
 		attackDistance = 30.0;
 		HP = 3;
 		AttackPower = 3;
+		CanAttack = true;
 	}
 }

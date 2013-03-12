@@ -9,7 +9,6 @@ public class Skeleton : Mob
 	{
 		moveSpeed = 2f;
 		hostileDistance = 100.0;
-		attackDistance = 30.0;
 		HP = 3;
 		AttackPower = 1;
 	}

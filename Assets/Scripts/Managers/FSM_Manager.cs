@@ -28,7 +28,6 @@ public static class FSM_Manager
 				if (mob.CanAttackPlayer(player))
 				{
 					Combat_Manager.MobAttackPlayer(mob, player, room);
-					// mob.Attack(player);
 					break;
 				}
 				else if (!mob.WithinRangeOfPlayer(player))

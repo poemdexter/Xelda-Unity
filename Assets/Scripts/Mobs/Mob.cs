@@ -18,7 +18,6 @@ public class Mob : FSprite
 	
 	protected float moveSpeed;
 	protected double hostileDistance;
-	protected double attackDistance;
 	protected int duration = 0;
 	protected int a_duration = 0;
 	protected Direction a_dir;
@@ -29,6 +28,8 @@ public class Mob : FSprite
 	public bool Alive;
 	public int attackDelay = 0;
 	public int attackDelayTime = 50;
+	protected bool CanAttack = false;
+	protected double attackDistance = 0;
 	
 	public Mob (string Name, int X, int Y) : base(Name + ".png")
 	{
@@ -56,7 +57,7 @@ public class Mob : FSprite
 	
 	public virtual bool CanAttackPlayer(Mob player) 
 	{
-		if (attackDelay <= 0 && getDistanceToPlayer(player) < attackDistance)
+		if (attackDelay <= 0 && CanAttack && getDistanceToPlayer(player) < attackDistance)
 		{
 			attackDelay = attackDelayTime;
 			return true;
