@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
 	"sourceSize": {"w":8,"h":8}
 },
-"man.png":
+"gold.png":
 {
 	"frame": {"x":12,"y":2,"w":32,"h":32},
 	"rotated": false,
@@ -16,9 +16,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 	"sourceSize": {"w":32,"h":32}
 },
+"man.png":
+{
+	"frame": {"x":46,"y":2,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
 "room1.png":
 {
-	"frame": {"x":46,"y":2,"w":384,"h":384},
+	"frame": {"x":80,"y":2,"w":384,"h":384},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
@@ -79,6 +87,6 @@
 	"format": "RGBA8888",
 	"size": {"w":512,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:bb7b9322e282efad0684b2d65dbae58f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:cd3d5b91487b2c0bacba69e4bc829cfc$"
 }
 }
