@@ -5,6 +5,8 @@ using System;
 
 public class Player : Mob
 {
+	public int GoldCount = 0;
+	
 	public Player (int x, int y) : base("man", x, y) 
 	{
 		moveSpeed = 2f;
@@ -13,5 +15,11 @@ public class Player : Mob
 		HP = 3;
 		AttackPower = 3;
 		CanAttack = true;
+	}
+	
+	public void ModifyGoldTotal(int amount)
+	{
+		GoldCount += amount;
+		if (GoldCount < 0) GoldCount = 0;
 	}
 }

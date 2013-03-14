@@ -68,8 +68,7 @@ public class GamePage : FContainer
 			FSM_Manager.HandleMobAI(player, _dungeon.CurrentRoom);
 			Combat_Manager.HandleProjectileMovement(_dungeon.CurrentRoom);
 			Combat_Manager.CheckCombatCollisions(player, _dungeon.CurrentRoom);
-			Combat_Manager.CheckForDeadProjectiles(_dungeon.CurrentRoom);
-			Combat_Manager.CheckForDeadMobs(_dungeon.CurrentRoom);
+			Loot_Manager.CheckForPlayerLootCollisions(player, _dungeon.CurrentRoom);
 			
 			// ** HANDLE PLAYER DEATH SOMETIME
 			if (!player.Alive) Debug.Log("Player Death.");

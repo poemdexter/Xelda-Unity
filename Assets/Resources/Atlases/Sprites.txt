@@ -8,9 +8,17 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":8,"h":8},
 	"sourceSize": {"w":8,"h":8}
 },
+"gold.png":
+{
+	"frame": {"x":12,"y":2,"w":24,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":12},
+	"sourceSize": {"w":24,"h":12}
+},
 "man.png":
 {
-	"frame": {"x":12,"y":2,"w":32,"h":32},
+	"frame": {"x":38,"y":2,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -18,31 +26,31 @@
 },
 "room1.png":
 {
-	"frame": {"x":46,"y":2,"w":384,"h":384},
+	"frame": {"x":72,"y":2,"w":544,"h":352},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
-	"sourceSize": {"w":384,"h":384}
+	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":352},
+	"sourceSize": {"w":544,"h":352}
 },
 "room2.png":
 {
-	"frame": {"x":2,"y":388,"w":384,"h":384},
+	"frame": {"x":2,"y":356,"w":544,"h":352},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
-	"sourceSize": {"w":384,"h":384}
+	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":352},
+	"sourceSize": {"w":544,"h":352}
 },
 "skeleton.png":
 {
-	"frame": {"x":388,"y":388,"w":24,"h":24},
+	"frame": {"x":548,"y":356,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
-	"sourceSize": {"w":24,"h":24}
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
 },
 "start_down.png":
 {
-	"frame": {"x":2,"y":774,"w":122,"h":48},
+	"frame": {"x":582,"y":356,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -50,7 +58,7 @@
 },
 "start_up.png":
 {
-	"frame": {"x":126,"y":774,"w":122,"h":48},
+	"frame": {"x":706,"y":356,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -58,7 +66,7 @@
 },
 "wall_segment_EW.png":
 {
-	"frame": {"x":250,"y":774,"w":32,"h":32},
+	"frame": {"x":830,"y":356,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -66,7 +74,7 @@
 },
 "wall_segment_NS.png":
 {
-	"frame": {"x":284,"y":774,"w":32,"h":32},
+	"frame": {"x":864,"y":356,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -77,8 +85,8 @@
 	"version": "1.0",
 	"image": "Sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":1024},
+	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:bb7b9322e282efad0684b2d65dbae58f$"
+	"smartupdate": "$TexturePacker:SmartUpdate:af0375be2cc638c272a96a2493fafce3$"
 }
 }

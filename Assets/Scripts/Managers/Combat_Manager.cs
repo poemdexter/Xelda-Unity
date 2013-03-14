@@ -58,28 +58,31 @@ public static class Combat_Manager
 				if (p.Alive && box.active && p.Box.CheckIntersect(box.box)) p.Alive = false;
 			}
 		}
+		CheckForDeadProjectiles(room);
+		CheckForDeadMobs(room);
 	}
 	
-	public static void CheckForDeadProjectiles(Room room)
+	private static void CheckForDeadProjectiles(Room room)
 	{
-		for(int x = room.projectileList.Count - 1; x >= 0; x--)
+		for(int i = room.projectileList.Count - 1; i >= 0; i--)
 		{
 			// if projectile is dead, remove it
-			if (!room.projectileList[x].Alive)
+			if (!room.projectileList[i].Alive)
 			{
-				room.RemoveProjectile(room.projectileList[x]);
+				room.RemoveProjectile(room.projectileList[i]);
 			}
 		}
 	}
 	
-	public static void CheckForDeadMobs(Room room)
+	private static void CheckForDeadMobs(Room room)
 	{
-		for(int x = room.mobList.Count - 1; x >= 0; x--)
+		for(int i = room.mobList.Count - 1; i >= 0; i--)
 		{
-			if (!room.mobList[x].Alive)
+			if (!room.mobList[i].Alive)
 			{
-				room.RemoveChild(room.mobList[x]);
-				room.mobList.Remove(room.mobList[x]);
+				Loot_Manager.DropLootOnMobDeath(room, room.mobList[i]);
+				room.RemoveChild(room.mobList[i]);
+				room.mobList.Remove(room.mobList[i]);
 			}
 		}
 	}

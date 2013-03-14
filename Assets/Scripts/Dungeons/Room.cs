@@ -39,7 +39,7 @@ public class Room : FContainer
 	public ObjectBox playerSpawnBox;
 	public List<Mob> mobList = new List<Mob>();
 	public List<Projectile> projectileList = new List<Projectile>();
-	
+	public List<Loot> lootList = new List<Loot>();
 	public List<CollisionBox> NonMobCollidables
 	{
 		get
@@ -47,6 +47,7 @@ public class Room : FContainer
 			return collisionBoxList.Concat(passageObjectBoxList).Concat(passageBoxList).ToList();
 		}
 	}
+	
 	
 	public int connected_N = -1;
 	public int connected_S = -1;

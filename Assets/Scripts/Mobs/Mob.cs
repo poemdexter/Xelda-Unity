@@ -16,6 +16,8 @@ public class Mob : FSprite
 	public MobState mobState;
 	public Direction Facing {get; set;}
 	
+	// perhaps have vector here that stores x and y of firing direction so that we can move projectiles in a clever way
+	
 	protected float moveSpeed;
 	protected double hostileDistance;
 	protected int duration = 0;
