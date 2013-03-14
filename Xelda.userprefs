@@ -1,25 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Managers/Loot_Manager.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Managers/Loot_Manager.cs" Line="25" Column="46" />
-      <File FileName="Assets/Scripts/Loot/Loot.cs" Line="20" Column="20" />
-      <File FileName="Assets/Scripts/Loot/Gold.cs" Line="12" Column="4" />
-      <File FileName="Assets/Scripts/Mobs/Player.cs" Line="23" Column="36" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
+              <Node name="Resources" expanded="True">
+                <Node name="Atlases" expanded="True" />
+              </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="Dungeons" expanded="True" />
                 <Node name="Loot" expanded="True" />
-                <Node name="Managers" expanded="True">
-                  <Node name="Combat_Manager.cs" selected="True" />
-                </Node>
+                <Node name="Managers" expanded="True" />
                 <Node name="Mobs" expanded="True" />
                 <Node name="Screens" expanded="True" />
+                <Node name="Weapons" expanded="True" />
               </Node>
             </Node>
           </Node>

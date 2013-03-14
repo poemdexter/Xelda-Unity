@@ -24,9 +24,25 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 	"sourceSize": {"w":32,"h":32}
 },
+"minimap_unvisited.png":
+{
+	"frame": {"x":72,"y":2,"w":32,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":16},
+	"sourceSize": {"w":32,"h":16}
+},
+"minimap_visited.png":
+{
+	"frame": {"x":106,"y":2,"w":32,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":16},
+	"sourceSize": {"w":32,"h":16}
+},
 "room1.png":
 {
-	"frame": {"x":72,"y":2,"w":544,"h":352},
+	"frame": {"x":140,"y":2,"w":544,"h":352},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":352},
@@ -87,6 +103,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:af0375be2cc638c272a96a2493fafce3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0b41f45f9d1f594484d1e4e99ece6c68$"
 }
 }

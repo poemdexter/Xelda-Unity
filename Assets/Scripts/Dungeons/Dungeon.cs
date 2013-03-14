@@ -15,9 +15,10 @@ public class Dungeon
 	private int _currentAmtOfRooms;
 	private int _currentRoomIndex;
 	
+	public Minimap minimap;
+	
 	//*** NUMBER OF ROOM TEMPLATES
 	private int _maxRoomTemplates = 2;
-
 	
 	public Dungeon (int maxRooms)
 	{
@@ -27,6 +28,7 @@ public class Dungeon
 		_currentAmtOfRooms = 0;
 		_currentRoomIndex = 0;
 		Generate();
+		minimap = new Minimap();
 	}
 	
 	private void Generate()
