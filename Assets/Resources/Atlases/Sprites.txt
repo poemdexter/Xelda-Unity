@@ -26,23 +26,23 @@
 },
 "room1.png":
 {
-	"frame": {"x":72,"y":2,"w":384,"h":384},
+	"frame": {"x":72,"y":2,"w":544,"h":352},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
-	"sourceSize": {"w":384,"h":384}
+	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":352},
+	"sourceSize": {"w":544,"h":352}
 },
 "room2.png":
 {
-	"frame": {"x":2,"y":388,"w":384,"h":384},
+	"frame": {"x":2,"y":356,"w":544,"h":352},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":384,"h":384},
-	"sourceSize": {"w":384,"h":384}
+	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":352},
+	"sourceSize": {"w":544,"h":352}
 },
 "skeleton.png":
 {
-	"frame": {"x":388,"y":388,"w":32,"h":32},
+	"frame": {"x":548,"y":356,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -50,7 +50,7 @@
 },
 "start_down.png":
 {
-	"frame": {"x":2,"y":774,"w":122,"h":48},
+	"frame": {"x":582,"y":356,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -58,7 +58,7 @@
 },
 "start_up.png":
 {
-	"frame": {"x":126,"y":774,"w":122,"h":48},
+	"frame": {"x":706,"y":356,"w":122,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":122,"h":48},
@@ -66,7 +66,7 @@
 },
 "wall_segment_EW.png":
 {
-	"frame": {"x":250,"y":774,"w":32,"h":32},
+	"frame": {"x":830,"y":356,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -74,7 +74,7 @@
 },
 "wall_segment_NS.png":
 {
-	"frame": {"x":284,"y":774,"w":32,"h":32},
+	"frame": {"x":864,"y":356,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -85,8 +85,8 @@
 	"version": "1.0",
 	"image": "Sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":1024},
+	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:dec36a20270eeb7fa9a01b8b5e06b451$"
+	"smartupdate": "$TexturePacker:SmartUpdate:af0375be2cc638c272a96a2493fafce3$"
 }
 }

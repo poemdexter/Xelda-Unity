@@ -44,7 +44,7 @@ public class Projectile : FSprite
 		Box = new Rect(this.x - (this.width / 2), this.y - (this.height / 2), this.width, this.height);
 	}
 	
-		public void Move (float X, float Y)
+	public void Move (float X, float Y)
 	{
 		this.x += X * MoveSpeed;
 		this.y += Y * MoveSpeed;
