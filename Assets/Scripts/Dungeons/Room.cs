@@ -30,7 +30,7 @@ public class Room : FContainer
 	private int _roomWidth;
 	private int _roomHeight;
 	public string roomName;
-	public Vector2 DebugRoomPosition;
+	public Vector2 MinimapRoomCoordinates;
 	
 	public List<CollisionBox> collisionBoxList = new List<CollisionBox>();
 	public List<CollisionBox> passageBoxList = new List<CollisionBox>();
@@ -284,26 +284,6 @@ public class Room : FContainer
 		return _roomWidth * _tileSize;
 	}
 	
-	public int GetPossibleConnectionCount()
-	{
-		int amt = 0;
-		amt += (connected_N != -1) ? 0 : 1;
-		amt += (connected_S != -1) ? 0 : 1;
-		amt += (connected_W != -1) ? 0 : 1;
-		amt += (connected_E != -1) ? 0 : 1;
-		return amt;
-	}
-	
-	public List<Direction> GetPossibleConnectionDirections()
-	{
-		List<Direction> dList = new List<Direction>();
-		if (connected_N == -1) dList.Add(Direction.N);
-		if (connected_S == -1) dList.Add(Direction.S);
-		if (connected_W == -1) dList.Add(Direction.W);
-		if (connected_E == -1) dList.Add(Direction.E);
-		return dList;
-	}
-	
 	public List<Direction> GetConnectedDirections()
 	{
 		List<Direction> dList = new List<Direction>();
@@ -312,12 +292,6 @@ public class Room : FContainer
 		if (connected_W != -1) dList.Add(Direction.W);
 		if (connected_E != -1) dList.Add(Direction.E);
 		return dList;
-	}
-	
-	public Direction GetRandomDirectionForConnection()
-	{
-		int r = XeldaGame.rand.Next(GetPossibleConnectionCount());
-		return GetPossibleConnectionDirections()[r];
 	}
 	
 	public void AddProjectile(Projectile p)

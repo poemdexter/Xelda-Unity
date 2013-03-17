@@ -26,23 +26,23 @@
 },
 "minimap_unvisited.png":
 {
-	"frame": {"x":72,"y":2,"w":32,"h":16},
+	"frame": {"x":72,"y":2,"w":24,"h":12},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":16},
-	"sourceSize": {"w":32,"h":16}
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":12},
+	"sourceSize": {"w":24,"h":12}
 },
 "minimap_visited.png":
 {
-	"frame": {"x":106,"y":2,"w":32,"h":16},
+	"frame": {"x":98,"y":2,"w":24,"h":12},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":16},
-	"sourceSize": {"w":32,"h":16}
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":12},
+	"sourceSize": {"w":24,"h":12}
 },
 "room1.png":
 {
-	"frame": {"x":140,"y":2,"w":544,"h":352},
+	"frame": {"x":124,"y":2,"w":544,"h":352},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":352},
@@ -103,6 +103,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:0b41f45f9d1f594484d1e4e99ece6c68$"
+	"smartupdate": "$TexturePacker:SmartUpdate:bc3a71c05aae406e9f63503fd6914f7e$"
 }
 }

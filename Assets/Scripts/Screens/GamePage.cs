@@ -33,7 +33,7 @@ public class GamePage : FContainer
 	public GamePage ()
 	{
 		// create dungeon
-		_dungeon = new Dungeon(2);
+		_dungeon = new Dungeon(20);
 		
 		// add the dungeon/game portion of the screen
 		Dungeon_Container = new FContainer();
@@ -41,7 +41,7 @@ public class GamePage : FContainer
 		AddChild (Dungeon_Container);
 		
 		// add the UI portion of the screen
-		UI_Container = new GameUIContainer();
+		UI_Container = new GameUIContainer(_dungeon);
 		AddChild (UI_Container);
 		
 		// create player

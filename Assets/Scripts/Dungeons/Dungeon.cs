@@ -15,7 +15,12 @@ public class Dungeon
 	private int _currentAmtOfRooms;
 	private int _currentRoomIndex;
 	
+	public int maxWidth = 8;
+	public int maxHeight = 8;
+	
 	public Minimap minimap;
+	
+	private readonly int tileSize = 32;
 	
 	//*** NUMBER OF ROOM TEMPLATES
 	private int _maxRoomTemplates = 2;
@@ -28,7 +33,7 @@ public class Dungeon
 		_currentAmtOfRooms = 0;
 		_currentRoomIndex = 0;
 		Generate();
-		minimap = new Minimap();
+		minimap = new Minimap(this);
 	}
 	
 	private void Generate()
@@ -38,23 +43,34 @@ public class Dungeon
 		
 		// create initial room point
 		Room startRoom = new Room("Rooms/room"+roomNumber);
-		startRoom.DebugRoomPosition = new Vector2(0,0);
+		startRoom.MinimapRoomCoordinates = new Vector2(0,0);
 		RoomList.Add(startRoom);
 		_currentAmtOfRooms++;
 		
 		// set some properties
-		// tile size is 24x24.  We need to adjust room width and height so we don't get the extra space around the room that holds
+		// tile size is 32x32.  We need to adjust room width and height so we don't get the extra space around the room that holds
 		// the collisions for the passages.
-		int tileSize = 32;
 		RoomWidth = startRoom.GetRoomWidth() - (2 * tileSize);
 		RoomHeight = startRoom.GetRoomHeight() - (2 * tileSize);
 		
 		while (true)
 		{
+			// out of rooms
+			if (_maxRooms - _currentAmtOfRooms <= 0) break;
+			if (_currentRoomIndex >= RoomList.Count) break;
+			
 			CurrentRoom = RoomList[_currentRoomIndex];
 			// randomly choose amount of directions to branch depending on which
 			// is less: max rooms left to place or connections possible for room
-			int maxPossibleConnections = Math.Min(_maxRooms - _currentAmtOfRooms, CurrentRoom.GetPossibleConnectionCount());
+			//int maxPossibleConnections = Math.Min(_maxRooms - _currentAmtOfRooms, CurrentRoom.GetPossibleConnectionCount(RoomList));
+			int maxPossibleConnections = Math.Min(_maxRooms - _currentAmtOfRooms, GetPossibleConnectionsCount());
+			
+			// if we can't connect, go to next room
+			if (maxPossibleConnections <= 0)
+			{
+				_currentRoomIndex++;
+				continue;
+			}
 			
 			// generated max amount of rooms
 			if (maxPossibleConnections == 0) break;
@@ -63,7 +79,7 @@ public class Dungeon
 			// for each needed room, generate and connect the rooms
 			for (int i = 0; i < todoConnections; i++)
 			{
-				Direction dir = CurrentRoom.GetRandomDirectionForConnection();
+				Direction dir = GetRandomDirectionForConnection(CurrentRoom);
 				roomNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
 				Room room = new Room("Rooms/room"+roomNumber, dir, RoomList.IndexOf(CurrentRoom));
 				SetDebugRoomPosition(CurrentRoom, room, dir);
@@ -81,14 +97,34 @@ public class Dungeon
 		
 		// tell each room to add walls to block passages that have no adjacent room to connect
 		foreach(Room room in RoomList) room.AddPassageWalls();
-		
-		// make sure everything is connected here via debug
-//		int a = 0;
-//		foreach(Room room in RoomList)
-//		{
-//			Debug.Log("pos: " + a + " n:" +room.connected_N + " s:" + room.connected_S + " w:" + room.connected_W + " e:" + room.connected_E);
-//			a++;
-//		}
+	}
+	
+	public Direction GetRandomDirectionForConnection(Room current)
+	{
+		int r = XeldaGame.rand.Next(GetPossibleConnectionsCount());
+		return GetPossibleConnectionDirections()[r];
+	}
+	
+	public List<Direction> GetPossibleConnectionDirections()
+	{
+		List<Direction> dList = new List<Direction>();
+		Vector2 minimapCoords = CurrentRoom.MinimapRoomCoordinates;
+		if (CurrentRoom.connected_N == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x, minimapCoords.y + 1)) == -1) dList.Add(Direction.N);
+		if (CurrentRoom.connected_S == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x, minimapCoords.y - 1)) == -1) dList.Add(Direction.S);
+		if (CurrentRoom.connected_W == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x - 1, minimapCoords.y)) == -1) dList.Add(Direction.W);
+		if (CurrentRoom.connected_E == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x + 1, minimapCoords.y)) == -1) dList.Add(Direction.E);
+		return dList;
+	}
+	
+	private int GetPossibleConnectionsCount()
+	{
+		Vector2 minimapCoord = CurrentRoom.MinimapRoomCoordinates;
+		int amt = 0;
+		if (CurrentRoom.connected_N == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x, minimapCoord.y + 1)) == -1) amt += 1; // N
+		if (CurrentRoom.connected_S == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x, minimapCoord.y - 1)) == -1) amt += 1; // S
+		if (CurrentRoom.connected_W == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x - 1, minimapCoord.y)) == -1) amt += 1; // W
+		if (CurrentRoom.connected_E == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x + 1, minimapCoord.y)) == -1) amt += 1; // E
+		return amt;
 	}
 	
 	// debug helping method that sets x,y point of room
@@ -97,16 +133,16 @@ public class Dungeon
 		switch(dir)
 		{
 		case Direction.N:
-			newRoom.DebugRoomPosition = new Vector2(parentRoom.DebugRoomPosition.x, parentRoom.DebugRoomPosition.y + 1);
+			newRoom.MinimapRoomCoordinates = new Vector2(parentRoom.MinimapRoomCoordinates.x, parentRoom.MinimapRoomCoordinates.y + 1);
 			break;
 		case Direction.S:
-			newRoom.DebugRoomPosition = new Vector2(parentRoom.DebugRoomPosition.x, parentRoom.DebugRoomPosition.y - 1);
+			newRoom.MinimapRoomCoordinates = new Vector2(parentRoom.MinimapRoomCoordinates.x, parentRoom.MinimapRoomCoordinates.y - 1);
 			break;
 		case Direction.W:
-			newRoom.DebugRoomPosition = new Vector2(parentRoom.DebugRoomPosition.x - 1, parentRoom.DebugRoomPosition.y);
+			newRoom.MinimapRoomCoordinates = new Vector2(parentRoom.MinimapRoomCoordinates.x - 1, parentRoom.MinimapRoomCoordinates.y);
 			break;
 		case Direction.E:
-			newRoom.DebugRoomPosition = new Vector2(parentRoom.DebugRoomPosition.x + 1, parentRoom.DebugRoomPosition.y);
+			newRoom.MinimapRoomCoordinates = new Vector2(parentRoom.MinimapRoomCoordinates.x + 1, parentRoom.MinimapRoomCoordinates.y);
 			break;
 		}
 	}

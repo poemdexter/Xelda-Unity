@@ -5,11 +5,8 @@ using System;
 
 public class GameUIContainer : FContainer
 {
-	public GameUIContainer ()
+	public GameUIContainer (Dungeon dungeon)
 	{
-		FSprite minimapNode = new FSprite("minimap_visited.png");
-		minimapNode.x = -Futile.screen.halfWidth + 32;
-		minimapNode.y = Futile.screen.halfHeight - 16;
-		AddChild(minimapNode);
+		AddChild(dungeon.minimap);
 	}
 }
