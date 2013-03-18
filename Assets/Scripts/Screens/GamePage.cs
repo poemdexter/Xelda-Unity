@@ -330,40 +330,31 @@ public class GamePage : FContainer
 		case Direction.N:
 			Dungeon_Container.y -= transitionSpeed;
 			player.Move(0, player_NS_TransSpeed);
-			if (Dungeon_Container.y <= -_dungeon.RoomHeight)
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			if (Dungeon_Container.y <= -_dungeon.RoomHeight) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.S:
 			Dungeon_Container.y += transitionSpeed;
 			player.Move(0, -player_NS_TransSpeed);
-			if (Dungeon_Container.y >= _dungeon.RoomHeight)
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			if (Dungeon_Container.y >= _dungeon.RoomHeight) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.W:
 			Dungeon_Container.x += transitionSpeed;
 			player.Move(-player_EW_TransSpeed, 0);
-			if (Dungeon_Container.x >= _dungeon.RoomWidth)
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			if (Dungeon_Container.x >= _dungeon.RoomWidth) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.E:
 			Dungeon_Container.x -= transitionSpeed;
 			player.Move(player_EW_TransSpeed, 0);
-			if (Dungeon_Container.x <= -_dungeon.RoomWidth) 
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			if (Dungeon_Container.x <= -_dungeon.RoomWidth) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		}
+	}
+	
+	private void FinishedTransitioning(Direction dir)
+	{
+		ResetRoomDrawn();
+		_dungeon.minimap.ChangePlayerIconPosition(dir);
+		_roomTransitionDirection = Direction.None;
 	}
 	
 	// removes the old room sprite and the temp new room sprite

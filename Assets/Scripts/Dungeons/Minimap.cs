@@ -12,6 +12,8 @@ public class Minimap : FContainer
 	private float centerX;
 	private float centerY;
 	
+	private MinimapNode playerNode;
+	
 	private class MinimapNode : FSprite
 	{
 		public MinimapNode(string name, float x, float y) : base (name + ".png")
@@ -41,14 +43,29 @@ public class Minimap : FContainer
 		foreach(Room r in roomList)
 		{
 			AddChild(new MinimapNode("minimap_visited", centerX + (visitedNode.width * r.MinimapRoomCoordinates.x), centerY + (visitedNode.height * r.MinimapRoomCoordinates.y)));
-			//AddChild(new MinimapNode("minimap_visited", centerX, centerY));
 		}
 		
-		
-		
-		//AddChild(currentNode);
-		//minimapNode2.x = minimapNode2.width*9;
-		//minimapNode2.y = -(minimapNode2.height*5);
-		//AddChild(minimapNode2);
+		//Add initial player node
+		playerNode = new MinimapNode("minimap_marker", centerX, centerY);
+		AddChild(playerNode);
+	}
+	
+	public void ChangePlayerIconPosition(Direction dir)
+	{
+		switch(dir)
+		{
+		case (Direction.N):
+			playerNode.y += 12;
+			break;
+		case (Direction.S):
+			playerNode.y -= 12;
+			break;
+		case (Direction.W):
+			playerNode.x -= 24;
+			break;
+		case (Direction.E):
+			playerNode.x += 24;
+			break;
+		}
 	}
 }
