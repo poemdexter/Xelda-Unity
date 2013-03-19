@@ -22,23 +22,33 @@ public class GamePage : FContainer
 	
 	private float _moveSpeed = 2f;
 	
-	//private FNode _cameraTarget = new FNode();
+	// controls transition speeds for player during move from one map to another
+	private float player_NS_TransSpeed = .5f;
+	private float player_EW_TransSpeed = .3f;
 	
 	private Dungeon _dungeon;
+	private GameUIContainer UI_Container;
+	private FContainer Dungeon_Container;
 	
 	public GamePage ()
 	{
 		// create dungeon
-		_dungeon = new Dungeon(2);
+		_dungeon = new Dungeon(20);
 		
-		// set current room to draw
-		AddChild(_dungeon.CurrentRoom);
+		// add the dungeon/game portion of the screen
+		Dungeon_Container = new FContainer();
+		Dungeon_Container.AddChild(_dungeon.CurrentRoom);
+		AddChild (Dungeon_Container);
+		
+		// add the UI portion of the screen
+		UI_Container = new GameUIContainer(_dungeon);
+		AddChild (UI_Container);
 		
 		// create player
 		int px = (int)_dungeon.CurrentRoom.playerSpawnBox.box.x;
 		int py = (int)_dungeon.CurrentRoom.playerSpawnBox.box.y;
 		player = new Player(px, py);
-		AddChild(player);
+		Dungeon_Container.AddChild(player);
 		
 		// *** debug to find collision boxes
 		//showCollisionsWithMen();
@@ -305,56 +315,46 @@ public class GamePage : FContainer
 		}
 		
 		// put up room we want to transition to
-		AddChildAtIndex(room, 0);
+		Dungeon_Container.AddChildAtIndex(room, 0);
 		_roomTransitionDirection = dir;
 	}
 	
 	private void DoRoomTransition(Direction dir)
 	{
 		float transitionSpeed = 4f;
-		float playerTransSpeed = .4f;
 		
 		resetKeys(); // do this since we never catch keyUp after hitting a passage
 		
 		switch(dir)
 		{
 		case Direction.N:
-			this.y -= transitionSpeed;
-			player.Move(0, playerTransSpeed);
-			if (this.y <= -_dungeon.RoomHeight)
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			Dungeon_Container.y -= transitionSpeed;
+			player.Move(0, player_NS_TransSpeed);
+			if (Dungeon_Container.y <= -_dungeon.RoomHeight) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.S:
-			this.y += transitionSpeed;
-			player.Move(0, -playerTransSpeed);
-			if (this.y >= _dungeon.RoomHeight)
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			Dungeon_Container.y += transitionSpeed;
+			player.Move(0, -player_NS_TransSpeed);
+			if (Dungeon_Container.y >= _dungeon.RoomHeight) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.W:
-			this.x += transitionSpeed;
-			player.Move(-playerTransSpeed, 0);
-			if (this.x >= _dungeon.RoomWidth)
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			Dungeon_Container.x += transitionSpeed;
+			player.Move(-player_EW_TransSpeed, 0);
+			if (Dungeon_Container.x >= _dungeon.RoomWidth) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.E:
-			this.x -= transitionSpeed;
-			player.Move(playerTransSpeed, 0);
-			if (this.x <= -_dungeon.RoomWidth) 
-			{
-				ResetRoomDrawn();
-				_roomTransitionDirection = Direction.None;
-			}
+			Dungeon_Container.x -= transitionSpeed;
+			player.Move(player_EW_TransSpeed, 0);
+			if (Dungeon_Container.x <= -_dungeon.RoomWidth) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		}
+	}
+	
+	private void FinishedTransitioning(Direction dir)
+	{
+		ResetRoomDrawn();
+		_dungeon.minimap.ChangePlayerIconPosition(dir);
+		_roomTransitionDirection = Direction.None;
 	}
 	
 	// removes the old room sprite and the temp new room sprite
@@ -362,19 +362,22 @@ public class GamePage : FContainer
 	private void ResetRoomDrawn()
 	{
 		// make transition the current and redraw
-		this.RemoveChild(_dungeon.CurrentRoom);
+		Dungeon_Container.RemoveChild(_dungeon.CurrentRoom);
 		_dungeon.ChangeTransitionToCurrentRoom();
-		this.RemoveChild(_dungeon.TransitionRoom);
-		this.AddChildAtIndex(_dungeon.CurrentRoom,0);
+		Dungeon_Container.RemoveChild(_dungeon.TransitionRoom);
+		Dungeon_Container.AddChildAtIndex(_dungeon.CurrentRoom,0);
+		
+		// redraw minimap
+		_dungeon.minimap.UpdateMinimap(_dungeon);
 		
 		// readjust player
 		int x = 0;
 		int y = 0;
-		if (this.x != 0) x = (this.x > 0) ? _dungeon.RoomWidth : -_dungeon.RoomWidth;
-		if (this.y != 0) y = (this.y > 0) ? _dungeon.RoomHeight : -_dungeon.RoomHeight;
+		if (Dungeon_Container.x != 0) x = (Dungeon_Container.x > 0) ? _dungeon.RoomWidth : -_dungeon.RoomWidth;
+		if (Dungeon_Container.y != 0) y = (Dungeon_Container.y > 0) ? _dungeon.RoomHeight : -_dungeon.RoomHeight;
 		player.Move(x,y);
-		this.x = 0;
-		this.y = 0;
+		Dungeon_Container.x = 0;
+		Dungeon_Container.y = 0;
 	}
 	
 	// debug method to overlay man with collision boxes
