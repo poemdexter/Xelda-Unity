@@ -43,7 +43,7 @@ public class Dungeon
 		
 		// create initial room point
 		Room startRoom = new Room("Rooms/room"+roomNumber);
-		startRoom.MinimapRoomCoordinates = new Vector2(0,0);
+		startRoom.MinimapRoomCoordinates = new Vector2((float)Math.Round((double)(maxWidth/2)),(float)Math.Round((double)(maxHeight/2))); // start in middle
 		startRoom.Visited = true;
 		RoomList.Add(startRoom);
 		_currentAmtOfRooms++;
@@ -111,22 +111,21 @@ public class Dungeon
 	{
 		List<Direction> dList = new List<Direction>();
 		Vector2 minimapCoords = CurrentRoom.MinimapRoomCoordinates;
-		if (CurrentRoom.connected_N == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x, minimapCoords.y + 1)) == -1) dList.Add(Direction.N);
-		if (CurrentRoom.connected_S == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x, minimapCoords.y - 1)) == -1) dList.Add(Direction.S);
-		if (CurrentRoom.connected_W == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x - 1, minimapCoords.y)) == -1) dList.Add(Direction.W);
-		if (CurrentRoom.connected_E == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoords.x + 1, minimapCoords.y)) == -1) dList.Add(Direction.E);
+		if (CurrentRoom.connected_N == -1 && minimapCoords.y + 1 < maxHeight && CantFindAdjacentRoom(minimapCoords.x, minimapCoords.y + 1)) dList.Add(Direction.N);
+		if (CurrentRoom.connected_S == -1 && minimapCoords.y - 1 >= 0 && CantFindAdjacentRoom(minimapCoords.x, minimapCoords.y - 1)) dList.Add(Direction.S);
+		if (CurrentRoom.connected_W == -1 && minimapCoords.x - 1 >= 0 && CantFindAdjacentRoom(minimapCoords.x - 1, minimapCoords.y)) dList.Add(Direction.W);
+		if (CurrentRoom.connected_E == -1 && minimapCoords.x + 1 < maxWidth && CantFindAdjacentRoom(minimapCoords.x + 1, minimapCoords.y)) dList.Add(Direction.E);
 		return dList;
+	}
+	
+	private bool CantFindAdjacentRoom(float x, float y)
+	{
+		return RoomList.FindIndex(r => r.MinimapRoomCoordinates == new Vector2(x,y)) == -1;
 	}
 	
 	private int GetPossibleConnectionsCount()
 	{
-		Vector2 minimapCoord = CurrentRoom.MinimapRoomCoordinates;
-		int amt = 0;
-		if (CurrentRoom.connected_N == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x, minimapCoord.y + 1)) == -1) amt += 1; // N
-		if (CurrentRoom.connected_S == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x, minimapCoord.y - 1)) == -1) amt += 1; // S
-		if (CurrentRoom.connected_W == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x - 1, minimapCoord.y)) == -1) amt += 1; // W
-		if (CurrentRoom.connected_E == -1 && RoomList.FindIndex(x => x.MinimapRoomCoordinates == new Vector2(minimapCoord.x + 1, minimapCoord.y)) == -1) amt += 1; // E
-		return amt;
+		return GetPossibleConnectionDirections().Count;
 	}
 	
 	// debug helping method that sets x,y point of room
