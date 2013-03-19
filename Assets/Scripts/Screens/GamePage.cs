@@ -367,6 +367,9 @@ public class GamePage : FContainer
 		Dungeon_Container.RemoveChild(_dungeon.TransitionRoom);
 		Dungeon_Container.AddChildAtIndex(_dungeon.CurrentRoom,0);
 		
+		// redraw minimap
+		_dungeon.minimap.UpdateMinimap(_dungeon);
+		
 		// readjust player
 		int x = 0;
 		int y = 0;

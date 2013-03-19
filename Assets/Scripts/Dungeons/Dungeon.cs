@@ -44,6 +44,7 @@ public class Dungeon
 		// create initial room point
 		Room startRoom = new Room("Rooms/room"+roomNumber);
 		startRoom.MinimapRoomCoordinates = new Vector2(0,0);
+		startRoom.Visited = true;
 		RoomList.Add(startRoom);
 		_currentAmtOfRooms++;
 		
@@ -82,6 +83,7 @@ public class Dungeon
 				Direction dir = GetRandomDirectionForConnection(CurrentRoom);
 				roomNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
 				Room room = new Room("Rooms/room"+roomNumber, dir, RoomList.IndexOf(CurrentRoom));
+				room.Visited = false;
 				SetDebugRoomPosition(CurrentRoom, room, dir);
 				RoomList.Add(room);
 				_currentAmtOfRooms++;

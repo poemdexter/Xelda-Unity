@@ -32,6 +32,8 @@ public class Room : FContainer
 	public string roomName;
 	public Vector2 MinimapRoomCoordinates;
 	
+	public bool Visited;
+	
 	public List<CollisionBox> collisionBoxList = new List<CollisionBox>();
 	public List<CollisionBox> passageBoxList = new List<CollisionBox>();
 	public List<CollisionBox> passageObjectBoxList = new List<CollisionBox>();
