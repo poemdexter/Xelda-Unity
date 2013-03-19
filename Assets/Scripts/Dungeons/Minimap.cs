@@ -10,8 +10,8 @@ public class Minimap : FContainer
 	private string visitedPNG = "minimap_visited";
 	private string unvisitedPNG = "minimap_unvisited";
 	
-	private float centerX;
-	private float centerY;
+	private float originX;
+	private float originY;
 	
 	private float nodeWidth;
 	private float nodeHeight;
@@ -48,16 +48,30 @@ public class Minimap : FContainer
 		
 		// position this in top left of screen
 		this.x = -Futile.screen.halfWidth + nodeWidth;
-		this.y = Futile.screen.halfHeight - nodeHeight;
+		this.y = Futile.screen.halfHeight;
 		
-		centerX = (dungeon.maxWidth / 2) * nodeWidth;
-		centerY = -(dungeon.maxHeight / 2) * nodeHeight;
+		// set origin to bottom, left corner
+		originX = 0;
+		originY = -(dungeon.maxHeight * nodeHeight) - (nodeHeight / 2);
 		
-		AddMapNodes(dungeon.RoomList);
+		AddMapNodes(dungeon.RoomList, dungeon.CurrentRoom.MinimapRoomCoordinates, dungeon.CurrentRoom);
 	}
 	
-	public void AddMapNodes(List<Room> roomList)
+	public void AddMapNodes(List<Room> roomList, Vector2 currentRoomCoords, Room currentRoom)
 	{	
+		// debug draw entire possible rooms in dungeon
+		for(int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				AddChild(
+					new MinimapNode(
+						"minimap_visited", new Vector2(0,0), originX + (nodeWidth * i), originY + (nodeHeight * j)
+					)
+				);
+			}
+		}
+		
 		foreach(Room r in roomList)
 		{
 			string nodeName = (r.Visited) ? visitedPNG : unvisitedPNG;
@@ -68,7 +82,8 @@ public class Minimap : FContainer
 		}
 		
 		//Add initial player node
-		playerNode = new MinimapNode("minimap_marker", centerX, centerY);
+		Vector2 player_pos = CalculateMinimapNodePosition(currentRoom);
+		playerNode = new MinimapNode("minimap_marker", player_pos.x, player_pos.y);
 		AddChildAtIndex(playerNode,99);
 	}
 	
@@ -86,8 +101,8 @@ public class Minimap : FContainer
 	public Vector2 CalculateMinimapNodePosition(Room room)
 	{	
 		return new Vector2(
-			centerX + (nodeWidth  * room.MinimapRoomCoordinates.x), 
-			centerY + (nodeHeight * room.MinimapRoomCoordinates.y)
+			originX + (nodeWidth  * room.MinimapRoomCoordinates.x), 
+			originY + (nodeHeight * room.MinimapRoomCoordinates.y)
 		);
 	}
 	

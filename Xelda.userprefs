@@ -1,12 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Dungeons/Minimap.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Dungeons/Room.cs">
     <Files>
       <File FileName="Assets/Scripts/Screens/GamePage.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Dungeons/Dungeon.cs" Line="85" Column="50" />
+      <File FileName="Assets/Scripts/Dungeons/Minimap.cs" Line="81" Column="95" />
+      <File FileName="Assets/Scripts/Dungeons/Dungeon.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Dungeons/Room.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Screens/GameUIContainer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Dungeons/Minimap.cs" Line="47" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,7 +17,7 @@
               </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="Dungeons" expanded="True">
-                  <Node name="Minimap.cs" selected="True" />
+                  <Node name="Room.cs" selected="True" />
                 </Node>
                 <Node name="Loot" expanded="True" />
                 <Node name="Managers" expanded="True" />
