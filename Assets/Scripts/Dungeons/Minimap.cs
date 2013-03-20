@@ -4,10 +4,29 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
+// Minimap sprite names are named after the cardinal directions it has open
+// expressed in binary.  1011.png would be North, West, and East paths open.
+//
+// N S W E
+// 0 0 0 1
+// 0 0 1 0
+// 0 0 1 1
+// 0 1 0 0
+// 0 1 0 1
+// 0 1 1 0
+// 0 1 1 1
+// 1 0 0 0
+// 1 0 0 1
+// 1 0 1 0
+// 1 0 1 1
+// 1 1 0 0
+// 1 1 0 1
+// 1 1 1 0
+// 1 1 1 1
+// N S W E
 
 public class Minimap : FContainer
 {
-	private string visitedPNG = "minimap_visited";
 	private string unvisitedPNG = "minimap_unvisited";
 	
 	private float originX;
@@ -45,7 +64,8 @@ public class Minimap : FContainer
 	
 	public Minimap (Dungeon dungeon)
 	{
-		FSprite visitedNode = new FSprite(visitedPNG + ".png");
+		// set some initial values
+		FSprite visitedNode = new FSprite(unvisitedPNG + ".png");
 		nodeWidth = visitedNode.width;
 		nodeHeight = visitedNode.height;
 		
@@ -80,8 +100,8 @@ public class Minimap : FContainer
 		// add all nodes to list and screen
 		foreach(Room r in roomList)
 		{
-			string nodeName = (r.Visited) ? visitedPNG : unvisitedPNG;
 			Vector2 pos = CalculateMinimapNodePosition(r);
+			string nodeName = (r.Visited) ? GetVisitedSpriteName(r) : unvisitedPNG;
 			MinimapNode node = new MinimapNode(nodeName, r.MinimapRoomCoordinates, pos.x, pos.y);
 			if (r.Visited)
 			{
@@ -132,6 +152,17 @@ public class Minimap : FContainer
 		}
 	}
 	
+	private string GetVisitedSpriteName(Room room)
+	{
+		List<Direction> dirList = room.GetConnectedDirections();
+		char[] stringbuilder = new char[4];
+		stringbuilder[0] += (dirList.Contains(Direction.N)) ? '1' : '0';
+		stringbuilder[1] += (dirList.Contains(Direction.S)) ? '1' : '0';
+		stringbuilder[2] += (dirList.Contains(Direction.W)) ? '1' : '0';
+		stringbuilder[3] += (dirList.Contains(Direction.E)) ? '1' : '0';
+		return "mm_" + new string(stringbuilder);
+	}
+	
 	public void UpdateMinimap(Dungeon dungeon)
 	{
 		// remove old node
@@ -142,7 +173,7 @@ public class Minimap : FContainer
 		
 		// add new node with updated sprite
 		Vector2 pos = CalculateMinimapNodePosition(dungeon.CurrentRoom);
-		MinimapNode newNode = new MinimapNode(visitedPNG, dungeon.CurrentRoom.MinimapRoomCoordinates,pos.x, pos.y);
+		MinimapNode newNode = new MinimapNode(GetVisitedSpriteName(dungeon.CurrentRoom), dungeon.CurrentRoom.MinimapRoomCoordinates,pos.x, pos.y);
 		newNode.isVisible = true;
 		newNode.Visited = true;
 		AddChild(newNode);
