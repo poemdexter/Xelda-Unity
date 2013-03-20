@@ -1,12 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Dungeons/Room.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Screens/GamePage.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Dungeons/Minimap.cs" Line="81" Column="95" />
-      <File FileName="Assets/Scripts/Dungeons/Dungeon.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Dungeons/Room.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -16,24 +10,12 @@
                 <Node name="Atlases" expanded="True" />
               </Node>
               <Node name="Scripts" expanded="True">
-                <Node name="Dungeons" expanded="True">
-                  <Node name="Room.cs" selected="True" />
-                </Node>
+                <Node name="Dungeons" expanded="True" />
                 <Node name="Loot" expanded="True" />
                 <Node name="Managers" expanded="True" />
                 <Node name="Mobs" expanded="True" />
                 <Node name="Screens" expanded="True" />
                 <Node name="Weapons" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-          <Node name="Assembly-CSharp-firstpass" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Plugins" expanded="True">
-                <Node name="Futile" expanded="True">
-                  <Node name="Core" expanded="True" />
-                  <Node name="Display" expanded="True" />
-                </Node>
               </Node>
             </Node>
           </Node>

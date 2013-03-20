@@ -22,7 +22,7 @@ public static class Loot_Manager
 				if (l.Name == "gold")
 				{
 					player.ModifyGoldTotal((l as Gold).Amount);
-					Debug.Log("golds: " + player.GoldCount);
+					UI_Manager.changePlayerGoldUI(player.GoldCount);
 				}
 				l.Alive = false;
 			}

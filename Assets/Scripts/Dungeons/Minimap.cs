@@ -83,20 +83,7 @@ public class Minimap : FContainer
 	}
 	
 	public void AddMapNodes(List<Room> roomList, Room currentRoom)
-	{	
-		// debug draw entire possible rooms in dungeon
-//		for(int i = 0; i < 8; i++)
-//		{
-//			for (int j = 0; j < 8; j++)
-//			{
-//				AddChild(
-//					new MinimapNode(
-//						"minimap_visited", new Vector2(0,0), originX + (nodeWidth * i), originY + (nodeHeight * j)
-//					)
-//				);
-//			}
-//		}
-		
+	{		
 		// add all nodes to list and screen
 		foreach(Room r in roomList)
 		{

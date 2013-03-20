@@ -18,7 +18,7 @@ public class GamePage : FContainer
 	
 	private Direction _roomTransitionDirection = Direction.None;
 	
-	private Player player;
+	public Player player;
 	
 	private float _moveSpeed = 2f;
 	
@@ -26,8 +26,7 @@ public class GamePage : FContainer
 	private float player_NS_TransSpeed = .5f;
 	private float player_EW_TransSpeed = .3f;
 	
-	private Dungeon _dungeon;
-	private GameUIContainer UI_Container;
+	public Dungeon _dungeon;
 	private FContainer Dungeon_Container;
 	
 	public GamePage ()
@@ -40,15 +39,14 @@ public class GamePage : FContainer
 		Dungeon_Container.AddChild(_dungeon.CurrentRoom);
 		AddChild (Dungeon_Container);
 		
-		// add the UI portion of the screen
-		UI_Container = new GameUIContainer(_dungeon);
-		AddChild (UI_Container);
-		
 		// create player
 		int px = (int)_dungeon.CurrentRoom.playerSpawnBox.box.x;
 		int py = (int)_dungeon.CurrentRoom.playerSpawnBox.box.y;
 		player = new Player(px, py);
 		Dungeon_Container.AddChild(player);
+		
+		// add the UI portion of the screen
+		AddChild (UI_Manager.getGameUIContainer(this));
 		
 		// *** debug to find collision boxes
 		//showCollisionsWithMen();

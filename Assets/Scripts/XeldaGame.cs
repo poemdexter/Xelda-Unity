@@ -23,6 +23,7 @@ public class XeldaGame : MonoBehaviour {
 		
 		Futile.instance.Init (fparams);
 		Futile.atlasManager.LoadAtlas("Atlases/Sprites");
+		Futile.atlasManager.LoadFont("gamefont", "gamefont.png", "Atlases/gamefont");
 		
 		rand = new System.Random(System.DateTime.Now.Millisecond);
 		
