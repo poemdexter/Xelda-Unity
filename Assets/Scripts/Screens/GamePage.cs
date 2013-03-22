@@ -17,9 +17,7 @@ public class GamePage : FContainer
 	private bool _collideRight = false;
 	
 	private Direction _roomTransitionDirection = Direction.None;
-	
 	public Player player;
-	
 	private float _moveSpeed = 2f;
 	
 	// controls transition speeds for player during move from one map to another
@@ -29,6 +27,8 @@ public class GamePage : FContainer
 	public Dungeon _dungeon;
 	private FContainer Dungeon_Container;
 	
+	private readonly int DUNGEON_CONTAINER_OFFSET = -100;
+	
 	public GamePage ()
 	{
 		// create dungeon
@@ -36,8 +36,10 @@ public class GamePage : FContainer
 		
 		// add the dungeon/game portion of the screen
 		Dungeon_Container = new FContainer();
-		Dungeon_Container.AddChild(_dungeon.CurrentRoom);
 		AddChild (Dungeon_Container);
+		
+		// add current room
+		Dungeon_Container.AddChild(_dungeon.CurrentRoom);
 		
 		// create player
 		int px = (int)_dungeon.CurrentRoom.playerSpawnBox.box.x;
@@ -45,11 +47,16 @@ public class GamePage : FContainer
 		player = new Player(px, py);
 		Dungeon_Container.AddChild(player);
 		
+		// reposition dungeon container to make room for UI
+		Dungeon_Container.y = DUNGEON_CONTAINER_OFFSET;
+		
 		// add the UI portion of the screen
 		AddChild (UI_Manager.getGameUIContainer(this));
 		
 		// *** debug to find collision boxes
 		//showCollisionsWithMen();
+		
+		this.scale = 1;
 	}
 	
 	override public void HandleAddedToStage()
@@ -328,12 +335,12 @@ public class GamePage : FContainer
 		case Direction.N:
 			Dungeon_Container.y -= transitionSpeed;
 			player.Move(0, player_NS_TransSpeed);
-			if (Dungeon_Container.y <= -_dungeon.RoomHeight) FinishedTransitioning(_roomTransitionDirection);
+			if (Dungeon_Container.y <= -_dungeon.RoomHeight + DUNGEON_CONTAINER_OFFSET) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.S:
 			Dungeon_Container.y += transitionSpeed;
 			player.Move(0, -player_NS_TransSpeed);
-			if (Dungeon_Container.y >= _dungeon.RoomHeight) FinishedTransitioning(_roomTransitionDirection);
+			if (Dungeon_Container.y >= _dungeon.RoomHeight + DUNGEON_CONTAINER_OFFSET) FinishedTransitioning(_roomTransitionDirection);
 			break;
 		case Direction.W:
 			Dungeon_Container.x += transitionSpeed;
@@ -372,10 +379,10 @@ public class GamePage : FContainer
 		int x = 0;
 		int y = 0;
 		if (Dungeon_Container.x != 0) x = (Dungeon_Container.x > 0) ? _dungeon.RoomWidth : -_dungeon.RoomWidth;
-		if (Dungeon_Container.y != 0) y = (Dungeon_Container.y > 0) ? _dungeon.RoomHeight : -_dungeon.RoomHeight;
+		if (Dungeon_Container.y != DUNGEON_CONTAINER_OFFSET) y = (Dungeon_Container.y > 0) ? _dungeon.RoomHeight : -_dungeon.RoomHeight;
 		player.Move(x,y);
 		Dungeon_Container.x = 0;
-		Dungeon_Container.y = 0;
+		Dungeon_Container.y = 0 + DUNGEON_CONTAINER_OFFSET;
 	}
 	
 	// debug method to overlay man with collision boxes

@@ -14,6 +14,12 @@ public static class UI_Manager
 		{
 			GameUIContainer = new FContainer();
 			
+			// add background
+			FSprite bg = new FSprite("UI_background.png");
+			bg.x = 0;
+			bg.y = Futile.screen.halfHeight;
+			GameUIContainer.AddChildAtIndex(bg, 99);
+			
 			// add minimap
 			GameUIContainer.AddChild(game._dungeon.minimap);
 			
