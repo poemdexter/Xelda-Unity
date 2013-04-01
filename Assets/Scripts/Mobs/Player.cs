@@ -7,6 +7,8 @@ public class Player : Mob
 {
 	public int GoldCount = 0;
 	
+	public Direction AnimationFacing;
+	
 	public Player (int x, int y) : base("man", x, y) 
 	{
 		moveSpeed = 2f;
@@ -15,6 +17,7 @@ public class Player : Mob
 		HP = 3;
 		AttackPower = 3;
 		CanAttack = true;
+		AnimationFacing = Direction.None;
 	}
 	
 	public void ModifyGoldTotal(int amount)

@@ -9,7 +9,11 @@ public class GamePage : FContainer
 	private bool _keyDown = false;
 	private bool _keyLeft = false;
 	private bool _keyRight = false;
-	private bool _keySpace = false;
+	
+	private bool _fireUp = false;
+	private bool _fireDown = false;
+	private bool _fireLeft = false;
+	private bool _fireRight = false;
 	
 	private bool _collideUp = false;
 	private bool _collideDown = false;
@@ -92,7 +96,7 @@ public class GamePage : FContainer
 	
 	private void HandlePlayerAttacking()
 	{
-		if (_keySpace && player.attackDelay <= 0) // player hits attack button
+		if (IsFireButtonPressed() && player.attackDelay <= 0) // player hits attack button
 		{
 			Combat_Manager.PlayerAttack(player, _dungeon.CurrentRoom);
 			player.attackDelay = player.attackDelayTime;
@@ -100,39 +104,68 @@ public class GamePage : FContainer
 		else player.attackDelay--;
 	}
 	
+	private bool IsFireButtonPressed()
+	{
+		return _fireUp || _fireDown || _fireLeft || _fireRight;
+	}
+	
 	void HandleInputs()
 	{
-		// pushed key
+		// pushed movement key
 		if (Input.GetKeyDown(KeyCode.W)) // up
 		{
 			_keyUp = true;
-			player.Facing = Direction.N;
+			player.AnimationFacing = Direction.N;
 		}
 		if (Input.GetKeyDown(KeyCode.S)) // down
 		{
 			_keyDown = true;
-			player.Facing = Direction.S;
+			player.AnimationFacing = Direction.S;
 		}
 		if (Input.GetKeyDown(KeyCode.A)) // left
 		{
 			_keyLeft = true;
-			player.Facing = Direction.W;
+			player.AnimationFacing = Direction.W;
 		}
 		if (Input.GetKeyDown(KeyCode.D)) // right
 		{
 			_keyRight = true;
+			player.AnimationFacing = Direction.E;
+		}
+		
+		// pushed projectile key
+		if (Input.GetKeyDown(KeyCode.UpArrow))
+		{
+			_fireUp = true;
+			player.Facing = Direction.N;
+		}
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+		{
+			_fireDown = true;
+			player.Facing = Direction.S;
+		}
+		if (Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			_fireLeft = true;
+			player.Facing = Direction.W;
+		}
+		if (Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			_fireRight = true;
 			player.Facing = Direction.E;
 		}
-	
-		if (Input.GetKeyDown(KeyCode.Space)) _keySpace = true; // attack
 		
-		// let go of key
+		// let go of move key
 		if (Input.GetKeyUp(KeyCode.W)) _keyUp = false;
 		if (Input.GetKeyUp(KeyCode.S)) _keyDown = false;
 		if (Input.GetKeyUp(KeyCode.A)) _keyLeft = false;
 		if (Input.GetKeyUp(KeyCode.D)) _keyRight = false;
 		
-		if (Input.GetKeyUp(KeyCode.Space)) _keySpace = false;
+		// let go of projectile key
+		if (Input.GetKeyUp(KeyCode.UpArrow))    _fireUp = false;
+		if (Input.GetKeyUp(KeyCode.DownArrow))  _fireDown = false;
+		if (Input.GetKeyUp(KeyCode.LeftArrow))  _fireLeft = false;
+		if (Input.GetKeyUp(KeyCode.RightArrow)) _fireRight = false;
 	}
 	
 	void HandlePlayerMovement()
@@ -149,7 +182,11 @@ public class GamePage : FContainer
 		_keyDown = false;
  		_keyLeft = false;
 		_keyRight = false;
-		_keySpace = false;
+		
+		_fireUp = false;
+		_fireDown = false;
+		_fireRight = false;
+		_fireLeft = false;
 	}
 	
 	void TestForPlayerCollisionsWithEnvironment()
