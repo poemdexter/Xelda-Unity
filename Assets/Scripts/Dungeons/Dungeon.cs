@@ -38,11 +38,9 @@ public class Dungeon
 	
 	private void Generate()
 	{
-		// get random room
-		int roomNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
-		
 		// create initial room point
-		Room startRoom = new Room("Rooms/room"+roomNumber);
+		// always will be room 1
+		Room startRoom = new Room("Rooms/room1");
 		startRoom.MinimapRoomCoordinates = new Vector2((float)Math.Round((double)(maxWidth/2)),(float)Math.Round((double)(maxHeight/2))); // start in middle
 		startRoom.Visited = true;
 		RoomList.Add(startRoom);
@@ -81,7 +79,7 @@ public class Dungeon
 			for (int i = 0; i < todoConnections; i++)
 			{
 				Direction dir = GetRandomDirectionForConnection(CurrentRoom);
-				roomNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
+				int roomNumber = XeldaGame.rand.Next(1, _maxRoomTemplates + 1);
 				Room room = new Room("Rooms/room"+roomNumber, dir, RoomList.IndexOf(CurrentRoom));
 				room.Visited = false;
 				SetDebugRoomPosition(CurrentRoom, room, dir);
@@ -96,6 +94,9 @@ public class Dungeon
 		
 		// set CurrentRoom back to 0 so player starts at first node.
 		CurrentRoom = RoomList[0];
+		
+		// first room of dungeon should have no mobs
+		CurrentRoom.ClearMobsFromRoom();
 		
 		// tell each room to add walls to block passages that have no adjacent room to connect
 		foreach(Room room in RoomList) room.AddPassageWalls();

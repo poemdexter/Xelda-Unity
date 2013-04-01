@@ -3,8 +3,13 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Screens/GamePage.cs">
     <Files>
       <File FileName="Assets/Scripts/Dungeons/Dungeon.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Screens/GamePage.cs" Line="343" Column="77" />
-      <File FileName="Assets/Scripts/Managers/UI_Manager.cs" Line="18" Column="47" />
+      <File FileName="Assets/Scripts/Screens/GamePage.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Managers/UI_Manager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/XeldaGame.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Screens/TitlePage.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Screens/OverworldPage.cs" Line="21" Column="23" />
+      <File FileName="Assets/Scripts/Dungeons/Room.cs" Line="59" Column="2" />
+      <File FileName="Assets/Scripts/Weapons/Projectile.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,6 +28,15 @@
                   <Node name="GamePage.cs" selected="True" />
                 </Node>
                 <Node name="Weapons" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-firstpass" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Plugins" expanded="True">
+                <Node name="Futile" expanded="True">
+                  <Node name="Core" expanded="True" />
+                </Node>
               </Node>
             </Node>
           </Node>

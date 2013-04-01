@@ -188,6 +188,7 @@ public class Room : FContainer
 		}
 	}
 	
+	
 	override public void HandleAddedToStage()
 	{
 		Futile.instance.SignalUpdate += HandleUpdate;
@@ -201,6 +202,15 @@ public class Room : FContainer
 	}
 	
 	void HandleUpdate() {}
+	
+	public void ClearMobsFromRoom()
+	{
+		foreach(Mob m in mobList)
+		{
+			RemoveChild(m);
+		}
+		mobList.Clear();
+	}
 	
 	private void RemoveWallForPassage(String direction)
 	{
