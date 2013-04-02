@@ -77,12 +77,27 @@ public class Minimap : FContainer
 		
 		// set origin to bottom, left corner
 		originX = 0;
-		originY = -(dungeon.maxHeight * nodeHeight) - (nodeHeight / 2);
+		originY = -(dungeon.maxHeight * nodeHeight);
 		
-		AddMapNodes(dungeon.RoomList, dungeon.CurrentRoom);
+		//AddMapNodes(dungeon.RoomList, dungeon.CurrentRoom);
+		DebugShowAllNodes(dungeon);
 	}
 	
-	public void AddMapNodes(List<Room> roomList, Room currentRoom)
+	private void DebugShowAllNodes(Dungeon dngn)
+	{
+		for (int x = 0; x < dngn.maxWidth; x++)
+		{
+			for (int y = 0; y < dngn.maxHeight; y++)
+			{
+				Vector2 v = new Vector2(originX + (nodeWidth * x), originY + (nodeHeight * y));
+				MinimapNode n = new MinimapNode(unvisitedPNG, new Vector2(x,y), v.x, v.y);
+				n.isVisible = true;
+				AddChild(n);
+			}
+		}
+	}
+	
+	private void AddMapNodes(List<Room> roomList, Room currentRoom)
 	{		
 		// add all nodes to list and screen
 		foreach(Room r in roomList)
