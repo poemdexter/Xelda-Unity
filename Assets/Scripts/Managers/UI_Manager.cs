@@ -17,15 +17,15 @@ public static class UI_Manager
 			// add background
 			FSprite bg = new FSprite("UI_background.png");
 			bg.x = 0;
-			bg.y = Futile.screen.halfHeight;
+			bg.y = Futile.screen.halfHeight - (bg.height / 2);
 			GameUIContainer.AddChildAtIndex(bg, 99);
 			
 			// add minimap
 			GameUIContainer.AddChild(game._dungeon.minimap);
 			
 			// add gold count
-			playerGold.text = "player gold: " + game.player.GoldCount;
-			playerGold.x += 50;
+			playerGold.text = "g: " + game.player.GoldCount;
+			playerGold.x += -140;
 			playerGold.y += Futile.screen.halfHeight - 20;
 			GameUIContainer.AddChild(playerGold);
 			
