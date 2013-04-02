@@ -79,8 +79,8 @@ public class Minimap : FContainer
 		originX = 0;
 		originY = -(dungeon.maxHeight * nodeHeight);
 		
-		//AddMapNodes(dungeon.RoomList, dungeon.CurrentRoom);
-		DebugShowAllNodes(dungeon);
+		AddMapNodes(dungeon.RoomList, dungeon.CurrentRoom);
+		//DebugShowAllNodes(dungeon);
 	}
 	
 	private void DebugShowAllNodes(Dungeon dngn)

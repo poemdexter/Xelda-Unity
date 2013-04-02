@@ -19,6 +19,14 @@ public class Player : Mob
 		CanAttack = true;
 		AnimationFacing = Direction.None;
 	}
+		
+	public override void ResolveDamage(int damage)
+	{
+		this.HP -= damage;
+		UI_Manager.changePlayerSanityUI(this.HP);
+		if (this.HP <= 0) this.Alive = false;
+		
+	}
 	
 	public void ModifyGoldTotal(int amount)
 	{

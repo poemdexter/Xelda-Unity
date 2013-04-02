@@ -58,6 +58,26 @@ public static class Combat_Manager
 				if (p.Alive && box.active && p.Box.CheckIntersect(box.box)) p.Alive = false;
 			}
 		}
+		
+		// check collisions player to mob (point blank)
+		foreach (Mob mob in room.mobList)
+		{
+			if (mob.Alive && mob.box.CheckIntersect(player.box))
+			{
+				mob.ResolveDamage(1);
+				player.ResolveDamage(1);
+				
+				// get vector2 of collision
+				Vector2 colV = (new Vector2(mob.x - player.x, mob.y - player.y));
+				colV.Normalize();
+				
+				// push both in opposite directions of collision
+				int power = 15;
+				mob.Move(colV.x * power, colV.y * power);
+				player.Move(-(colV.x * power), -(colV.y * power));
+			}
+		}
+		
 		CheckForDeadProjectiles(room);
 		CheckForDeadMobs(room);
 	}

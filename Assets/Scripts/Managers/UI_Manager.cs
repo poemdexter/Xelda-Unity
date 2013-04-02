@@ -7,6 +7,7 @@ public static class UI_Manager
 {
 	public static FContainer GameUIContainer;
 	private static FLabel playerGold = new FLabel("gamefont", "");
+	private static FLabel playerSanity = new FLabel("gamefont", "");
 	
 	public static FContainer getGameUIContainer(GamePage game)
 	{
@@ -29,6 +30,12 @@ public static class UI_Manager
 			playerGold.y += Futile.screen.halfHeight - 20;
 			GameUIContainer.AddChild(playerGold);
 			
+			// add sanity count
+			playerSanity.text = game.player.HP.ToString();
+			playerSanity.x += 260;
+			playerSanity.y += Futile.screen.halfHeight - 60;
+			GameUIContainer.AddChild(playerSanity);
+			
 			return GameUIContainer;
 		}
 		else return GameUIContainer;
@@ -36,6 +43,11 @@ public static class UI_Manager
 	
 	public static void changePlayerGoldUI(int goldCount)
 	{
-		playerGold.text = "player gold: " + goldCount;
+		playerGold.text = "g: " + goldCount;
+	}
+	
+	public static void changePlayerSanityUI(int hp)
+	{
+		playerSanity.text = hp.ToString();
 	}
 }

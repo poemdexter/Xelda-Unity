@@ -137,13 +137,13 @@ public class Mob : FSprite
 		
 	}
 	
-	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
-	
-	public void ResolveDamage(int damage)
+	public virtual void ResolveDamage(int damage)
 	{
 		this.HP -= damage;
 		if (this.HP <= 0) this.Alive = false;
 	}
+	
+	// *** OVERRIDE THESE IF MOBS NEED CUSTOM BEHAVIOR *** //
 	
 	public void Move (float X, float Y)
 	{
