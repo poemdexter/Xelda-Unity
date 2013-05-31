@@ -11,7 +11,7 @@ public class Player : Mob
 	
 	public Player (int x, int y) : base("man", x, y) 
 	{
-		moveSpeed = 2f;
+		moveSpeed = 3f;
 		hostileDistance = 100.0;
 		attackDistance = 30.0;
 		HP = 3;

@@ -18,7 +18,7 @@ public class Projectile : FSprite
 		Owner = mob;
 		Alive = true;
 		Facing = mob.Facing;
-		MoveSpeed = 3;
+		MoveSpeed = 5;
 		
 		// make bullet come from correct place of sprite
 		switch(Facing)

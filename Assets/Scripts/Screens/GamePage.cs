@@ -22,7 +22,6 @@ public class GamePage : FContainer
 	
 	private Direction _roomTransitionDirection = Direction.None;
 	public Player player;
-	private float _moveSpeed = 2f;
 	
 	// controls transition speeds for player during move from one map to another
 	private float player_NS_TransSpeed = .5f;
@@ -170,10 +169,10 @@ public class GamePage : FContainer
 	
 	void HandlePlayerMovement()
 	{
-		if (_keyUp && !_collideUp)       player.Move(0, _moveSpeed);
-		if (_keyDown && !_collideDown)   player.Move(0, -_moveSpeed);
-		if (_keyLeft && !_collideLeft)   player.Move(-_moveSpeed, 0);
-		if (_keyRight && !_collideRight) player.Move(_moveSpeed, 0);
+		if (_keyUp && !_collideUp)       player.Move(0, player.moveSpeed);
+		if (_keyDown && !_collideDown)   player.Move(0, -player.moveSpeed);
+		if (_keyLeft && !_collideLeft)   player.Move(-player.moveSpeed, 0);
+		if (_keyRight && !_collideRight) player.Move(player.moveSpeed, 0);
 	}
 	
 	private void resetKeys()
@@ -199,7 +198,7 @@ public class GamePage : FContainer
 		if (_keyUp)
 		{
 			Rect collisionRect = player.box;
-			collisionRect.y = collisionRect.y + _moveSpeed;
+			collisionRect.y = collisionRect.y + player.moveSpeed;
 			
 			// hit wall
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
@@ -236,7 +235,7 @@ public class GamePage : FContainer
 		if (_keyDown)
 		{
 			Rect collisionRect = player.box;
-			collisionRect.y = collisionRect.y - _moveSpeed;
+			collisionRect.y = collisionRect.y - player.moveSpeed;
 			
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{
@@ -270,7 +269,7 @@ public class GamePage : FContainer
 		if (_keyLeft)
 		{
 			Rect collisionRect = player.box;
-			collisionRect.x = collisionRect.x - _moveSpeed;
+			collisionRect.x = collisionRect.x - player.moveSpeed;
 			
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{
@@ -304,7 +303,7 @@ public class GamePage : FContainer
 		if (_keyRight)
 		{
 			Rect collisionRect = player.box;
-			collisionRect.x = collisionRect.x + _moveSpeed;
+			collisionRect.x = collisionRect.x + player.moveSpeed;
 			
 			foreach(CollisionBox cbox in _dungeon.CurrentRoom.collisionBoxList)
 			{

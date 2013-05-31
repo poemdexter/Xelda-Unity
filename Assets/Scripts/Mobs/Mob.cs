@@ -18,7 +18,7 @@ public class Mob : FSprite
 	
 	// perhaps have vector here that stores x and y of firing direction so that we can move projectiles in a clever way
 	
-	protected float moveSpeed;
+	public float moveSpeed;
 	protected double hostileDistance;
 	protected int duration = 0;
 	protected int a_duration = 0;
